@@ -1,0 +1,226 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+.corporate-navbar-container {
+  background-color: #193563;
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 60px 40px 30px 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.corporate-navbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 3-Column Grid Layout */
+.corporate-navbar-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1.2fr 1.2fr;
+  gap: 40px;
+  margin-bottom: 50px;
+  align-items: start;
+}
+
+/* Brand Column */
+.brand-logo-link {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 18px;
+}
+
+.footer-logo {
+  max-width: 170px;
+  height: auto;
+  object-fit: contain;
+  background-color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.footer-logo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+.brand-col .brand-desc {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: whitesmoke;
+  max-width: 380px;
+  margin: 0;
+}
+
+/* Navbar Columns General */
+.navbar-col .col-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 22px;
+  letter-spacing: -0.2px;
+  text-align: left;
+}
+
+/* Link Lists */
+.nav-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.nav-links-list li a {
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: 0.98rem;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.nav-links-list li a:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.btn-heart-icon {
+  font-size: 1rem;
+  color: #111111;
+}
+
+/* Horizontal Divider */
+.corporate-navbar-divider {
+  height: 1px;
+  background-color: rgba(234, 229, 221, 0.25);
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+/* Bottom Bar */
+.corporate-navbar-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 0.9rem;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.bottom-copyright {
+  font-weight: 500;
+}
+
+.bottom-attribution {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.bottom-attribution strong {
+  color: #fff;
+  font-weight: 800;
+}
+
+.heart-icon {
+  color: #FF8F00;
+  font-size: 0.95rem;
+}
+
+/* Social Icons */
+.bottom-socials {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.social-icon {
+  color: #fff;
+  font-size: 1.1rem;
+  transition: color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 992px) {
+  .corporate-navbar-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 30px;
+  }
+
+  .brand-col {
+    grid-column: 1 / -1;
+  }
+
+  .brand-col .brand-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .corporate-navbar-container {
+    padding: 40px 20px 25px 20px;
+  }
+
+  .corporate-navbar-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .brand-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .navbar-col .col-heading {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .nav-links-list {
+    text-align: center;
+  }
+
+  .nav-links-list li a:hover {
+    transform: none;
+  }
+
+  .corporate-navbar-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .bottom-socials {
+    width: 100%;
+    justify-content: center;
+  }
+}
