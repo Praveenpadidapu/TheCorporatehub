@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
+
 .main-navbar {
   background-color: #ffffff;
   height: 76px;
@@ -19,7 +21,7 @@
   justify-content: flex-start;
 }
 
-/* Top Left Logo */
+/* Top Left Text Brand Logo */
 .navbar-brand {
   display: flex;
   align-items: center;
@@ -27,16 +29,20 @@
   height: 100%;
 }
 
-.navbar-logo {
-  height: 52px;
-  width: auto;
-  max-width: 220px;
-  object-fit: contain;
-  transition: transform 0.2s ease;
+.navbar-brand-text {
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: #193563;
+  letter-spacing: -0.8px;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  user-select: none;
 }
 
-.navbar-brand:hover .navbar-logo {
-  transform: scale(1.02);
+.navbar-brand:hover .navbar-brand-text {
+  opacity: 0.9;
+  transform: scale(1.01);
 }
 
 @media (max-width: 768px) {
@@ -48,8 +54,7 @@
     padding: 0 16px;
   }
 
-  .navbar-logo {
-    height: 42px;
-    max-width: 180px;
+  .navbar-brand-text {
+    font-size: clamp(1rem, 4vw, 1.2rem);
   }
 }

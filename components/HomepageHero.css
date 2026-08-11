@@ -2,6 +2,8 @@
 
 .homepage-hero {
   background: #193563;
+  min-height: 100vh;
+  min-height: 100dvh;
   flex: 1;
   width: 100%;
   display: flex;

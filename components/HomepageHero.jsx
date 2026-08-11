@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "./HomepageHero.css";
-import { BsGraphDownArrow } from "react-icons/bs";
+import { BsGraphUpArrow } from "react-icons/bs";
 import { LuBrain } from "react-icons/lu";
 import { IoDocumentOutline, IoSearch } from "react-icons/io5";
 import { MdAttachMoney } from "react-icons/md";
@@ -21,7 +21,7 @@ export default function HomepageHero() {
         { name: "Intellectual Property", slug: "intellectual-property", icon: <LuBrain /> },
         { name: "Accounting & Taxation", slug: "accounting-taxation", icon: <MdAttachMoney /> },
         { name: "Corporate Compliance", slug: "corporate-compliance", icon: <GrGroup /> },
-        { name: "Business Growth", slug: "business-growth", icon: <BsGraphDownArrow /> },
+        { name: "Business Growth", slug: "business-growth", icon: <BsGraphUpArrow /> },
         { name: "Licenses & Certifications", slug: "licenses-certifications", icon: <RiCertificate2Line /> }
     ];
 
@@ -30,8 +30,8 @@ export default function HomepageHero() {
         if (searchQuery.trim()) {
             // Find closest category or fallback to business registration
             const queryLower = searchQuery.toLowerCase();
-            const matched = categories.find(c => 
-                c.name.toLowerCase().includes(queryLower) || 
+            const matched = categories.find(c =>
+                c.name.toLowerCase().includes(queryLower) ||
                 queryLower.includes(c.slug.replace('-', ' '))
             );
             if (matched) {
@@ -60,7 +60,7 @@ export default function HomepageHero() {
             <div className="services">
                 {categories.map((category) => (
                     <Link href={`/services/${category.slug}`} key={category.name} className="category-link">
-                        <div 
+                        <div
                             className="category"
                             onClick={() => router.push(`/services/${category.slug}`)}
                         >

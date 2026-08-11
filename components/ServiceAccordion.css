@@ -16,42 +16,41 @@
   align-items: flex-start;
 }
 
-/* Sidebar Navigation */
+/* Sidebar Navigation (White Card Theme) */
 .accordion-sidebar-nav {
   width: 270px;
   flex-shrink: 0;
-  background: rgba(11, 24, 48, 0.55);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1.5px solid #112344;
+  border-radius: 0;
   padding: 24px 18px;
   position: sticky;
   top: 96px;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
 }
 
 .back-link {
-  color: #a4c2f4;
+  color: #193563;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .back-link:hover {
-  color: #ffffff;
+  color: #ff6000;
   text-decoration: underline;
 }
 
 .sidebar-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid #e2e8f0;
   padding-bottom: 12px;
   margin-top: 4px;
 }
@@ -60,7 +59,7 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  color: #a4c2f4;
+  color: #64748b;
   font-weight: 600;
   display: block;
   margin-bottom: 3px;
@@ -68,8 +67,8 @@
 
 .sidebar-title {
   font-size: 1.15rem;
-  font-weight: 600;
-  color: #ffffff;
+  font-weight: 700;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -83,29 +82,29 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #cbd5e1;
-  padding: 10px 14px;
-  border-radius: 8px;
+  background: #f8fafc;
+  color: #475569;
+  padding: 11px 14px;
+  border-radius: 0;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #e2e8f0;
 }
 
 .service-tab:hover {
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
+  background: #edf2f7;
+  color: #193563;
   transform: translateX(4px);
 }
 
 .service-tab.active {
-  background: #ffffff;
-  color: #193563;
+  background: #193563;
+  color: #ffffff;
   font-weight: 600;
-  border-color: #ffffff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  border-color: #193563;
+  box-shadow: 0 4px 14px rgba(25, 53, 99, 0.25);
 }
 
 .tab-icon {
