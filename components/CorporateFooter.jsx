@@ -5,8 +5,9 @@ import Link from "next/link";
 import "./CorporateFooter.css";
 import { FaFacebookF, FaInstagram, FaLocationDot, FaPhone, FaHeart } from "react-icons/fa6";
 
+
 export default function CorporateNavbar() {
-  
+
   return (
     <footer className="corporate-navbar-container">
       <div className="corporate-navbar-inner">
