@@ -41,9 +41,9 @@ export default function CorporateNavbar() {
           <div className="navbar-col legal-col">
             <h3 className="col-heading">Legal</h3>
             <ul className="nav-links-list">
-              <li><Link href="#">Privacy Policy</Link></li>
-              <li><Link href="#">Terms & Conditions</Link></li>
-              <li><Link href="#">Corporate Protection Policy</Link></li>
+              <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
+              <li><Link href="/refund-policy">Refund & Cancellation Policy</Link></li>
             </ul>
           </div>
         </div>
