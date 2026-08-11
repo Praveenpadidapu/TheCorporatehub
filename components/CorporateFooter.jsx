@@ -27,9 +27,9 @@ export default function CorporateNavbar() {
             <h3 className="col-heading">Quick Links</h3>
             <ul className="nav-links-list">
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/services/business-registration">Business Regsitraion</Link></li>
-              <li><Link href="/services/intellectual-property">Intellectual Property </Link></li>
+              <li><Link href="/contact">Contact Us</Link></li>
+              <li><Link href="/services/business-registration">Business Registration</Link></li>
+              <li><Link href="/services/intellectual-property">Intellectual Property</Link></li>
               <li><Link href="/services/accounting-taxation">Accounting And Taxation</Link></li>
               <li><Link href="/services/corporate-compliance">Corporate Compliance</Link></li>
               <li><Link href="/services/business-growth">Business Growth</Link></li>
@@ -67,9 +67,9 @@ export default function CorporateNavbar() {
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-icon">
               <FaInstagram />
             </a>
-            <a href="#location" aria-label="Location" className="social-icon">
+            <Link href="/contact" aria-label="Contact Location" className="social-icon">
               <FaLocationDot />
-            </a>
+            </Link>
             <a href="tel:+1234567890" aria-label="Phone" className="social-icon">
               <FaPhone />
             </a>
