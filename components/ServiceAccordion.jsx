@@ -24,7 +24,7 @@ const iconMap = {
 export default function ServiceAccordion({ currentSlug }) {
   // Find current service or fallback to first
   const service = servicesData.find((s) => s.slug === currentSlug) || servicesData[0];
-  
+
   // State for main accordion: which sections are open (default open Section 1 & Section 3 for showcase)
   const [openSections, setOpenSections] = useState({
     about: false,
@@ -53,189 +53,196 @@ export default function ServiceAccordion({ currentSlug }) {
 
   return (
     <div className="service-accordion-page">
-      {/* Navigation Top Header */}
-      <div className="accordion-header-nav">
-        <Link href="/" className="back-link">
-          <FiArrowLeft /> Back to Homepage
-        </Link>
-        
-        {/* Service Selector Tabs */}
-        <div className="service-tabs">
-          {servicesData.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/services/${item.slug}`}
-              className={`service-tab ${item.slug === service.slug ? "active" : ""}`}
-            >
-              <span className="tab-icon">{iconMap[item.iconName]}</span>
-              <span className="tab-title">{item.title}</span>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <div className="service-accordion-layout">
+        {/* Navigation Left Sidebar */}
+        <aside className="accordion-sidebar-nav">
+          <Link href="/" className="back-link">
+            <FiArrowLeft /> Back to Homepage
+          </Link>
 
-      {/* Main Container matching the Image Layout */}
-      <div className="accordion-main-wrapper">
-        <h1 className="service-main-title">{service.title}</h1>
+          <div className="sidebar-header">
 
-        <div className="accordion-card">
-          {/* Section 1: About Business Registration */}
-          <div className={`accordion-item ${openSections.about ? "is-expanded" : ""}`}>
-            <button 
-              className="accordion-header" 
-              onClick={() => toggleSection("about")}
-              aria-expanded={openSections.about}
-            >
-              <span className="accordion-title-text">{about.title}</span>
-              <span className="accordion-icon">
-                {openSections.about ? <FiChevronUp /> : <FiChevronDown />}
-              </span>
-            </button>
-            {openSections.about && (
-              <div className="accordion-body">
-                <p className="about-text">{about.content}</p>
-              </div>
-            )}
+            <h3 className="sidebar-title">Our Services</h3>
           </div>
 
-          {/* Section 2: Services We provide */}
-          <div className={`accordion-item ${openSections.servicesWeProvide ? "is-expanded" : ""}`}>
-            <button 
-              className="accordion-header" 
-              onClick={() => toggleSection("servicesWeProvide")}
-              aria-expanded={openSections.servicesWeProvide}
-            >
-              <span className="accordion-title-text">{servicesWeProvide.title}</span>
-              <span className="accordion-icon">
-                {openSections.servicesWeProvide ? <FiChevronUp /> : <FiChevronDown />}
-              </span>
-            </button>
-            {openSections.servicesWeProvide && (
-              <div className="accordion-body">
-                <div className="services-list-grid">
-                  {servicesWeProvide.items.map((srv, index) => (
-                    <div key={index} className="service-provide-card">
-                      <div className="card-check">
-                        <FiCheckCircle />
-                      </div>
-                      <div className="card-info">
-                        <h4>{srv.name}</h4>
-                        <p>{srv.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+          {/* Service Selector Tabs */}
+          <div className="service-tabs">
+            {servicesData.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/services/${item.slug}`}
+                className={`service-tab ${item.slug === service.slug ? "active" : ""}`}
+              >
+                <span className="tab-icon">{iconMap[item.iconName]}</span>
+                <span className="tab-title">{item.title}</span>
+              </Link>
+            ))}
+          </div>
+        </aside>
+
+        {/* Main Container matching the Image Layout */}
+        <div className="accordion-main-wrapper">
+          <h1 className="service-main-title">{service.title}</h1>
+
+          <div className="accordion-card">
+            {/* Section 1: About Business Registration */}
+            <div className={`accordion-item ${openSections.about ? "is-expanded" : ""}`}>
+              <button
+                className="accordion-header"
+                onClick={() => toggleSection("about")}
+                aria-expanded={openSections.about}
+              >
+                <span className="accordion-title-text">{about.title}</span>
+                <span className="accordion-icon">
+                  {openSections.about ? <FiChevronUp /> : <FiChevronDown />}
+                </span>
+              </button>
+              {openSections.about && (
+                <div className="accordion-body">
+                  <p className="about-text">{about.content}</p>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          {/* Section 3: Services here on click accordion */}
-          <div className={`accordion-item ${openSections.onClickServices ? "is-expanded" : ""}`}>
-            <button 
-              className="accordion-header" 
-              onClick={() => toggleSection("onClickServices")}
-              aria-expanded={openSections.onClickServices}
-            >
-              <span className="accordion-title-text">{onClickServices.title}</span>
-              <span className="accordion-icon">
-                {openSections.onClickServices ? <FiChevronUp /> : <FiChevronDown />}
-              </span>
-            </button>
-            {openSections.onClickServices && (
-              <div className="accordion-body sub-accordion-container">
-                <p className="sub-accordion-instruction">
-                  Click on any service below to view process steps, turnaround time & required documents:
-                </p>
-                <div className="sub-accordion-list">
-                  {onClickServices.subServices.map((subSrv) => {
-                    const isSubOpen = openSubServiceId === subSrv.id;
-                    return (
-                      <div key={subSrv.id} className={`sub-accordion-item ${isSubOpen ? "active" : ""}`}>
-                        <div 
-                          className="sub-accordion-header"
-                          onClick={() => toggleSubService(subSrv.id)}
-                        >
-                          <div className="sub-header-left">
-                            <span className="sub-title">{subSrv.name}</span>
-                            <span className="sub-tagline">{subSrv.tagline}</span>
-                          </div>
-                          <span className="sub-toggle-btn">
-                            {isSubOpen ? "Hide Details -" : "Click to Expand +"}
-                          </span>
+            {/* Section 2: Services We provide */}
+            <div className={`accordion-item ${openSections.servicesWeProvide ? "is-expanded" : ""}`}>
+              <button
+                className="accordion-header"
+                onClick={() => toggleSection("servicesWeProvide")}
+                aria-expanded={openSections.servicesWeProvide}
+              >
+                <span className="accordion-title-text">{servicesWeProvide.title}</span>
+                <span className="accordion-icon">
+                  {openSections.servicesWeProvide ? <FiChevronUp /> : <FiChevronDown />}
+                </span>
+              </button>
+              {openSections.servicesWeProvide && (
+                <div className="accordion-body">
+                  <div className="services-list-grid">
+                    {servicesWeProvide.items.map((srv, index) => (
+                      <div key={index} className="service-provide-card">
+                        <div className="card-check">
+                          <FiCheckCircle />
                         </div>
+                        <div className="card-info">
+                          <h4>{srv.name}</h4>
+                          <p>{srv.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
-                        {isSubOpen && (
-                          <div className="sub-accordion-content">
-                            <div className="sub-content-grid">
-                              {/* Process Steps */}
-                              <div className="content-box process-box">
-                                <h5><FiCheckCircle /> Registration Process</h5>
-                                <ul>
-                                  {subSrv.process.map((step, idx) => (
-                                    <li key={idx}>
-                                      <span className="step-num">{idx + 1}</span>
-                                      <span className="step-text">{step}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
+            {/* Section 3: Services here on click accordion */}
+            <div className={`accordion-item ${openSections.onClickServices ? "is-expanded" : ""}`}>
+              <button
+                className="accordion-header"
+                onClick={() => toggleSection("onClickServices")}
+                aria-expanded={openSections.onClickServices}
+              >
+                <span className="accordion-title-text">{onClickServices.title}</span>
+                <span className="accordion-icon">
+                  {openSections.onClickServices ? <FiChevronUp /> : <FiChevronDown />}
+                </span>
+              </button>
+              {openSections.onClickServices && (
+                <div className="accordion-body sub-accordion-container">
+                  <p className="sub-accordion-instruction">
+                    Click on any service below to view process steps, turnaround time & required documents:
+                  </p>
+                  <div className="sub-accordion-list">
+                    {onClickServices.subServices.map((subSrv) => {
+                      const isSubOpen = openSubServiceId === subSrv.id;
+                      return (
+                        <div key={subSrv.id} className={`sub-accordion-item ${isSubOpen ? "active" : ""}`}>
+                          <div
+                            className="sub-accordion-header"
+                            onClick={() => toggleSubService(subSrv.id)}
+                          >
+                            <div className="sub-header-left">
+                              <span className="sub-title">{subSrv.name}</span>
+                              <span className="sub-tagline">{subSrv.tagline}</span>
+                            </div>
+                            <span className="sub-toggle-btn">
+                              {isSubOpen ? "Hide Details -" : "Click to Expand +"}
+                            </span>
+                          </div>
 
-                              {/* Details & Documents */}
-                              <div className="content-box meta-box">
-                                <div className="time-badge">
-                                  <FiClock /> <strong>Turnaround Time:</strong> {subSrv.turnaround}
-                                </div>
-                                
-                                <div className="docs-needed">
-                                  <h5><FiFileText /> Documents Required:</h5>
+                          {isSubOpen && (
+                            <div className="sub-accordion-content">
+                              <div className="sub-content-grid">
+                                {/* Process Steps */}
+                                <div className="content-box process-box">
+                                  <h5><FiCheckCircle /> Registration Process</h5>
                                   <ul>
-                                    {subSrv.documentsNeeded.map((doc, dIdx) => (
-                                      <li key={dIdx}>{doc}</li>
+                                    {subSrv.process.map((step, idx) => (
+                                      <li key={idx}>
+                                        <span className="step-num">{idx + 1}</span>
+                                        <span className="step-text">{step}</span>
+                                      </li>
                                     ))}
                                   </ul>
                                 </div>
 
-                                <button className="apply-btn">
-                                  Proceed with {subSrv.name}
-                                </button>
+                                {/* Details & Documents */}
+                                <div className="content-box meta-box">
+                                  <div className="time-badge">
+                                    <FiClock /> <strong>Turnaround Time:</strong> {subSrv.turnaround}
+                                  </div>
+
+                                  <div className="docs-needed">
+                                    <h5><FiFileText /> Documents Required:</h5>
+                                    <ul>
+                                      {subSrv.documentsNeeded.map((doc, dIdx) => (
+                                        <li key={dIdx}>{doc}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+
+                                  <button className="apply-btn">
+                                    Proceed with {subSrv.name}
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          {/* Section 4: Term and Conditions */}
-          <div className={`accordion-item ${openSections.termsAndConditions ? "is-expanded" : ""}`}>
-            <button 
-              className="accordion-header" 
-              onClick={() => toggleSection("termsAndConditions")}
-              aria-expanded={openSections.termsAndConditions}
-            >
-              <span className="accordion-title-text">{termsAndConditions.title}</span>
-              <span className="accordion-icon">
-                {openSections.termsAndConditions ? <FiChevronUp /> : <FiChevronDown />}
-              </span>
-            </button>
-            {openSections.termsAndConditions && (
-              <div className="accordion-body">
-                <ul className="terms-list">
-                  {termsAndConditions.items.map((term, tIdx) => (
-                    <li key={tIdx}>
-                      <span className="bullet">•</span>
-                      <span>{term}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+            {/* Section 4: Term and Conditions */}
+            <div className={`accordion-item ${openSections.termsAndConditions ? "is-expanded" : ""}`}>
+              <button
+                className="accordion-header"
+                onClick={() => toggleSection("termsAndConditions")}
+                aria-expanded={openSections.termsAndConditions}
+              >
+                <span className="accordion-title-text">{termsAndConditions.title}</span>
+                <span className="accordion-icon">
+                  {openSections.termsAndConditions ? <FiChevronUp /> : <FiChevronDown />}
+                </span>
+              </button>
+              {openSections.termsAndConditions && (
+                <div className="accordion-body">
+                  <ul className="terms-list">
+                    {termsAndConditions.items.map((term, tIdx) => (
+                      <li key={tIdx}>
+                        <span className="bullet">•</span>
+                        <span>{term}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
 
+          </div>
         </div>
       </div>
     </div>
