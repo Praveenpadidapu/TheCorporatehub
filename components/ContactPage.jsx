@@ -44,7 +44,32 @@ export default function ContactPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API submission
+    
+    // Save to localStorage so Admin panel can watch incoming inquiries
+    try {
+      const newSubmission = {
+        id: "SUB-" + Math.floor(100000 + Math.random() * 900000),
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        subject: formData.subject,
+        message: formData.message,
+        date: new Date().toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }),
+        status: "New"
+      };
+      const existing = JSON.parse(localStorage.getItem("corporate_hub_contact_submissions") || "[]");
+      localStorage.setItem("corporate_hub_contact_submissions", JSON.stringify([newSubmission, ...existing]));
+    } catch (err) {
+      console.error("Failed to save submission:", err);
+    }
+
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);

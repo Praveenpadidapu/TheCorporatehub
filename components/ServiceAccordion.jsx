@@ -22,8 +22,21 @@ const iconMap = {
 };
 
 export default function ServiceAccordion({ currentSlug }) {
+  const [allServices, setAllServices] = useState(servicesData);
+
+  React.useEffect(() => {
+    try {
+      const saved = localStorage.getItem("corporate_hub_services_data");
+      if (saved) {
+        setAllServices(JSON.parse(saved));
+      }
+    } catch (e) {
+      console.error("Failed to load services data from local storage", e);
+    }
+  }, []);
+
   // Find current service or fallback to first
-  const service = servicesData.find((s) => s.slug === currentSlug) || servicesData[0];
+  const service = allServices.find((s) => s.slug === currentSlug) || allServices[0];
 
   // State for main accordion: which sections are open (default open Section 1 & Section 3 for showcase)
   const [openSections, setOpenSections] = useState({
@@ -67,7 +80,7 @@ export default function ServiceAccordion({ currentSlug }) {
 
           {/* Service Selector Tabs */}
           <div className="service-tabs">
-            {servicesData.map((item) => (
+            {allServices.map((item) => (
               <Link
                 key={item.slug}
                 href={`/services/${item.slug}`}
