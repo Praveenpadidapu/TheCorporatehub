@@ -6,6 +6,7 @@ import "./CorporateFooter.css";
 import { FaFacebookF, FaInstagram, FaLocationDot, FaPhone, FaHeart } from "react-icons/fa6";
 
 
+
 export default function CorporateNavbar() {
 
   return (
