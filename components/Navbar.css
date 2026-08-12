@@ -58,3 +58,22 @@
     font-size: clamp(1rem, 4vw, 1.2rem);
   }
 }
+
+.nav-login-btn, .nav-logout-btn {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.nav-login-btn:hover, .nav-logout-btn:hover {
+  opacity: 0.8;
+}
+
+.nav-register-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
