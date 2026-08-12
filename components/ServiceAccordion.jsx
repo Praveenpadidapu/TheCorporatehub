@@ -38,11 +38,11 @@ export default function ServiceAccordion({ currentSlug }) {
   // Find current service or fallback to first
   const service = allServices.find((s) => s.slug === currentSlug) || allServices[0];
 
-  // State for main accordion: which sections are open (default open Section 1 & Section 3 for showcase)
+  // State for main accordion: which sections are open (default open "Services We provide")
   const [openSections, setOpenSections] = useState({
     about: false,
-    servicesWeProvide: false,
-    onClickServices: true, // Default open as per image focus
+    servicesWeProvide: true,
+    onClickServices: false,
     termsAndConditions: false
   });
 
