@@ -1,4 +1,5 @@
 import React from "react";
+import { redirect } from "next/navigation";
 import ServiceAccordion from "@/components/ServiceAccordion";
 import CorporateFooter from "@/components/CorporateFooter";
 import { servicesData } from "@/data/servicesData";
@@ -20,6 +21,10 @@ export async function generateMetadata({ params }) {
 export default async function ServicePage({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
+
+  if (slug === "contact") {
+    redirect("/contact");
+  }
 
   return (
     <main style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
