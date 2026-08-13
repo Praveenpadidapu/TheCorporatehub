@@ -156,11 +156,9 @@ export default function ContactPage() {
 
       {/* Main Wrapper */}
       <div className="contact-main-wrapper">
-        {/* Banner Section */}
         <div className="contact-hero-banner">
-
-          <h1 className="contact-title">Contact Our Corporate Team</h1>
-
+          <h1 className="contact-title">Contact Us</h1>
+          <p className="contact-subtitle">Get in touch with our legal, tax, and compliance specialists.</p>
         </div>
 
         {/* Contact Grid: Form + Info Cards */}
@@ -236,7 +234,7 @@ export default function ContactPage() {
                       type="tel"
                       id="phone"
                       name="phone"
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="+91 88669 01544"
                       value={formData.phone}
                       onChange={handleChange}
                     />
@@ -319,8 +317,15 @@ export default function ContactPage() {
               </div>
               <div className="info-details">
                 <h3>Our Headquarters</h3>
-                <p>Level 5, Corporate Towers, Financial District, New York, NY 10005</p>
-                <span className="info-meta">Open for walk-ins & appointments</span>
+                <p>D-504, Titanium City Center, 100 Feet Rd, Nr Sachin Tower, Satellite, Ahmedabad, Gujarat 380015</p>
+                <a
+                  href="https://share.google/mWNIAYktRbBkanfrD"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="info-link map-direct-link"
+                >
+                  View on Google Maps ↗
+                </a>
               </div>
             </div>
 
@@ -331,11 +336,9 @@ export default function ContactPage() {
               <div className="info-details">
                 <h3>Call Support</h3>
                 <p>
-                  <a href="tel:+18005552677" className="info-link">+1 (800) 555-CORP</a>
-                  <br />
-                  <a href="tel:+1234567890" className="info-link">+1 (234) 567-8900</a>
+                  <a href="tel:+918866901544" className="info-link">+91 88669 01544</a>
                 </p>
-                <span className="info-meta">Mon - Fri: 8:00 AM – 7:00 PM EST</span>
+                <span className="info-meta">Mon - Sat: 9:30 AM – 7:00 PM IST</span>
               </div>
             </div>
 
@@ -346,9 +349,7 @@ export default function ContactPage() {
               <div className="info-details">
                 <h3>Email Us</h3>
                 <p>
-                  <a href="mailto:contact@corporatehub.com" className="info-link">contact@corporatehub.com</a>
-                  <br />
-                  <a href="mailto:support@corporatehub.com" className="info-link">support@corporatehub.com</a>
+                  <a href="mailto:info.corporatehub@gmail.com" className="info-link">info.corporatehub@gmail.com</a>
                 </p>
                 <span className="info-meta">Quick response within 2 hours</span>
               </div>
@@ -362,25 +363,29 @@ export default function ContactPage() {
         <div className="map-container-card">
           <div className="map-header">
             <div>
-              <h2>Global Reach, Local Expertise</h2>
-              <p>Visit our regional advisory hubs or connect with our remote consultation teams.</p>
+              <h2>Our Office Location</h2>
+              <p>Visit our corporate office in Ahmadabad or connect with our advisory team.</p>
             </div>
-            <div className="office-location-pills">
-              <span className="pill active">New York (HQ)</span>
-              <span className="pill">London</span>
-              <span className="pill">Singapore</span>
-            </div>
+            <a
+              href="https://share.google/mWNIAYktRbBkanfrD"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="open-maps-btn"
+            >
+              <FaLocationDot /> Open in Google Maps ↗
+            </a>
           </div>
-          <div className="map-visual">
-            <div className="map-overlay">
-              <div className="map-pin">
-                <FaLocationDot />
-                <div className="pin-tooltip">
-                  <strong>Corporate Hub NY</strong>
-                  <p>100 Financial Plaza, NY</p>
-                </div>
-              </div>
-            </div>
+          <div className="map-frame-wrapper">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.3209021223724!2d72.5232985!3d23.011986799999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e85c0a43c23c9%3A0x6292d4ccb047ba31!2sThe%20Corporate%20Hub!5e0!3m2!1sen!2sin!4v1786635892985!5m2!1sen!2sin"
+              width="100%"
+              height="380"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="The Corporate Hub Google Maps Location"
+            ></iframe>
           </div>
         </div>
 
