@@ -1,65 +1,57 @@
-import Link from 'next/link'
-import { login } from '../auth/actions'
-import './login.css'
-import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi'
+"use client";
 
-export default async function LoginPage({ searchParams }) {
-  const resolvedSearchParams = await searchParams;
+import React, { useState } from "react";
+import Link from "next/link";
+import "./login.css";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle login logic
+    console.log("Login submitted", { email, password });
+  };
 
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <div className="auth-header">
-          <h2>Welcome Back</h2>
-          <p>Login to your Corporate Hub account</p>
-        </div>
-
-        <form className="auth-form" action={login}>
-          {resolvedSearchParams?.message && (
-            <div className="auth-error-message">
-              {resolvedSearchParams.message}
-            </div>
-          )}
-
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <div className="input-wrapper">
-              <FiMail className="input-icon" />
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="you@example.com"
-                required
-              />
-            </div>
+        <h1 className="auth-title">Welcome Back</h1>
+        <p className="auth-subtitle">Log in to your Corporate Hub account</p>
+        
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              placeholder="Enter your email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
           </div>
-
-          <div className="form-group">
+          
+          <div className="input-group">
             <label htmlFor="password">Password</label>
-            <div className="input-wrapper">
-              <FiLock className="input-icon" />
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="••••••••"
-                required
-              />
-            </div>
+            <input 
+              type="password" 
+              id="password" 
+              placeholder="Enter your password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+            />
           </div>
-
-          <button type="submit" className="auth-submit-btn">
-            Sign In <FiArrowRight />
-          </button>
+          
+          <button type="submit" className="auth-button">Log In</button>
         </form>
-
-        <div className="auth-footer">
-          <p>
-            Don't have an account? <Link href="/register">Create one here</Link>
-          </p>
-        </div>
+        
+        <p className="auth-redirect">
+          Don't have an account? <Link href="/signup">Sign up</Link>
+        </p>
       </div>
     </div>
-  )
+  );
 }
