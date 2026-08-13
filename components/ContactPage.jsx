@@ -18,32 +18,70 @@ import {
   FiCalendar,
   FiChevronDown,
   FiChevronUp,
-  FiHelpCircle
+  FiHelpCircle,
+  FiAlertCircle
 } from "react-icons/fi";
 import { FaLocationDot, FaPhone, FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { IoDocumentOutline } from "react-icons/io5";
 
+import { useSearchParams } from "next/navigation";
+
 export default function ContactPage() {
+  const searchParams = useSearchParams();
+  const serviceParam = searchParams ? searchParams.get("service") : null;
+  const subjectParam = searchParams ? searchParams.get("subject") : null;
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
-    service: "business-registration",
-    subject: "",
+    service: serviceParam || "business-registration",
+    subject: subjectParam || "",
     message: ""
   });
 
+  React.useEffect(() => {
+    if (serviceParam || subjectParam) {
+      setFormData((prev) => ({
+        ...prev,
+        service: serviceParam || prev.service,
+        subject: subjectParam || prev.subject,
+      }));
+    }
+  }, [serviceParam, subjectParam]);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [openFaq, setOpenFaq] = useState(0); // Open first FAQ by default
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errorMessage) setErrorMessage("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+
+    if (!formData.fullName.trim()) {
+      setErrorMessage("Please enter your full name.");
+      return;
+    }
+    if (!formData.email.trim()) {
+      setErrorMessage("Please enter your email address.");
+      return;
+    }
+    if (!formData.subject.trim()) {
+      setErrorMessage("Please enter a subject for your inquiry.");
+      return;
+    }
+    if (!formData.message.trim()) {
+      setErrorMessage("Please enter your message details.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -61,7 +99,7 @@ export default function ContactPage() {
 
       if (error) {
         console.error('Supabase insert error:', error.message);
-        alert('Failed to submit your message. Please try again.');
+        setErrorMessage(error.message || "Failed to submit your message. Please try again.");
         setIsSubmitting(false);
         return;
       }
@@ -70,7 +108,7 @@ export default function ContactPage() {
       setIsSubmitted(true);
     } catch (err) {
       console.error('Failed to save submission:', err);
-      alert('Something went wrong. Please try again.');
+      setErrorMessage("Something went wrong while sending your message. Please try again.");
       setIsSubmitting(false);
     }
   };
@@ -133,6 +171,13 @@ export default function ContactPage() {
               <h2>Send Us a Message</h2>
               <p>Fill out the form below and we will get back to you shortly.</p>
             </div>
+
+            {errorMessage && (
+              <div className="contact-error-banner" role="alert">
+                <FiAlertCircle className="error-icon" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
 
             {isSubmitted ? (
               <div className="success-state">

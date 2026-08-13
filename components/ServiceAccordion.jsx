@@ -9,7 +9,7 @@ import { IoDocumentOutline } from "react-icons/io5";
 import { LuBrain } from "react-icons/lu";
 import { MdAttachMoney } from "react-icons/md";
 import { GrGroup } from "react-icons/gr";
-import { BsGraphDownArrow } from "react-icons/bs";
+import { BsGraphUpArrow } from "react-icons/bs";
 import { RiCertificate2Line } from "react-icons/ri";
 
 const iconMap = {
@@ -17,23 +17,12 @@ const iconMap = {
   LuBrain: <LuBrain />,
   MdAttachMoney: <MdAttachMoney />,
   GrGroup: <GrGroup />,
-  BsGraphDownArrow: <BsGraphDownArrow />,
+  BsGraphUpArrow: <BsGraphUpArrow />,
   RiCertificate2Line: <RiCertificate2Line />
 };
 
 export default function ServiceAccordion({ currentSlug }) {
-  const [allServices, setAllServices] = useState(servicesData);
-
-  React.useEffect(() => {
-    try {
-      const saved = localStorage.getItem("corporate_hub_services_data");
-      if (saved) {
-        setAllServices(JSON.parse(saved));
-      }
-    } catch (e) {
-      console.error("Failed to load services data from local storage", e);
-    }
-  }, []);
+  const allServices = servicesData;
 
   // Find current service or fallback to first
   const service = allServices.find((s) => s.slug === currentSlug) || allServices[0];
@@ -46,10 +35,16 @@ export default function ServiceAccordion({ currentSlug }) {
     termsAndConditions: false
   });
 
-  // State for inner sub-accordion inside "Services here on click accordion"
+  // State for inner sub-accordion inside "About Services"
   const [openSubServiceId, setOpenSubServiceId] = useState(
     service.accordionData.onClickServices.subServices[0]?.id || null
   );
+
+  React.useEffect(() => {
+    if (service?.accordionData?.onClickServices?.subServices?.[0]?.id) {
+      setOpenSubServiceId(service.accordionData.onClickServices.subServices[0].id);
+    }
+  }, [currentSlug, service]);
 
   const toggleSection = (sectionKey) => {
     setOpenSections((prev) => ({
@@ -62,7 +57,52 @@ export default function ServiceAccordion({ currentSlug }) {
     setOpenSubServiceId((prevId) => (prevId === id ? null : id));
   };
 
-  const { about, servicesWeProvide, onClickServices, termsAndConditions } = service.accordionData;
+  const accordionData = service?.accordionData || {};
+  const about = accordionData.about || { title: "About", content: "" };
+  const servicesWeProvide = accordionData.servicesWeProvide || { title: "Services We Provide", items: [] };
+  const onClickServices = accordionData.onClickServices || { title: "About Services", subServices: [] };
+  const termsAndConditions = accordionData.termsAndConditions || { title: "Terms and Conditions", items: [] };
+
+  const handleProvideCardClick = (srvIndex, srvName) => {
+    const subServices = onClickServices.subServices || [];
+    
+    // Match target subservice by index or by name
+    let targetSub = subServices[srvIndex];
+    if (!targetSub && srvName) {
+      const nameLower = srvName.toLowerCase();
+      targetSub = subServices.find(
+        (s) => s.name.toLowerCase().includes(nameLower) || nameLower.includes(s.name.toLowerCase())
+      );
+    }
+
+    if (!targetSub && subServices.length > 0) {
+      targetSub = subServices[0];
+    }
+
+    if (targetSub) {
+      // 1. Expand About Services main section
+      setOpenSections((prev) => ({
+        ...prev,
+        onClickServices: true
+      }));
+
+      // 2. Expand target sub-service details
+      setOpenSubServiceId(targetSub.id);
+
+      // 3. Scroll smoothly to target sub-service element
+      setTimeout(() => {
+        const el = document.getElementById(`sub-service-${targetSub.id}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          const sectionEl = document.getElementById("about-services-section");
+          if (sectionEl) {
+            sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      }, 120);
+    }
+  };
 
   return (
     <div className="service-accordion-page">
@@ -133,13 +173,19 @@ export default function ServiceAccordion({ currentSlug }) {
                 <div className="accordion-body">
                   <div className="services-list-grid">
                     {servicesWeProvide.items.map((srv, index) => (
-                      <div key={index} className="service-provide-card">
+                      <div
+                        key={index}
+                        className="service-provide-card"
+                        onClick={() => handleProvideCardClick(index, srv.name)}
+                        title={`Click to view details for ${srv.name}`}
+                      >
                         <div className="card-check">
                           <FiCheckCircle />
                         </div>
                         <div className="card-info">
                           <h4>{srv.name}</h4>
                           <p>{srv.desc}</p>
+                          <span className="card-click-hint">View details →</span>
                         </div>
                       </div>
                     ))}
@@ -149,7 +195,10 @@ export default function ServiceAccordion({ currentSlug }) {
             </div>
 
             {/* Section 3: Services here on click accordion */}
-            <div className={`accordion-item ${openSections.onClickServices ? "is-expanded" : ""}`}>
+            <div
+              id="about-services-section"
+              className={`accordion-item ${openSections.onClickServices ? "is-expanded" : ""}`}
+            >
               <button
                 className="accordion-header"
                 onClick={() => toggleSection("onClickServices")}
@@ -169,7 +218,11 @@ export default function ServiceAccordion({ currentSlug }) {
                     {onClickServices.subServices.map((subSrv) => {
                       const isSubOpen = openSubServiceId === subSrv.id;
                       return (
-                        <div key={subSrv.id} className={`sub-accordion-item ${isSubOpen ? "active" : ""}`}>
+                        <div
+                          key={subSrv.id}
+                          id={`sub-service-${subSrv.id}`}
+                          className={`sub-accordion-item ${isSubOpen ? "active" : ""}`}
+                        >
                           <div
                             className="sub-accordion-header"
                             onClick={() => toggleSubService(subSrv.id)}
@@ -214,9 +267,12 @@ export default function ServiceAccordion({ currentSlug }) {
                                     </ul>
                                   </div>
 
-                                  <button className="apply-btn">
+                                  <Link
+                                    href={`/contact?service=${encodeURIComponent(service.slug)}&subject=${encodeURIComponent(`Inquiry for ${subSrv.name}`)}`}
+                                    className="apply-btn"
+                                  >
                                     Proceed with {subSrv.name}
-                                  </button>
+                                  </Link>
                                 </div>
                               </div>
                             </div>

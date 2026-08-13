@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ContactPage from "@/components/ContactPage";
 import CorporateFooter from "@/components/CorporateFooter";
 
@@ -11,7 +11,9 @@ export default function Page() {
   return (
     <main style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <div style={{ flex: 1 }}>
-        <ContactPage />
+        <Suspense fallback={<div style={{ padding: "40px", textAlign: "center" }}>Loading Contact Form...</div>}>
+          <ContactPage />
+        </Suspense>
       </div>
       <CorporateFooter />
     </main>
