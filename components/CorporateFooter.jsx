@@ -72,7 +72,7 @@ export default function CorporateNavbar() {
             <Link href="/contact" aria-label="Contact Location" className="social-icon">
               <FaLocationDot />
             </Link>
-            <a href="tel:+1234567890" aria-label="Phone" className="social-icon">
+            <a href="tel:+918866901544" aria-label="Phone" className="social-icon">
               <FaPhone />
             </a>
           </div>
