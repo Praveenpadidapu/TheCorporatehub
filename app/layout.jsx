@@ -4,8 +4,9 @@ import CorporateFooter from "@/components/CorporateFooter";
 import { createClient } from '@/utils/supabase/server';
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://thecorporatehub.in"),
   title: "Corporate Hub",
-  description: "Corporate Hub Services",
+  description: "Corporate Hub Services - Legal, Tax, Compliance & Business Registration Solutions",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
