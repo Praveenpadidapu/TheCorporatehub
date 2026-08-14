@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { servicesData } from "@/data/servicesData";
 import "./ServiceAccordion.css";
 import { FiChevronDown, FiChevronUp, FiArrowLeft, FiCheckCircle, FiClock, FiFileText } from "react-icons/fi";
@@ -22,29 +23,45 @@ const iconMap = {
 };
 
 export default function ServiceAccordion({ currentSlug }) {
+  const searchParams = useSearchParams();
+  const subserviceParam = searchParams ? searchParams.get("subservice") : null;
+
   const allServices = servicesData;
-
-  // Find current service or fallback to first
   const service = allServices.find((s) => s.slug === currentSlug) || allServices[0];
+  const subServices = service.accordionData?.onClickServices?.subServices || [];
 
-  // State for main accordion: which sections are open (default open "Services We provide")
-  const [openSections, setOpenSections] = useState({
+  const targetSubId = subserviceParam && subServices.some(s => s.id === subserviceParam)
+    ? subserviceParam
+    : (subServices[0]?.id || null);
+
+  // State for main accordion: open onClickServices if a subserviceParam is active
+  const [openSections, setOpenSections] = useState(() => ({
     about: false,
-    servicesWeProvide: true,
-    onClickServices: false,
+    servicesWeProvide: !subserviceParam,
+    onClickServices: Boolean(subserviceParam),
     termsAndConditions: false
-  });
+  }));
 
   // State for inner sub-accordion inside "About Services"
-  const [openSubServiceId, setOpenSubServiceId] = useState(
-    service.accordionData.onClickServices.subServices[0]?.id || null
-  );
+  const [openSubServiceId, setOpenSubServiceId] = useState(targetSubId);
 
-  React.useEffect(() => {
-    if (service?.accordionData?.onClickServices?.subServices?.[0]?.id) {
-      setOpenSubServiceId(service.accordionData.onClickServices.subServices[0].id);
+  const [prevParams, setPrevParams] = useState({ currentSlug, subserviceParam });
+
+  // Adjust state during render when currentSlug or subserviceParam changes
+  if (prevParams.currentSlug !== currentSlug || prevParams.subserviceParam !== subserviceParam) {
+    setPrevParams({ currentSlug, subserviceParam });
+    if (subserviceParam && subServices.some(s => s.id === subserviceParam)) {
+      setOpenSections({
+        about: false,
+        servicesWeProvide: false,
+        onClickServices: true,
+        termsAndConditions: false
+      });
+      setOpenSubServiceId(subserviceParam);
+    } else {
+      setOpenSubServiceId(subServices[0]?.id || null);
     }
-  }, [currentSlug, service]);
+  }
 
   const toggleSection = (sectionKey) => {
     setOpenSections((prev) => ({

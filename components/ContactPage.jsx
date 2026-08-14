@@ -26,29 +26,80 @@ import { IoDocumentOutline } from "react-icons/io5";
 
 import { useSearchParams } from "next/navigation";
 
-export default function ContactPage() {
+export default function ContactPage({ user: initialUser, profile: initialProfile }) {
   const searchParams = useSearchParams();
   const serviceParam = searchParams ? searchParams.get("service") : null;
   const subjectParam = searchParams ? searchParams.get("subject") : null;
 
+  const [clientUser, setClientUser] = useState(initialUser || null);
+  const [clientProfile, setClientProfile] = useState(initialProfile || null);
+
+  const currentUser = initialUser || clientUser;
+  const currentProfile = initialProfile || clientProfile;
+
+  const defaultName = currentProfile?.name || currentUser?.user_metadata?.full_name || currentUser?.user_metadata?.name || "";
+  const defaultEmail = currentProfile?.email || currentUser?.email || "";
+  const defaultPhone = currentProfile?.phone_number || currentUser?.user_metadata?.phone_number || currentUser?.phone || "";
+
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
+    fullName: defaultName,
+    email: defaultEmail,
+    phone: defaultPhone,
     service: serviceParam || "business-registration",
     subject: subjectParam || "",
     message: ""
   });
 
+  const [prevSync, setPrevSync] = useState({
+    serviceParam,
+    subjectParam,
+    defaultName,
+    defaultEmail,
+    defaultPhone
+  });
+
+  // Adjust state during render when props or searchParams update
+  if (
+    prevSync.serviceParam !== serviceParam ||
+    prevSync.subjectParam !== subjectParam ||
+    prevSync.defaultName !== defaultName ||
+    prevSync.defaultEmail !== defaultEmail ||
+    prevSync.defaultPhone !== defaultPhone
+  ) {
+    setPrevSync({ serviceParam, subjectParam, defaultName, defaultEmail, defaultPhone });
+    setFormData((prev) => ({
+      ...prev,
+      fullName: prev.fullName || defaultName,
+      email: prev.email || defaultEmail,
+      phone: prev.phone || defaultPhone,
+      service: serviceParam || prev.service,
+      subject: subjectParam || prev.subject,
+    }));
+  }
+
+  // Client-side lookup if server user was not provided
   React.useEffect(() => {
-    if (serviceParam || subjectParam) {
-      setFormData((prev) => ({
-        ...prev,
-        service: serviceParam || prev.service,
-        subject: subjectParam || prev.subject,
-      }));
+    async function fetchUserOnClient() {
+      if (!initialUser) {
+        try {
+          const supabase = createClient();
+          const { data: { user: u } } = await supabase.auth.getUser();
+          if (u) {
+            setClientUser(u);
+            const { data: p } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', u.id)
+              .single();
+            if (p) setClientProfile(p);
+          }
+        } catch (err) {
+          console.error("Error fetching user on client:", err);
+        }
+      }
     }
-  }, [serviceParam, subjectParam]);
+    fetchUserOnClient();
+  }, [initialUser]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -115,9 +166,9 @@ export default function ContactPage() {
 
   const handleReset = () => {
     setFormData({
-      fullName: "",
-      email: "",
-      phone: "",
+      fullName: defaultName,
+      email: defaultEmail,
+      phone: defaultPhone,
       service: "business-registration",
       subject: "",
       message: ""
@@ -185,7 +236,8 @@ export default function ContactPage() {
                 <h3>Thank You for Reaching Out!</h3>
                 <p>
                   Your message has been successfully transmitted. One of our corporate advisors
-                  will contact you shortly at <strong>{formData.email}</strong>.
+                  will contact you shortly at <strong>{formData.email}</strong>
+                  {formData.phone ? <> and <strong>{formData.phone}</strong></> : ""}.
                 </p>
                 <button type="button" onClick={handleReset} className="submit-btn reset-btn">
                   Send Another Message
