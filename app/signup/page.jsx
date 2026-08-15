@@ -4,7 +4,9 @@ import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FiArrowLeft, FiAlertCircle } from "react-icons/fi";
+import { FcGoogle } from "react-icons/fc";
 import { signup } from "@/app/auth/actions";
+import { createClient } from "@/utils/supabase/client";
 import "../login/login.css";
 
 function SignupForm() {
@@ -40,6 +42,19 @@ function SignupForm() {
     setErrorMessage("");
   };
 
+  const handleGoogleSignup = async () => {
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      setErrorMessage(error.message);
+    }
+  };
+
   const displayError = errorMessage || serverErrorMessage;
 
   return (
@@ -53,6 +68,15 @@ function SignupForm() {
           <span>{displayError}</span>
         </div>
       )}
+
+      <button type="button" className="google-auth-button" onClick={handleGoogleSignup}>
+        <FcGoogle size={20} />
+        <span>Continue with Google</span>
+      </button>
+
+      <div className="auth-divider">
+        <span>or</span>
+      </div>
 
       <form action={signup} onSubmit={handleSubmit} className="auth-form">
         <div className="input-group">
@@ -137,3 +161,4 @@ export default function Signup() {
     </div>
   );
 }
+

@@ -67,3 +67,26 @@ CREATE POLICY "Anyone can delete contact submissions"
   ON public.contact_submissions
   FOR DELETE
   USING (true);
+
+-- ============================================================
+-- profiles RLS (needed by admin panel to list / manage users)
+-- ============================================================
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+
+-- Allow reading all profiles (admin user list)
+CREATE POLICY "Anyone can read profiles"
+  ON public.profiles
+  FOR SELECT
+  USING (true);
+
+-- Allow updating profiles (admin edits)
+CREATE POLICY "Anyone can update profiles"
+  ON public.profiles
+  FOR UPDATE
+  USING (true);
+
+-- Allow deleting profiles (admin cleanup)
+CREATE POLICY "Anyone can delete profiles"
+  ON public.profiles
+  FOR DELETE
+  USING (true);
