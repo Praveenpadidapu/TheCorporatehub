@@ -33,20 +33,21 @@
   box-sizing: border-box;
 }
 
-.back-link {
-  color: #193563;
+a.back-link {
+  color: #193563 !important;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
   font-weight: 600;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.back-link:hover {
-  color: #ff6000;
+a.back-link:hover {
+  color: #ff6000 !important;
   text-decoration: underline;
+  transform: translateX(-3px);
 }
 
 .sidebar-header {
@@ -557,3 +558,24 @@
     padding: 0 14px 14px 14px;
   }
 }
+
+/* Premium Micro-animations & Transitions */
+.accordion-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.accordion-card:hover {
+  border-color: #ff6000;
+  box-shadow: 0 12px 32px rgba(255, 96, 0, 0.12);
+}
+
+.subservice-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.subservice-card:hover {
+  transform: translateY(-2px);
+  border-color: #ff6000;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}

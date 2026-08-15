@@ -12,6 +12,14 @@ import { MdAttachMoney } from "react-icons/md";
 import { RiCertificate2Line } from "react-icons/ri";
 import { GrGroup } from "react-icons/gr";
 import { FiX, FiChevronRight, FiCheckCircle } from "react-icons/fi";
+import {
+  BizRegAnimatedIcon,
+  IpAnimatedIcon,
+  TaxAnimatedIcon,
+  ComplianceAnimatedIcon,
+  GrowthAnimatedIcon,
+  LicenseAnimatedIcon
+} from "@/components/ui/CategoryAnimatedIcons";
 
 const iconMap = {
   IoDocumentOutline: <IoDocumentOutline />,
@@ -30,12 +38,36 @@ export default function HomepageHero() {
   const router = useRouter();
 
   const categories = [
-    { name: "Business Registration", slug: "business-registration", icon: <IoDocumentOutline /> },
-    { name: "Intellectual Property", slug: "intellectual-property", icon: <LuBrain /> },
-    { name: "Accounting & Taxation", slug: "accounting-taxation", icon: <MdAttachMoney /> },
-    { name: "Corporate Compliance", slug: "corporate-compliance", icon: <GrGroup /> },
-    { name: "Business Growth", slug: "business-growth", icon: <BsGraphUpArrow /> },
-    { name: "Licenses & Certifications", slug: "licenses-certifications", icon: <RiCertificate2Line /> }
+    {
+      name: "Business Registration",
+      slug: "business-registration",
+      icon: <BizRegAnimatedIcon size={52} />
+    },
+    {
+      name: "Intellectual Property",
+      slug: "intellectual-property",
+      icon: <IpAnimatedIcon size={52} />
+    },
+    {
+      name: "Accounting & Taxation",
+      slug: "accounting-taxation",
+      icon: <TaxAnimatedIcon size={52} />
+    },
+    {
+      name: "Corporate Compliance",
+      slug: "corporate-compliance",
+      icon: <ComplianceAnimatedIcon size={52} />
+    },
+    {
+      name: "Business Growth",
+      slug: "business-growth",
+      icon: <GrowthAnimatedIcon size={52} />
+    },
+    {
+      name: "Licenses & Certifications",
+      slug: "licenses-certifications",
+      icon: <LicenseAnimatedIcon size={52} />
+    }
   ];
 
   // Close search dropdown on click outside

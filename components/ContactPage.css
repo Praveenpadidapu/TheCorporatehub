@@ -18,21 +18,22 @@
   gap: 16px;
 }
 
-.back-link {
-  color: #a4c2f4;
+a.back-link {
+  color: #193563 !important;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  font-weight: 600;
+  transition: color 0.2s ease, transform 0.2s ease;
   width: fit-content;
 }
 
-.back-link:hover {
-  color: #ffffff;
+a.back-link:hover {
+  color: #ff6000 !important;
   text-decoration: underline;
+  transform: translateX(-3px);
 }
 
 .nav-brand-group {
