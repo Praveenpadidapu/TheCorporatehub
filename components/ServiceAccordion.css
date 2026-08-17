@@ -131,6 +131,7 @@ a.back-link:hover {
   color: #ffffff;
   margin-bottom: 25px;
   letter-spacing: 0.5px;
+  font-family: "Archivo Black", sans-serif;
 }
 
 .accordion-card {
@@ -578,4 +579,4 @@ a.back-link:hover {
   transform: translateY(-2px);
   border-color: #ff6000;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
+}

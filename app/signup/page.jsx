@@ -7,6 +7,7 @@ import { FiArrowLeft, FiAlertCircle, FiCheckCircle, FiEye, FiEyeOff, FiCheck, Fi
 import { FcGoogle } from "react-icons/fc";
 import { signup } from "@/app/auth/actions";
 import { createClient } from "@/utils/supabase/client";
+import AuthLayout from "@/components/AuthLayout";
 import "../login/login.css";
 
 function SignupForm() {
@@ -212,11 +213,7 @@ function SignupForm() {
 
 export default function Signup() {
   return (
-    <div className="auth-container">
-      <Link href="/" className="back-to-home">
-        <FiArrowLeft size={16} /> Back to Home
-      </Link>
-
+    <AuthLayout backLink="/" backText="Back to Home">
       <Suspense fallback={
         <div className="auth-card">
           <h1 className="auth-title">CREATE ACCOUNT</h1>
@@ -225,7 +222,7 @@ export default function Signup() {
       }>
         <SignupForm />
       </Suspense>
-    </div>
+    </AuthLayout>
   );
 }
 
