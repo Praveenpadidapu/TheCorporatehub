@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FiArrowLeft, FiAlertCircle, FiCheckCircle, FiShield, FiRefreshCw } from "react-icons/fi";
 import { verifyOtp, resendOtp } from "@/app/auth/actions";
+import AuthLayout from "@/components/AuthLayout";
 import "../login/login.css";
 
 function VerifyOtpForm() {
@@ -189,11 +190,7 @@ function VerifyOtpForm() {
 
 export default function VerifyOtpPage() {
   return (
-    <div className="auth-container">
-      <Link href="/login" className="back-to-home">
-        <FiArrowLeft size={16} /> Back to Log In
-      </Link>
-
+    <AuthLayout backLink="/login" backText="Back to Log In">
       <Suspense fallback={
         <div className="auth-card">
           <h1 className="auth-title">ENTER OTP CODE</h1>
@@ -202,6 +199,6 @@ export default function VerifyOtpPage() {
       }>
         <VerifyOtpForm />
       </Suspense>
-    </div>
+    </AuthLayout>
   );
 }
