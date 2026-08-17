@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { servicesData } from "@/data/servicesData";
+import { Skeleton, ServiceCardSkeleton } from "@/components/ui/Skeleton";
 import "./ServiceAccordion.css";
 import { FiChevronDown, FiChevronUp, FiArrowLeft, FiCheckCircle, FiClock, FiFileText } from "react-icons/fi";
 import { IoDocumentOutline } from "react-icons/io5";
@@ -22,29 +24,55 @@ const iconMap = {
 };
 
 export default function ServiceAccordion({ currentSlug }) {
+  const searchParams = useSearchParams();
+  const subserviceParam = searchParams ? searchParams.get("subservice") : null;
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, [currentSlug, subserviceParam]);
+
   const allServices = servicesData;
-
-  // Find current service or fallback to first
   const service = allServices.find((s) => s.slug === currentSlug) || allServices[0];
+  const subServices = service.accordionData?.onClickServices?.subServices || [];
 
-  // State for main accordion: which sections are open (default open "Services We provide")
-  const [openSections, setOpenSections] = useState({
+  const targetSubId = subserviceParam && subServices.some(s => s.id === subserviceParam)
+    ? subserviceParam
+    : (subServices[0]?.id || null);
+
+  // State for main accordion: open onClickServices if a subserviceParam is active
+  const [openSections, setOpenSections] = useState(() => ({
     about: false,
-    servicesWeProvide: true,
-    onClickServices: false,
+    servicesWeProvide: !subserviceParam,
+    onClickServices: Boolean(subserviceParam),
     termsAndConditions: false
-  });
+  }));
 
   // State for inner sub-accordion inside "About Services"
-  const [openSubServiceId, setOpenSubServiceId] = useState(
-    service.accordionData.onClickServices.subServices[0]?.id || null
-  );
+  const [openSubServiceId, setOpenSubServiceId] = useState(targetSubId);
 
-  React.useEffect(() => {
-    if (service?.accordionData?.onClickServices?.subServices?.[0]?.id) {
-      setOpenSubServiceId(service.accordionData.onClickServices.subServices[0].id);
+  const [prevParams, setPrevParams] = useState({ currentSlug, subserviceParam });
+
+  // Adjust state during render when currentSlug or subserviceParam changes
+  if (prevParams.currentSlug !== currentSlug || prevParams.subserviceParam !== subserviceParam) {
+    setPrevParams({ currentSlug, subserviceParam });
+    if (subserviceParam && subServices.some(s => s.id === subserviceParam)) {
+      setOpenSections({
+        about: false,
+        servicesWeProvide: false,
+        onClickServices: true,
+        termsAndConditions: false
+      });
+      setOpenSubServiceId(subserviceParam);
+    } else {
+      setOpenSubServiceId(subServices[0]?.id || null);
     }
-  }, [currentSlug, service]);
+  }
 
   const toggleSection = (sectionKey) => {
     setOpenSections((prev) => ({
@@ -134,10 +162,20 @@ export default function ServiceAccordion({ currentSlug }) {
         </aside>
 
         {/* Main Container matching the Image Layout */}
-        <div className="accordion-main-wrapper">
-          <h1 className="service-main-title">{service.title}</h1>
+        {isLoading ? (
+          <div className="accordion-main-wrapper">
+            <Skeleton width="55%" height="38px" borderRadius="6px" style={{ marginBottom: "24px" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <ServiceCardSkeleton />
+              <ServiceCardSkeleton />
+              <ServiceCardSkeleton />
+            </div>
+          </div>
+        ) : (
+          <div className="accordion-main-wrapper animate-fade-in-up">
+            <h1 className="service-main-title">{service.title}</h1>
 
-          <div className="accordion-card">
+            <div className="accordion-card">
             {/* Section 1: About Business Registration */}
             <div className={`accordion-item ${openSections.about ? "is-expanded" : ""}`}>
               <button
@@ -310,10 +348,10 @@ export default function ServiceAccordion({ currentSlug }) {
                 </div>
               )}
             </div>
-
           </div>
         </div>
-      </div>
+      )}
     </div>
+  </div>
   );
 }
