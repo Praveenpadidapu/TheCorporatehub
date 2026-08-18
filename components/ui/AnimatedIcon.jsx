@@ -6,11 +6,18 @@ export function AnimatedIcon({ src, fallback, size = 52, primaryColor = "#ffffff
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.customElements && window.customElements.get("lord-icon")) {
-      setIsLoaded(true);
+    const isLordIconRegistered = () => 
+      typeof window !== "undefined" && 
+      window.customElements && 
+      window.customElements.get("lord-icon");
+
+    if (isLordIconRegistered()) {
+      setTimeout(() => {
+        setIsLoaded(true);
+      }, 0);
     } else {
       const checkTimer = setInterval(() => {
-        if (typeof window !== "undefined" && window.customElements && window.customElements.get("lord-icon")) {
+        if (isLordIconRegistered()) {
           setIsLoaded(true);
           clearInterval(checkTimer);
         }
