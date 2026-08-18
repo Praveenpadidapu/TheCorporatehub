@@ -1,0 +1,47 @@
+/* Smooth Scroll Back-to-Top Floating Button */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: #ff6000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(255, 96, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999;
+}
+
+.scroll-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top-btn:hover {
+  background-color: #193563;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(25, 53, 99, 0.35);
+}
+
+.scroll-to-top-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+@media (max-width: 640px) {
+  .scroll-to-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+  }
+}

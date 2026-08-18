@@ -1,0 +1,210 @@
+/* Continuous Motion Animated Vector Icons for Homepage Categories */
+
+/* 1. Pen Writing Animation for Business Registration */
+@keyframes penWrite {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-4px, 3px) rotate(-6deg);
+  }
+  50% {
+    transform: translate(4px, -2px) rotate(4deg);
+  }
+  75% {
+    transform: translate(-2px, 2px) rotate(-3deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes stampPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(255, 96, 0, 0.8));
+  }
+}
+
+.anim-pen {
+  animation: penWrite 2.2s infinite ease-in-out;
+  transform-origin: bottom left;
+}
+
+.anim-stamp {
+  animation: stampPulse 2s infinite ease-in-out;
+  transform-origin: center;
+}
+
+/* 2. Lightbulb / Brain Pulse Animation for Intellectual Property */
+@keyframes rayFlash {
+  0%, 100% {
+    opacity: 0.3;
+    stroke-dashoffset: 10;
+  }
+  50% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    stroke: #ff6000;
+  }
+}
+
+@keyframes brainFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.anim-rays {
+  animation: rayFlash 1.6s infinite ease-in-out;
+}
+
+.anim-brain-body {
+  animation: brainFloat 3s infinite ease-in-out;
+}
+
+/* 3. Calc Counter / Coin Bounce for Accounting & Taxation */
+@keyframes calcBtnPulse {
+  0%, 100% {
+    fill: #ffffff;
+  }
+  50% {
+    fill: #ff6000;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes coinFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(8deg);
+  }
+}
+
+.anim-calc-btn {
+  animation: calcBtnPulse 1.8s infinite ease-in-out;
+}
+
+.anim-coin {
+  animation: coinFloat 2.4s infinite ease-in-out;
+  transform-origin: center;
+}
+
+/* 4. Shield Shine & Checkmark Draw for Corporate Compliance */
+@keyframes checkDraw {
+  0%, 100% {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 15;
+  }
+}
+
+@keyframes shieldGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(255, 96, 0, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 96, 0, 0.9));
+  }
+}
+
+.anim-check {
+  animation: checkDraw 2s infinite ease-in-out;
+}
+
+.anim-shield {
+  animation: shieldGlow 2.5s infinite ease-in-out;
+}
+
+/* 5. Trend Arrow & Bar Chart Growth Animation */
+@keyframes barGrow {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.25);
+  }
+}
+
+@keyframes arrowUpPulse {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(3px, -3px);
+  }
+}
+
+.anim-bar-1 {
+  animation: barGrow 2s infinite ease-in-out;
+  transform-origin: bottom;
+}
+
+.anim-bar-2 {
+  animation: barGrow 2s infinite ease-in-out 0.3s;
+  transform-origin: bottom;
+}
+
+.anim-bar-3 {
+  animation: barGrow 2s infinite ease-in-out 0.6s;
+  transform-origin: bottom;
+}
+
+.anim-arrow-growth {
+  animation: arrowUpPulse 1.5s infinite ease-in-out;
+}
+
+/* 6. Ribbon Swing & Star Spin for Licenses & Certifications */
+@keyframes ribbonSwing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes starSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-ribbon {
+  animation: ribbonSwing 3s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+.anim-star {
+  animation: starSpin 8s infinite linear;
+  transform-origin: center;
+}
+
+/* Category Hover Glow Enhancements */
+.animated-cat-svg {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+.category:hover .animated-cat-svg {
+  transform: translateY(-5px) scale(1.15);
+  filter: drop-shadow(0 0 12px rgba(255, 96, 0, 0.85));
+}

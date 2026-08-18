@@ -25,12 +25,22 @@ import {
 import { FaLocationDot, FaPhone, FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { IoDocumentOutline } from "react-icons/io5";
 
+import { Skeleton } from "@/components/ui/Skeleton";
 import { useSearchParams } from "next/navigation";
 
 export default function ContactPage({ user: initialUser, profile: initialProfile }) {
   const searchParams = useSearchParams();
   const serviceParam = searchParams ? searchParams.get("service") : null;
   const subjectParam = searchParams ? searchParams.get("subject") : null;
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, []);
 
   const [clientUser, setClientUser] = useState(initialUser || null);
   const [clientProfile, setClientProfile] = useState(initialProfile || null);
@@ -117,6 +127,20 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
     e.preventDefault();
     setErrorMessage("");
 
+    // Client-side rate limiting protection
+    const submissionKey = `contact_submissions_${formData.email || 'anon'}`;
+    const rawTimes = localStorage.getItem(submissionKey);
+    const now = Date.now();
+    const windowMs = 15 * 60 * 1000;
+    const timestamps = rawTimes ? JSON.parse(rawTimes).filter((t) => now - t < windowMs) : [];
+
+    if (timestamps.length >= 4) {
+      const oldestTime = timestamps[0];
+      const resetInMins = Math.ceil((windowMs - (now - oldestTime)) / (60 * 1000));
+      setErrorMessage(`Rate limit reached: Maximum 4 inquiries allowed per 15 minutes. Please try again in ${resetInMins} minute(s).`);
+      return;
+    }
+
     if (!formData.fullName.trim()) {
       setErrorMessage("Please enter your full name.");
       return;
@@ -144,6 +168,10 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
         setIsSubmitting(false);
         return;
       }
+
+      // Record successful submission timestamp for rate limiter
+      timestamps.push(now);
+      localStorage.setItem(submissionKey, JSON.stringify(timestamps));
 
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -196,14 +224,31 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
       </div>
 
       {/* Main Wrapper */}
-      <div className="contact-main-wrapper">
-        <div className="contact-hero-banner">
-          <h1 className="contact-title">Contact Us</h1>
-          <p className="contact-subtitle">Get in touch with our legal, tax, and compliance specialists.</p>
+      {isLoading ? (
+        <div className="contact-main-wrapper">
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "32px" }}>
+            <Skeleton width="35%" height="38px" borderRadius="8px" />
+            <Skeleton width="55%" height="20px" borderRadius="6px" />
+          </div>
+          <div className="contact-grid">
+            <div className="contact-card form-card">
+              <Skeleton width="100%" height="420px" borderRadius="12px" />
+            </div>
+            <div className="contact-info-column" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <Skeleton width="100%" height="190px" borderRadius="12px" />
+              <Skeleton width="100%" height="190px" borderRadius="12px" />
+            </div>
+          </div>
         </div>
+      ) : (
+        <div className="contact-main-wrapper animate-fade-in-up">
+          <div className="contact-hero-banner">
+            <h1 className="contact-title">Contact Us</h1>
+            <p className="contact-subtitle">Get in touch with our legal, tax, and compliance specialists.</p>
+          </div>
 
-        {/* Contact Grid: Form + Info Cards */}
-        <div className="contact-grid">
+          {/* Contact Grid: Form + Info Cards */}
+          <div className="contact-grid">
           {/* Left Column: Form */}
           <div className="contact-card form-card">
             <div className="card-header">
@@ -391,7 +436,7 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
               <div className="info-details">
                 <h3>Email Us</h3>
                 <p>
-                  <a href="mailto:info.corporatehub@gmail.com" className="info-link">info.corporatehub@gmail.com</a>
+                  <a href="mailto:Corporatehubcs@gmail.com" className="info-link">Corporatehubcs@gmail.com</a>
                 </p>
                 <span className="info-meta">Quick response within 2 hours</span>
               </div>
@@ -461,6 +506,7 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
           </div>
         </div>
       </div>
-    </div>
+    )}
+  </div>
   );
 }
