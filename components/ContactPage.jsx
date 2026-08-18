@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
+import { submitContactForm } from "@/app/actions/contact";
 import "./ContactPage.css";
 import {
   FiArrowLeft,
@@ -160,21 +161,10 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
     setIsSubmitting(true);
 
     try {
-      const supabase = createClient();
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          service: formData.service,
-          subject: formData.subject,
-          message: formData.message,
-        });
+      const response = await submitContactForm(formData);
 
-      if (error) {
-        console.error('Supabase insert error:', error.message);
-        setErrorMessage(error.message || "Failed to submit your message. Please try again.");
+      if (response.error) {
+        setErrorMessage(response.error);
         setIsSubmitting(false);
         return;
       }
