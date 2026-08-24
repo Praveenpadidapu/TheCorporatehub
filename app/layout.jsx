@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import CorporateFooter from "@/components/CorporateFooter";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { createClient } from "@/utils/supabase/server";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://thecorporatehub.in"),
@@ -15,6 +16,7 @@ export const metadata = {
     apple: "/logo.png",
   },
 };
+
 
 export default async function RootLayout({ children }) {
   const supabase = await createClient();
@@ -59,9 +61,9 @@ export default async function RootLayout({ children }) {
       </head>
       <body style={{ display: "flex", flexDirection: "column", minHeight: "100vh", margin: 0 }}>
         <Navbar user={user} />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <PageTransition>
           {children}
-        </div>
+        </PageTransition>
         <ScrollToTop />
       </body>
     </html>

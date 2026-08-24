@@ -12,7 +12,7 @@ export default function NotFoundPage() {
         <h1 className="not-found-code">404</h1>
         <h2 className="not-found-title">Page Not Found</h2>
         <p className="not-found-desc">
-          The page you are looking for doesn't exist, has been removed, or is temporarily unavailable.
+          The page you are looking for doesn&apos;t exist, has been removed, or is temporarily unavailable.
         </p>
 
         <div className="not-found-actions">

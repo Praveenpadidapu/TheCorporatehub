@@ -393,12 +393,14 @@ const REFUND_POLICY_DATA = {
 
 export default function LegalPage({ defaultTab = "privacy-policy" }) {
   const router = useRouter();
+  const [prevDefaultTab, setPrevDefaultTab] = useState(defaultTab);
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [activeSectionId, setActiveSectionId] = useState("");
 
-  useEffect(() => {
+  if (defaultTab !== prevDefaultTab) {
+    setPrevDefaultTab(defaultTab);
     setActiveTab(defaultTab);
-  }, [defaultTab]);
+  }
 
   const currentData =
     activeTab === "terms-and-conditions"

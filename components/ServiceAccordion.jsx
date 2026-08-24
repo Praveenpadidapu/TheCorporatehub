@@ -30,7 +30,6 @@ export default function ServiceAccordion({ currentSlug }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 450);
@@ -61,6 +60,7 @@ export default function ServiceAccordion({ currentSlug }) {
   // Adjust state during render when currentSlug or subserviceParam changes
   if (prevParams.currentSlug !== currentSlug || prevParams.subserviceParam !== subserviceParam) {
     setPrevParams({ currentSlug, subserviceParam });
+    setIsLoading(true);
     if (subserviceParam && subServices.some(s => s.id === subserviceParam)) {
       setOpenSections({
         about: false,
@@ -76,7 +76,10 @@ export default function ServiceAccordion({ currentSlug }) {
 
   const toggleSection = (sectionKey) => {
     setOpenSections((prev) => ({
-      ...prev,
+      about: false,
+      servicesWeProvide: false,
+      onClickServices: false,
+      termsAndConditions: false,
       [sectionKey]: !prev[sectionKey]
     }));
   };
@@ -109,10 +112,12 @@ export default function ServiceAccordion({ currentSlug }) {
 
     if (targetSub) {
       // 1. Expand About Services main section
-      setOpenSections((prev) => ({
-        ...prev,
-        onClickServices: true
-      }));
+      setOpenSections({
+        about: false,
+        servicesWeProvide: false,
+        onClickServices: true,
+        termsAndConditions: false
+      });
 
       // 2. Expand target sub-service details
       setOpenSubServiceId(targetSub.id);

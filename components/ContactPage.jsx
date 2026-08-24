@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
+import { submitContactForm } from "@/app/actions/contact";
 import "./ContactPage.css";
 import {
   FiArrowLeft,
