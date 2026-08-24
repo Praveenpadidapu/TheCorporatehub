@@ -17,12 +17,13 @@ export const metadata = {
   },
 };
 
-
 export default async function RootLayout({ children }) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || "2471438943377182";
 
   return (
     <html lang="en">
@@ -44,7 +45,7 @@ export default async function RootLayout({ children }) {
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '2471438943377182');
+              fbq('init', '${metaPixelId}');
               fbq('track', 'PageView');
             `,
           }}
@@ -54,7 +55,7 @@ export default async function RootLayout({ children }) {
             height="1"
             width="1"
             style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=2471438943377182&ev=PageView&noscript=1"
+            src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
             alt=""
           />
         </noscript>
