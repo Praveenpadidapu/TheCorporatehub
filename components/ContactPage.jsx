@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import "./ContactPage.css";
@@ -160,6 +160,9 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
     setIsSubmitting(true);
 
     try {
+      const landingPage = typeof window !== "undefined" ? window.location.pathname : "/contact";
+      const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
+
       const supabase = createClient();
       const { error } = await supabase
         .from('contact_submissions')
@@ -170,6 +173,10 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
           service: formData.service,
           subject: formData.subject,
           message: formData.message,
+          landing_page: landingPage,
+          utm_source: searchParams.get("utm_source") || "website_direct",
+          utm_medium: searchParams.get("utm_medium") || "organic",
+          utm_campaign: searchParams.get("utm_campaign") || null,
         });
 
       if (error) {
@@ -182,6 +189,13 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
       // Record successful submission timestamp for rate limiter
       timestamps.push(now);
       localStorage.setItem(submissionKey, JSON.stringify(timestamps));
+
+      // Trigger Meta Pixel Lead Conversion Tracking Event
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq('track', 'Lead', {
+          content_name: formData.service || formData.subject || 'General Contact',
+        });
+      }
 
       setIsSubmitting(false);
       setIsSubmitted(true);
