@@ -191,13 +191,6 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
       timestamps.push(now);
       localStorage.setItem(submissionKey, JSON.stringify(timestamps));
 
-      // Trigger Meta Pixel Lead Conversion Tracking Event
-      if (typeof window !== "undefined" && window.fbq) {
-        window.fbq('track', 'Lead', {
-          content_name: formData.service || formData.subject || 'General Contact',
-        });
-      }
-
       setIsSubmitting(false);
       setIsSubmitted(true);
     } catch (err) {
@@ -206,6 +199,19 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
       setIsSubmitting(false);
     }
   };
+
+  const [hasTrackedLead, setHasTrackedLead] = useState(false);
+
+  useEffect(() => {
+    if (isSubmitted && !hasTrackedLead) {
+      if (typeof window !== "undefined" && typeof window.fbq === "function") {
+        window.fbq('track', 'Lead', {
+          content_name: formData.service || formData.subject || 'General Contact Inquiry',
+        });
+        setHasTrackedLead(true);
+      }
+    }
+  }, [isSubmitted, hasTrackedLead, formData.service, formData.subject]);
 
   const handleReset = () => {
     setFormData({
@@ -216,6 +222,7 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
       subject: "",
       message: ""
     });
+    setHasTrackedLead(false);
     setIsSubmitted(false);
   };
 

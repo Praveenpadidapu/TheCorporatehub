@@ -63,13 +63,6 @@ export default function SeoContactModalTrigger({ cityName, serviceName, citySlug
         return;
       }
 
-      // Trigger Meta Pixel Lead Conversion Tracking Event strictly after API success
-      if (typeof window !== "undefined" && window.fbq) {
-        window.fbq('track', 'Lead', {
-          content_name: `${serviceName} (${cityName})`,
-        });
-      }
-
       setIsSubmitting(false);
       setIsSuccess(true);
     } catch (err) {
@@ -78,6 +71,19 @@ export default function SeoContactModalTrigger({ cityName, serviceName, citySlug
       setIsSubmitting(false);
     }
   };
+
+  const [hasTrackedLead, setHasTrackedLead] = useState(false);
+
+  React.useEffect(() => {
+    if (isSuccess && !hasTrackedLead) {
+      if (typeof window !== "undefined" && typeof window.fbq === "function") {
+        window.fbq('track', 'Lead', {
+          content_name: `${serviceName} (${cityName})`,
+        });
+        setHasTrackedLead(true);
+      }
+    }
+  }, [isSuccess, hasTrackedLead, serviceName, cityName]);
 
   return (
     <>
