@@ -1,4 +1,5 @@
 import { servicesData } from "@/data/servicesData";
+import { subServiceDetailsData } from "@/data/serviceDetailsData";
 import { createClient } from "@supabase/supabase-js";
 
 export default async function sitemap() {
@@ -62,6 +63,13 @@ export default async function sitemap() {
     priority: 0.8,
   }));
 
+  const subServiceRoutes = Object.values(subServiceDetailsData).map((sub) => ({
+    url: `${baseUrl}/services/${sub.categorySlug}/${sub.id}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.85,
+  }));
+
   // Query published SEO Location Pages from Supabase using direct public client
   let locationRoutes = [];
   try {
@@ -108,5 +116,5 @@ export default async function sitemap() {
     ];
   }
 
-  return [...staticRoutes, ...serviceRoutes, ...locationRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...subServiceRoutes, ...locationRoutes];
 }
