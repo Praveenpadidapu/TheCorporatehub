@@ -33,13 +33,19 @@ CREATE TABLE IF NOT EXISTS public.seo_location_pages (
   meta_title text NOT NULL,
   meta_description text NOT NULL,
   intro text,
-  local_information text,
-  why_choose_service text,
-  process text,
+  what_is_service text,
+  who_should_choose text,
+  key_benefits text,
+  eligibility text,
   documents text,
-  pricing text,
+  process text,
   timeline text,
+  tax_compliance text,
+  comparison text,
+  business_growth text,
+  local_information text,
   why_corporate_hub text,
+  pricing text,
   canonical_url text,
   og_image text,
   published boolean NOT NULL DEFAULT false,
@@ -47,6 +53,16 @@ CREATE TABLE IF NOT EXISTS public.seo_location_pages (
   updated_at timestamptz NOT NULL DEFAULT now(),
   UNIQUE(location_id, service_id)
 );
+
+-- Ensure existing database tables get new columns via ALTER TABLE IF NOT EXISTS
+ALTER TABLE public.seo_location_pages
+  ADD COLUMN IF NOT EXISTS what_is_service text,
+  ADD COLUMN IF NOT EXISTS who_should_choose text,
+  ADD COLUMN IF NOT EXISTS key_benefits text,
+  ADD COLUMN IF NOT EXISTS eligibility text,
+  ADD COLUMN IF NOT EXISTS tax_compliance text,
+  ADD COLUMN IF NOT EXISTS comparison text,
+  ADD COLUMN IF NOT EXISTS business_growth text;
 
 -- 4. Create SEO FAQs Table
 CREATE TABLE IF NOT EXISTS public.seo_faqs (

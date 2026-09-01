@@ -5,17 +5,22 @@ import { getSeoLocationPage } from "@/lib/seo/getSeoLocationPage";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SeoHero from "@/components/seo/SeoHero";
 import ServiceOverview from "@/components/seo/ServiceOverview";
-import LocalInformation from "@/components/seo/LocalInformation";
-import RegistrationProcess from "@/components/seo/RegistrationProcess";
 import DocumentsSection from "@/components/seo/DocumentsSection";
+import RegistrationProcess from "@/components/seo/RegistrationProcess";
 import PricingSection from "@/components/seo/PricingSection";
+import LocalInformation from "@/components/seo/LocalInformation";
+import ComparisonSection from "@/components/seo/ComparisonSection";
+import BusinessGrowthSection from "@/components/seo/BusinessGrowthSection";
 import WhyCorporateHub from "@/components/seo/WhyCorporateHub";
 import FAQSection from "@/components/seo/FAQSection";
 import RelatedServices from "@/components/seo/RelatedServices";
 import RelatedLocations from "@/components/seo/RelatedLocations";
+import FinalCtaSection from "@/components/seo/FinalCtaSection";
 import CorporateFooter from "@/components/CorporateFooter";
 
 import "@/components/seo/SeoPages.css";
+
+export const revalidate = 60; // Dynamic revalidation every 60s for live admin updates
 
 // Dynamic Metadata Generator
 export async function generateMetadata({ params, searchParams }) {
@@ -34,20 +39,27 @@ export async function generateMetadata({ params, searchParams }) {
 
   const { location, service: serviceObj, page } = pageData;
   const canonicalUrl = page.canonical_url || `https://www.thecorporatehub.in/locations/${location.city_slug}/${serviceObj.service_slug}`;
+  const title = isPreview ? `[PREVIEW DRAFT] ${page.meta_title}` : page.meta_title;
+  const description = page.meta_description;
 
   return {
-    title: isPreview ? `[PREVIEW DRAFT] ${page.meta_title}` : page.meta_title,
-    description: page.meta_description,
+    title,
+    description,
     robots: isPreview ? { index: false, follow: false } : { index: true, follow: true },
     alternates: {
       canonical: canonicalUrl
     },
     openGraph: {
-      title: page.meta_title,
-      description: page.meta_description,
+      title,
+      description,
       url: canonicalUrl,
       type: "website",
       images: page.og_image ? [{ url: page.og_image }] : [{ url: "/logo.png" }]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description
     }
   };
 }
@@ -100,6 +112,25 @@ export default async function SeoLocationPage({ params, searchParams }) {
     ]
   };
 
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": `Corporate Hub ${serviceObj.service_name} in ${location.city_name}`,
+    "url": canonicalUrl,
+    "logo": "https://www.thecorporatehub.in/logo.png",
+    "description": page.meta_description || `${serviceObj.service_name} services in ${location.city_name}, ${location.state_name}.`,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": location.city_name,
+      "addressRegion": location.state_name,
+      "addressCountry": "IN"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": location.city_name
+    }
+  };
+
   const faqSchema = faqs && faqs.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -127,6 +158,12 @@ export default async function SeoLocationPage({ params, searchParams }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {!isPreview && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+      )}
       {!isPreview && faqSchema && (
         <script
           type="application/ld+json"
@@ -141,7 +178,7 @@ export default async function SeoLocationPage({ params, searchParams }) {
         citySlug={location.city_slug}
       />
 
-      {/* Hero Section */}
+      {/* 1. Main Heading & 2. Hero Introduction */}
       <SeoHero
         h1={page.h1}
         intro={page.intro}
@@ -152,66 +189,95 @@ export default async function SeoLocationPage({ params, searchParams }) {
         serviceSlug={serviceObj.service_slug}
       />
 
-      {/* Service Overview */}
+      {/* 3. What Is the Service?, 4. Who Should Choose This?, 5. Key Benefits, 6. Eligibility / Requirements */}
       <ServiceOverview
         serviceName={serviceObj.service_name}
         cityName={location.city_name}
+        whatIsService={page.what_is_service}
+        whoShouldChoose={page.who_should_choose}
+        keyBenefits={page.key_benefits}
+        eligibility={page.eligibility}
         whyChooseService={page.why_choose_service}
       />
 
-      {/* Local Regulatory Information */}
-      <LocalInformation
-        cityName={location.city_name}
-        localInformation={page.local_information}
-      />
-
-      {/* Step-by-Step Registration Process */}
-      <RegistrationProcess
-        serviceName={serviceObj.service_name}
-        cityName={location.city_name}
-        processText={page.process}
-      />
-
-      {/* Documents Required */}
+      {/* 7. Documents Required */}
       <DocumentsSection
         serviceName={serviceObj.service_name}
         cityName={location.city_name}
         documentsText={page.documents}
       />
 
-      {/* Pricing & Timeline */}
+      {/* 8. Process */}
+      <RegistrationProcess
+        serviceName={serviceObj.service_name}
+        cityName={location.city_name}
+        processText={page.process}
+      />
+
+      {/* 9. Timeline */}
       <PricingSection
-        pricingText={page.pricing}
         timelineText={page.timeline}
         cityName={location.city_name}
         serviceName={serviceObj.service_name}
+        citySlug={location.city_slug}
+        serviceSlug={serviceObj.service_slug}
       />
 
-      {/* Why Choose Corporate Hub */}
+      {/* 10. Tax & Compliance & 13. Local Information */}
+      <LocalInformation
+        cityName={location.city_name}
+        serviceName={serviceObj.service_name}
+        localInformation={page.local_information}
+        taxCompliance={page.tax_compliance}
+      />
+
+      {/* 11. Comparison */}
+      <ComparisonSection
+        serviceName={serviceObj.service_name}
+        cityName={location.city_name}
+        comparisonText={page.comparison}
+        citySlug={location.city_slug}
+        serviceSlug={serviceObj.service_slug}
+      />
+
+      {/* 12. How It Helps Your Business Grow */}
+      <BusinessGrowthSection
+        serviceName={serviceObj.service_name}
+        cityName={location.city_name}
+        businessGrowthText={page.business_growth}
+      />
+
+      {/* 14. Why The Corporate Hub? */}
       <WhyCorporateHub
         whyCorporateHub={page.why_corporate_hub}
         cityName={location.city_name}
       />
 
-      {/* FAQs Section */}
+      {/* 15. Frequently Asked Questions */}
       <FAQSection
         faqs={faqs}
         cityName={location.city_name}
         serviceName={serviceObj.service_name}
       />
 
-      {/* Related Services in Same City */}
+      {/* 16. Related Services & Locations */}
       <RelatedServices
         relatedServices={relatedServices}
         cityName={location.city_name}
         citySlug={location.city_slug}
         parentCategorySlug={serviceObj.parent_service}
       />
-
-      {/* Related Locations for Same Service */}
       <RelatedLocations
         relatedLocations={relatedLocations}
         serviceName={serviceObj.service_name}
+        serviceSlug={serviceObj.service_slug}
+      />
+
+      {/* 17. Final Call to Action */}
+      <FinalCtaSection
+        serviceName={serviceObj.service_name}
+        cityName={location.city_name}
+        citySlug={location.city_slug}
         serviceSlug={serviceObj.service_slug}
       />
 
