@@ -16,26 +16,37 @@ Whether you are launching a startup, transforming a partnership, or establishing
         title: "Services We Provide",
         items: [
           {
+            id: "pvt-ltd",
             name: "Private Limited Company",
             desc: "Ideal for startups and growing businesses seeking equity funding and limited liability."
           },
           {
+            id: "opc-reg",
+            name: "One Person Company (OPC)",
+            desc: "Own 100% single-member corporate entity with limited liability and separate legal identity."
+          },
+          {
+            id: "llp-reg",
             name: "LLP Registration",
             desc: "Combines operational flexibility of a partnership with limited liability protection."
           },
           {
+            id: "sec8-ngo",
             name: "Section 8 Company (NGO)",
             desc: "Registration for charitable trusts, foundations, and non-profit social enterprises."
           },
           {
+            id: "startup-msme",
             name: "Startup India & MSME",
             desc: "Government portal registration unlocking tax holidays, subsidies, and credit benefits."
           },
           {
+            id: "export-setup",
             name: "Export Business Setup",
             desc: "Complete setup for international commerce, DGFT IEC allotment, and customs approvals."
           },
           {
+            id: "food-franchisee",
             name: "Food and Franchisee Business Setup",
             desc: "Turn-key legal setup including FSSAI licensing, shop permits, and franchisee agreements."
           }

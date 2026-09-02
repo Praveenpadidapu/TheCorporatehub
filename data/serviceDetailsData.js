@@ -11,136 +11,146 @@ export const subServiceDetailsData = {
     categoryTitle: "Business Registration",
     name: "Private Limited Company Registration",
     locationHeading: "Private Limited Company Registration in India",
-    heroIntro: "Incorporate your Private Limited Company with complete legal compliance, limited liability protection, and separate legal entity status. Designed for startups, founders, and growing enterprises seeking institutional equity funding, market credibility, and structured governance.",
-    whatIs: "A Private Limited Company is the most popular corporate legal structure in India, governed by the Companies Act, 2013 and administered by the Ministry of Corporate Affairs (MCA). It establishes a separate legal entity distinct from its shareholders and directors, limiting the financial liability of members strictly to their unpaid share capital.",
+    heroIntro: "Build a Business That Is Ready to Grow. A Private Limited Company is more than a registration. It creates a structured foundation for ownership, funding, team building, expansion, and long-term business growth.",
+    whatIs: "A Private Limited Company is a separate legal entity incorporated under the Companies Act, 2013. It provides structured ownership through shares, limited liability to its members subject to applicable law, and a corporate framework suitable for businesses that want to scale.",
     whoShouldChoose: [
       {
-        title: "Early-Stage & Scalable Startups",
+        title: "Startups & Tech Companies",
         desc: "Founders planning to raise venture capital, angel investment, or issue ESOPs to key team members."
       },
       {
-        title: "Growing MSMEs & SMEs",
-        desc: "Businesses transitioning from proprietorships or partnerships to build corporate reputation."
+        title: "Growing Businesses & Multiple Founders",
+        desc: "Ventures with 2 or more co-founders building structured equity ownership and corporate governance."
       },
       {
-        title: "E-Commerce & Tech Companies",
-        desc: "Online platforms requiring corporate merchant accounts, payment gateway integrations, and API agreements."
+        title: "E-Commerce & Scalable Platforms",
+        desc: "Online brands requiring corporate merchant accounts, gateway integrations, and commercial vendor agreements."
       },
       {
-        title: "Foreign Entities & Subsidiaries",
-        desc: "International corporations seeking 100% subsidiary establishment or joint ventures in India."
+        title: "Fundraising Businesses & High-Growth Ventures",
+        desc: "Companies wanting institutional investor readiness from Day 1 to avoid costly future restructuring."
       }
     ],
     keyBenefits: [
       {
+        title: "Separate Legal Entity",
+        desc: "The company has a legal identity separate from its shareholders, independently owning property and signing contracts."
+      },
+      {
         title: "Limited Liability Protection",
-        desc: "Personal assets of directors and shareholders remain completely protected against business debts and losses."
-      },
-      {
-        title: "Separate Legal Entity Status",
-        desc: "The company can independently own property, enter binding contracts, sue, and be sued in its own name."
-      },
-      {
-        title: "Investor & Venture Capital Ready",
-        desc: "The only entity structure preferred by venture capital firms, angel networks, and institutional investors."
+        desc: "Shareholders' liability is generally limited to unpaid share capital, protecting personal savings and homes."
       },
       {
         title: "Perpetual Succession",
-        desc: "The legal existence of the company continues unaffected by changes in directors or shareholding."
+        desc: "Changes in directors or shareholders do not by themselves end the legal existence of the company."
       },
       {
-        title: "Easy Transferability of Shares",
-        desc: "Ownership can be transferred seamlessly through standard share transfer instruments."
+        title: "Structured Ownership",
+        desc: "Shareholding clearly represents ownership, facilitating seamless future equity changes and cap table planning."
       },
       {
-        title: "High Market Credibility",
-        desc: "Corporate registration fosters trust among corporate clients, banks, suppliers, and government agencies."
+        title: "Investor-Friendly Structure",
+        desc: "The premier entity structure preferred by angel investors, venture capital firms, and private equity funds."
+      },
+      {
+        title: "ESOP Possibility",
+        desc: "Eligible companies can implement Employee Stock Option Plans (ESOPs) to attract and incentivize top talent."
+      },
+      {
+        title: "Better Corporate Structure",
+        desc: "Statutory governance, records, and compliance create an organized framework for operating and scaling."
       }
     ],
     eligibility: [
       "Minimum 2 Shareholders (Maximum 200 shareholders allowed)",
-      "Minimum 2 Directors (At least one director must be a resident of India, residing >182 days in the preceding financial year)",
-      "Registered Office Address in India (Commercial or residential premises)",
-      "Active PAN and Aadhaar/Passport for all directors and shareholders",
-      "Digital Signature Certificate (DSC Class 3) for all proposed directors"
+      "Minimum 2 Directors (Maximum 15 directors permitted)",
+      "At least 1 Resident Director (Residing in India for >182 days in the preceding financial year)",
+      "Registered Office in India (Commercial or residential premises with valid utility bill)",
+      "Unique Company Name (Not conflicting with existing trademarks or companies)",
+      "Digital Signature Certificates (DSC Class 3) for all proposed directors",
+      "No prescribed minimum paid-up capital for a normal Private Limited Company (Start with ₹1,000)"
     ],
     documentsRequired: {
       directors: [
         "Self-attested PAN Card copy (Mandatory for Indian nationals)",
-        "Passport copy (Mandatory for foreign nationals)",
+        "Passport copy (Mandatory for foreign nationals / NRI directors)",
         "Identity Proof: Aadhaar Card, Voter ID, or Passport",
         "Address Proof: Bank Statement or Electricity Bill (Not older than 2 months)",
         "Recent passport-sized photographs"
       ],
       registeredOffice: [
         "Electricity Bill or Water Bill of the premises (Not older than 2 months)",
-        "Rent Agreement on stamp paper (If rented)",
-        "No Objection Certificate (NOC) from the property owner",
-        "Municipal tax receipt / ownership deed (If owned)"
+        "Rent Agreement on stamp paper & NOC from property owner (If rented)",
+        "Property tax receipt / ownership deed (If owned)"
       ]
     },
     processSteps: [
       {
         step: 1,
         title: "Digital Signatures (DSC) & Director KYC",
-        desc: "Procurement of Class-3 Digital Signature Certificates for all directors and verification of KYC credentials."
+        desc: "Procure Class-3 Digital Signature Certificates and verify director identification credentials."
       },
       {
         step: 2,
         title: "Company Name Reservation (SPICe+ Part A)",
-        desc: "Filing name approval application with MCA. Up to 2 unique name choices submitted under RUN / SPICe+ Part A."
+        desc: "Submit name approval application on MCA RUN / SPICe+ Part A portal with up to 2 unique name choices."
       },
       {
         step: 3,
         title: "Drafting MOA & AOA Charters",
-        desc: "Drafting the Memorandum of Association (MOA) and Articles of Association (AOA) tailored to business objectives."
+        desc: "Draft Memorandum of Association (MOA) and Articles of Association (AOA) tailored to business scope."
       },
       {
         step: 4,
-        title: "MCA SPICe+ Part B Incorporation Filing",
-        desc: "Filing integrated forms including AGILE-PRO-S for PAN, TAN, EPFO, ESIC, Professional Tax, and Bank Account."
+        title: "MCA SPICe+ Part B Filing",
+        desc: "File integrated incorporation forms including AGILE-PRO-S for PAN, TAN, EPFO, ESIC, and Bank Account."
       },
       {
         step: 5,
         title: "Issuance of Certificate of Incorporation (COI)",
-        desc: "Registrar of Companies (ROC) issues the COI with unique Corporate Identification Number (CIN), PAN, and TAN."
+        desc: "Registrar of Companies (ROC) issues the COI with Corporate Identification Number (CIN), PAN, and TAN."
       }
     ],
     timeline: {
-      duration: "5 - 7 Business Days",
-      qualification: "Turnaround time is subject to MCA portal approval timelines and prompt document submission by directors."
+      duration: "Approximately 10 Working Days*",
+      qualification: "Subject to document readiness, name availability, MCA processing, and regulatory approval."
     },
     taxCompliance: [
-      "Mandatory Corporate Income Tax return filing (ITR-6) every financial year.",
-      "Annual ROC Return filings: Form AOC-4 (Financial Statements) and Form MGT-7 (Annual Return).",
+      "Concessional Tax Regime (Section 115BAA): Base Income Tax 22% + 10% Surcharge + 4% Cess = Effective Tax Rate Approx. 25.17%.",
+      "Mandatory annual filing of Form AOC-4 (Financial Statements) and Form MGT-7/7A (Annual Return) with MCA.",
       "Annual Director KYC (DIR-3 KYC) for all DIN holders before September 30th.",
-      "GST Registration and monthly/quarterly GSTR-1 and GSTR-3B filings if turnover exceeds threshold.",
-      "Mandatory statutory audit by a practicing Chartered Accountant regardless of turnover."
+      "Mandatory statutory audit by an independent practicing Chartered Accountant regardless of turnover.",
+      "Annual Corporate Income Tax return filing on Form ITR-6."
     ],
     comparison: {
-      title: "Comparison: Private Limited vs LLP vs Sole Proprietorship",
-      headers: ["Parameter", "Private Limited Company", "LLP (Limited Liability Partnership)", "Sole Proprietorship"],
+      title: "Master Comparison: All 6 Business Structures in India",
+      headers: ["Feature", "Proprietorship", "Partnership", "LLP", "OPC", "Pvt Ltd", "Public Ltd"],
       rows: [
-        ["Legal Status", "Separate Legal Entity", "Separate Legal Entity", "No Separate Entity"],
-        ["Liability", "Limited to Unpaid Shares", "Limited to Agreed Contribution", "Unlimited Personal Liability"],
-        ["Investor Preference", "Highly Preferred by VCs & Angels", "Limited Investor Appeal", "Not Eligible for Equity Funding"],
-        ["Statutory Audit", "Mandatory Every Year", "Mandatory if Turnover > ₹40L or Capital > ₹25L", "Mandatory only if Turnover exceeds Tax Audit limits"],
-        ["Tax Rate", "22% base corporate tax (+ surcharge/cess)", "30% flat tax (+ surcharge/cess)", "Individual Income Tax slab rates"],
-        ["Transfer of Ownership", "Seamless share transfer", "Requires partner consent & agreement amendment", "Non-transferable"]
+        ["Legal Identity", "None", "None", "Separate Legal Entity", "Separate Legal Entity", "Fully Separate Legal Entity", "Fully Separate Legal Entity"],
+        ["Min Members", "1", "2 (Max 20)", "2 (No limit)", "1", "2 (Max 200)", "7 (No limit)"],
+        ["Liability", "Unlimited (Personal assets at risk)", "Unlimited & Joint", "Limited to capital contribution", "Limited to share capital", "Limited to unpaid share capital", "Limited to unpaid share capital"],
+        ["Tax Rate", "Individual slab (up to 30%)", "30% flat + surcharge", "30% flat + surcharge", "25% base (new regime)", "22% base (~25.17% effective)", "25% base rate (new regime)"],
+        ["Equity Funding", "No", "No", "No (Partners' capital only)", "No (Single shareholder)", "Yes (Angels, VCs, PE, Funds)", "Yes (Public IPO, FIIs)"],
+        ["Compliance Burden", "Very Low (5%)", "Low (15%)", "Moderate (40%)", "Moderate (50%)", "Structured (75%)", "Very High (100%)"],
+        ["Startup Suitability", "Basic", "Basic", "Good (Services)", "Good (Solopreneurs)", "Best (Startup-Ready)", "Post-growth / Pre-IPO"]
       ]
     },
     growthImpact: [
-      "Unlocks institutional equity funding, convertible notes, and venture debt access.",
-      "Enables structured employee stock option plans (ESOPs) to retain top engineering and executive talent.",
-      "Allows participation in large corporate and government tenders requiring established corporate credentials.",
-      "Protects enterprise brand equity and intellectual property under an independent legal corporate structure."
+      "01 — Start with a Structured Business: Separate your personal identity from your business (Idea → Company → Brand).",
+      "02 — Build Business Credibility: Deal with larger corporate clients, vendors, and banks (Small Business → Professional Organisation).",
+      "03 — Bring Co-Founders & Build Ownership: Structure Founder Equity → Co-Founder Equity → Investor Equity with clear cap table planning.",
+      "04 — Raise Equity Investment: Approach Angel Investors, Venture Capital, and Strategic Investors (Bootstrapped → Funded → Scalable).",
+      "05 — Build a Strong Team with ESOPs: Implement Employee Stock Option Plans to attract and retain elite leadership talent.",
+      "06 — Access Business Finance: Explore working capital, business loans, project finance, and banking credit lines.",
+      "07 — Expand Your Business: Expand into new locations, products, larger contracts, and strategic partnerships without legal bottlenecks.",
+      "08 — Build Towards a Bigger Future: Scale across growth stages (Startup → Growing Company → Funded Business → Expansion → Strategic Investment → IPO / Acquisition)."
     ],
-    localInformation: "The Ministry of Corporate Affairs administers registrations via state-wise Registrar of Companies (ROC) jurisdictions. From commercial financial districts like Ahmedabad, Mumbai, Bengaluru, Hyderabad, Pune, to Delhi NCR, The Corporate Hub executes 100% digital filings without requiring in-person visits to ROC offices.",
+    localInformation: "At The Corporate Hub, our focus is not simply on getting your Certificate of Incorporation. We help entrepreneurs think beyond registration — towards business structure, brand protection, compliance, ownership, funding, and growth. Company Registration → Startup Structuring → Trademark → Compliance → Funding → Growth. Build the Business. Protect the Brand. Scale with Structure.",
     whyCorporateHub: [
-      "Expert Chartered Accountants and Company Secretaries dedicated to your incorporation case.",
-      "100% digital paperless filing process with real-time status notifications.",
-      "Transparent statutory handling with zero hidden charges or unexpected surprise fees.",
-      "End-to-end post-incorporation kit including PAN, TAN, Bank Account, GST advisory, and first board resolutions."
+      "Startup Structuring & Advisory: We don't just file forms; we structure cap tables, founder equity, and board charters.",
+      "Dedicated Chartered Accountants & Company Secretaries assigned to your incorporation case.",
+      "100% digital paperless filing process with real-time status tracking.",
+      "End-to-end post-incorporation support: PAN, TAN, Bank Account, GST, Trademark advisory, and First Board Resolutions."
     ],
     faqs: [
       {
@@ -149,30 +159,188 @@ export const subServiceDetailsData = {
       },
       {
         q: "Can a salaried individual become a director in a Private Limited Company?",
-        a: "Yes, an individual employed full-time can become a director unless their employment contract specifically prohibits directorships or secondary business ownership."
+        a: "Yes, an individual employed full-time can become a director unless their employment contract specifically prohibits secondary business ownership or directorships."
       },
       {
         q: "Is physical presence required at the Registrar of Companies (ROC)?",
-        a: "No. The entire incorporation procedure is completely online through digital signature authentication and MCA portal filings."
+        a: "No. The entire incorporation procedure is 100% online through digital signature authentication and MCA portal submissions."
       },
       {
         q: "Can a residential address be used as the registered office of the company?",
         a: "Yes, you can use your home or residential premises as the registered office address provided you have a valid utility bill and NOC from the property owner."
       },
       {
-        q: "What is the validity of the Certificate of Incorporation?",
-        a: "The Certificate of Incorporation is valid for a lifetime and does not require periodic renewal as long as statutory annual ROC returns are maintained."
+        q: "Why do investors prefer Private Limited Companies over LLPs or Proprietorships?",
+        a: "Investors prefer Private Limited Companies because ownership is represented through easily transferable shares, preference shares (CCPS), clear governance rules, and structured exit mechanisms (IPO/Acquisition)."
       },
       {
-        q: "How many directors are needed to start a Private Limited Company?",
-        a: "A minimum of 2 directors and a maximum of 15 directors are permitted under the standard provisions of the Companies Act."
+        q: "What is the effective corporate tax rate for a Private Limited Company?",
+        a: "An eligible domestic company opting for Section 115BAA is taxed at 22% base income tax + 10% surcharge + 4% cess, resulting in an effective tax rate of approximately 25.17%."
       }
     ],
     relatedServices: [
+      { name: "One Person Company (OPC)", slug: "opc-reg", categorySlug: "business-registration" },
+      { name: "LLP Registration", slug: "llp-reg", categorySlug: "business-registration" },
+      { name: "Startup India & MSME", slug: "startup-msme", categorySlug: "business-registration" },
+      { name: "Trademark Registration", slug: "tm-reg", categorySlug: "intellectual-property" },
+      { name: "ROC Compliance", slug: "roc-compliance", categorySlug: "corporate-compliance" }
+    ]
+  },
+
+  "opc-reg": {
+    id: "opc-reg",
+    categorySlug: "business-registration",
+    categoryTitle: "Business Registration",
+    name: "One Person Company (OPC) Registration",
+    locationHeading: "One Person Company (OPC) Registration in India",
+    heroIntro: "Own 100%. Build Like a Company. Want to run your business independently but don't want your business and personal identity to remain the same? A One Person Company (OPC) allows a single entrepreneur to build a separate corporate identity while retaining single-member ownership. One Founder → One Company → Bigger Possibilities.",
+    whatIs: "A One Person Company (OPC) is a company incorporated under the Companies Act, 2013 (Section 2(62)) with only one member/shareholder. Unlike a proprietorship, an OPC has a separate legal identity from its owner, providing corporate structure, limited liability protection, and room for future growth.",
+    whoShouldChoose: [
+      {
+        title: "Solo Entrepreneurs & Solopreneurs",
+        desc: "Individual founders who want to build and own 100% of a registered company without needing a second co-founder."
+      },
+      {
+        title: "Consultants & Freelance Specialists",
+        desc: "Software developers, designers, financial advisors, and digital creators wanting corporate credibility."
+      },
+      {
+        title: "Proprietorships Transitioning to Corporate",
+        desc: "Existing small business owners wanting limited liability and separate PAN & banking credentials."
+      }
+    ],
+    keyBenefits: [
+      {
+        title: "Separate Legal Identity",
+        desc: "The OPC exists separately from its shareholder, receiving its own corporate PAN, bank account, and contracts."
+      },
+      {
+        title: "Limited Liability Protection",
+        desc: "The sole shareholder generally enjoys limited liability, protecting personal savings and family assets from business debts."
+      },
+      {
+        title: "100% Ownership & Control",
+        desc: "Retain complete executive decision-making and equity control without board or shareholder conflicts."
+      },
+      {
+        title: "Corporate Continuity with Nominee",
+        desc: "The nominee mechanism provides seamless succession in the event of death or incapacity of the sole member."
+      },
+      {
+        title: "Easy Conversion to Private Limited",
+        desc: "Convert seamlessly into a multi-shareholder Private Limited Company when onboarding co-founders or investors."
+      },
+      {
+        title: "Higher Commercial Credibility",
+        desc: "Registered company status unlocks corporate contracts, payment gateways, and institutional vendor onboarding."
+      }
+    ],
+    eligibility: [
+      "1 Member / Shareholder (Must be a natural person and citizen of India)",
+      "Minimum 1 Director (The sole shareholder can be the sole director)",
+      "1 Nominee (Mandatory nominee named in MOA for corporate continuity)",
+      "Registered Office in India (Commercial or residential premises)",
+      "Unique Company Name (Ending with 'OPC Private Limited')",
+      "Digital Signature Certificate (DSC Class 3)",
+      "Lawful Business Activity",
+      "No statutory minimum paid-up capital requirement"
+    ],
+    documentsRequired: {
+      directors: [
+        "Self-attested PAN Card copy of sole member & nominee",
+        "Identity Proof: Aadhaar Card, Passport, or Voter ID",
+        "Address Proof: Recent Bank Statement or Electricity Bill (Not older than 2 months)",
+        "Consent of Nominee in Form INC-3",
+        "Passport size photographs"
+      ],
+      registeredOffice: [
+        "Electricity Bill or Property Tax Receipt of the premises",
+        "Rent Agreement on stamp paper & NOC from property owner (If rented)"
+      ]
+    },
+    processSteps: [
+      {
+        step: 1,
+        title: "DSC Procurement & Nominee Consent",
+        desc: "Obtain Digital Signature Certificate and execute Form INC-3 nominee consent."
+      },
+      {
+        step: 2,
+        title: "Name Reservation (SPICe+ Part A)",
+        desc: "Apply for unique company name reservation ending with '(OPC) Private Limited'."
+      },
+      {
+        step: 3,
+        title: "Drafting MOA & AOA Charters",
+        desc: "Draft constitutional charters with nominee clause and principal business objects."
+      },
+      {
+        step: 4,
+        title: "Filing SPICe+ Part B Incorporation",
+        desc: "Submit integrated incorporation forms for CIN, PAN, TAN, EPFO, ESIC, and Bank Account."
+      },
+      {
+        step: 5,
+        title: "Issuance of Certificate of Incorporation",
+        desc: "Receive official Certificate of Incorporation from the Registrar of Companies (ROC)."
+      }
+    ],
+    timeline: {
+      duration: "Approximately 10 Working Days*",
+      qualification: "Name Approval → DSC → Incorporation → PAN/TAN → Certificate of Incorporation (Subject to MCA processing speed)."
+    },
+    taxCompliance: [
+      "Taxed as a domestic company: Eligible for Section 115BAA (22% Income Tax + 10% Surcharge + 4% Cess = Approx. 25.17% effective).",
+      "Annual filing of Form AOC-4 (Financial Statements) and Form MGT-7A (Abridged Annual Return for OPCs).",
+      "Annual DIR-3 KYC verification for the director before September 30th.",
+      "Mandatory annual statutory audit by a practicing Chartered Accountant."
+    ],
+    comparison: {
+      title: "Comparison: OPC vs Proprietorship vs Private Limited",
+      headers: ["Particular", "Sole Proprietorship", "One Person Company (OPC)", "Private Limited Company"],
+      rows: [
+        ["Legal Identity", "No Separate Legal Entity", "Separate Legal Entity", "Separate Legal Entity"],
+        ["Income-tax PAN", "Proprietor's Personal PAN", "Company's Own Corporate PAN", "Company's Own Corporate PAN"],
+        ["Ownership", "One Proprietor", "Single Shareholder (100%)", "2 to 200 Shareholders"],
+        ["Liability", "Unlimited (Personal assets at risk)", "Limited to share capital", "Limited to unpaid shares"],
+        ["Business Bank Account", "Account linked to proprietor", "Dedicated in Company's Name", "Dedicated in Company's Name"],
+        ["Corporate Continuity", "Closely linked with proprietor", "Corporate succession via Nominee", "Perpetual succession"],
+        ["Equity Investors", "Not Possible", "Not suited while remaining single-member", "Highly Preferred by VCs/Angels"],
+        ["Future Growth", "Difficult to scale legally", "Can convert into Pvt Ltd", "Built for scale & equity funding"]
+      ]
+    },
+    growthImpact: [
+      "01 — Start Alone. Build Professionally: You don't need a second shareholder merely to build a company (Solo Founder → OPC → Brand → Team → Growth).",
+      "02 — Create a Separate Business Identity: Distinction between You as an Individual and Your Business as a Company.",
+      "03 — Build Business Credibility: Deal as a registered corporate entity with customers, vendors, banks, and corporate clients.",
+      "04 — Limited Liability: Shield personal assets against commercial liabilities.",
+      "05 — Convert When You're Ready to Scale: Introduce additional co-founders or angel investors by converting to Pvt Ltd (OPC → Pvt Ltd → Investors → Expansion)."
+    ],
+    localInformation: "At The Corporate Hub, we don't just ask: 'Which entity can we register?' We ask: 'Where do you want your business to go?' Then we help you choose between Proprietorship → OPC → Private Limited based on your ownership, liability, taxation, compliance, and future growth plans. Start Solo. Build Corporate. Grow Bigger.",
+    whyCorporateHub: [
+      "Comprehensive advisory on nominee structuring and seamless MOA drafting.",
+      "Clear guidance on when and how to convert from OPC to Private Limited Company.",
+      "100% digital incorporation process with dedicated CA/CS support."
+    ],
+    faqs: [
+      {
+        q: "Who can be a nominee in an OPC?",
+        a: "Any natural person who is an Indian citizen can be appointed as a nominee. The nominee steps in as the sole member only in the event of death or incapacity of the original subscriber."
+      },
+      {
+        q: "Can an OPC be converted into a Private Limited Company?",
+        a: "Yes! An OPC can voluntarily convert into a Private Limited Company at any time by passing a special resolution, increasing the number of members to at least 2, and filing Form INC-6."
+      },
+      {
+        q: "Can an OPC raise funding from venture capitalists or angel investors?",
+        a: "To issue equity shares to external investors, the OPC must first convert into a multi-member Private Limited Company."
+      }
+    ],
+    relatedServices: [
+      { name: "Private Limited Company", slug: "pvt-ltd", categorySlug: "business-registration" },
       { name: "LLP Registration", slug: "llp-reg", categorySlug: "business-registration" },
       { name: "Trademark Registration", slug: "tm-reg", categorySlug: "intellectual-property" },
-      { name: "GST Consultancy", slug: "gst-consultancy", categorySlug: "accounting-taxation" },
-      { name: "ROC Compliance", slug: "roc-compliance", categorySlug: "corporate-compliance" }
+      { name: "Accounting & Bookkeeping", slug: "acc-bookkeeping", categorySlug: "accounting-taxation" }
     ]
   },
 
@@ -181,128 +349,158 @@ export const subServiceDetailsData = {
     categorySlug: "business-registration",
     categoryTitle: "Business Registration",
     name: "Limited Liability Partnership (LLP) Registration",
-    locationHeading: "Limited Liability Partnership Registration in India",
-    heroIntro: "Form a Limited Liability Partnership combining the operational flexibility of a traditional partnership with limited liability protection. Ideal for professional service firms, consultants, legal practices, and real estate partnerships.",
-    whatIs: "A Limited Liability Partnership (LLP) is an alternative corporate business form governed by the Limited Liability Partnership Act, 2008. It offers the benefit of limited liability to its partners at low compliance costs while allowing members the internal flexibility of organizing their partnership according to a mutually agreed LLP Agreement.",
+    locationHeading: "Limited Liability Partnership (LLP) Registration in India",
+    heroIntro: "Grow Your Business. Keep Your Ownership Flexible. Not every growing business needs investors or equity dilution. If you are building a consulting firm, professional practice, agency, service business, or partnership-driven venture, a Limited Liability Partnership (LLP) provides the right balance of: Limited Liability | Flexible Ownership | Separate Legal Identity | Lower Corporate Compliance.",
+    whatIs: "A Limited Liability Partnership (LLP) is a separate legal entity governed by the Limited Liability Partnership Act, 2008. It combines certain features of a traditional partnership with the benefit of limited liability and separate legal identity. Instead of shareholders and directors, an LLP operates through its partners and designated partners.",
     whoShouldChoose: [
       {
-        title: "Professional Service Providers",
-        desc: "Chartered Accountants, Lawyers, Architects, Software Consultants, and Marketing Agencies."
+        title: "Professional Services & CA / Law / Architect Firms",
+        desc: "Consultants, legal advocates, architects, designers, and medical practices seeking professional credibility with tax efficiency."
       },
       {
-        title: "Family Businesses & Joint Ventures",
-        desc: "Partners seeking operational freedom without exposing personal assets to unlimited liabilities."
+        title: "Agencies & IT Service Businesses",
+        desc: "Digital marketing agencies, software development shops, and tech consulting duos driven by partner expertise."
       },
       {
-        title: "Medium-Scale Trading Entities",
-        desc: "Enterprises looking for lower regulatory compliance burdens compared to a Private Limited Company."
+        title: "Family Businesses & Closely Held Partnerships",
+        desc: "Partners seeking operational freedom and flexible profit sharing without exposing personal assets to unlimited liabilities."
       }
     ],
     keyBenefits: [
       {
+        title: "Separate Legal Identity",
+        desc: "The LLP is an independent corporate legal person distinct from its partners, capable of owning assets and entering contracts."
+      },
+      {
         title: "Limited Liability Protection",
-        desc: "Partners are not personally liable for the debts of the LLP or the negligent acts of other partners."
+        desc: "Partners generally enjoy limited liability, subject to the LLP Act and exceptions such as fraud or personal guarantees."
       },
       {
-        title: "Lower Compliance Burden",
-        desc: "Statutory audit is not mandatory unless turnover exceeds ₹40 Lakhs or contribution exceeds ₹25 Lakhs."
+        title: "Flexible Profit Sharing & Internal Rules",
+        desc: "The LLP Agreement defines capital contribution, profit sharing, remuneration, responsibilities, and voting rights."
       },
       {
-        title: "No Mandatory Minimum Capital",
-        desc: "Can be established with any nominal capital contributed by partners in cash or kind."
+        title: "Comparatively Simpler Compliance",
+        desc: "Fewer internal governance requirements than a Private Limited Company (no mandatory board meetings or AGMs)."
       },
       {
-        title: "Flexible Internal Management",
-        desc: "Operational rules, profit-sharing ratios, and voting powers are customized via the LLP Agreement."
+        title: "Audit Exemption for Small LLPs",
+        desc: "Statutory audit is not mandatory unless annual turnover exceeds ₹40 Lakhs or partner contribution exceeds ₹25 Lakhs."
+      },
+      {
+        title: "Grow Without Conventional Equity Dilution",
+        desc: "Operate through partner profit-sharing rights rather than share capital; retain control and reinvest profits."
       }
     ],
     eligibility: [
       "Minimum 2 Partners (No upper limit on maximum number of partners)",
-      "At least 2 Designated Partners must be individuals (At least 1 resident in India)",
-      "Valid DPIN / DIN and Digital Signatures (DSC) for all Designated Partners",
-      "Registered Office Address in India"
+      "Minimum 2 Designated Partners (Must be individuals; at least 1 must be a resident in India)",
+      "Registered Office in India (Commercial or residential premises)",
+      "Unique LLP Name (Ending with 'LLP' or 'Limited Liability Partnership')",
+      "Digital Signature Certificate (DSC Class 3) for all Designated Partners",
+      "LLP Agreement executed on non-judicial stamp paper",
+      "Lawful Business Activity",
+      "No statutory minimum capital contribution requirement"
     ],
     documentsRequired: {
       directors: [
-        "PAN Card copy of all partners (Mandatory for Indian nationals)",
+        "Self-attested PAN Card copy of all partners (Mandatory for Indian nationals)",
         "Identity Proof: Aadhaar Card, Passport, or Voter ID",
-        "Address Proof: Recent Bank Statement, Electricity Bill, or Telephone Bill",
+        "Address Proof: Recent Bank Statement, Electricity Bill, or Telephone Bill (Not older than 2 months)",
         "Passport size photographs"
       ],
       registeredOffice: [
         "Electricity Bill or Property Tax Receipt of the premises",
-        "Rent Agreement & NOC from Landlord (if rented)"
+        "Rent Agreement on stamp paper & NOC from property owner (If rented)"
       ]
     },
     processSteps: [
       {
         step: 1,
-        title: "DSC & DPIN Application",
-        desc: "Procure Digital Signature Certificates and Designated Partner Identification Numbers."
+        title: "DSC Procurement & Partner KYC",
+        desc: "Procure Digital Signature Certificates and verify Designated Partner Identification Numbers (DPIN)."
       },
       {
         step: 2,
         title: "Name Reservation (RUN-LLP)",
-        desc: "Submit unique name reservation request on the MCA portal."
+        desc: "Submit name approval application on MCA RUN-LLP portal."
       },
       {
         step: 3,
         title: "Incorporation Filing (FiLLiP Form)",
-        desc: "File incorporation form with ROC including consent letters and subscriber sheets."
+        desc: "File incorporation form FiLLiP with ROC including consent letters and subscriber sheets."
       },
       {
         step: 4,
-        title: "Drafting & Filing LLP Agreement (Form 3)",
-        desc: "Execute LLP agreement on non-judicial stamp paper and file Form 3 within 30 days of incorporation."
+        title: "Drafting & Executing LLP Agreement",
+        desc: "Draft customized LLP agreement defining profit ratios, capital, and partner responsibilities."
+      },
+      {
+        step: 5,
+        title: "Filing Form 3 on MCA Portal",
+        desc: "Execute LLP agreement on state non-judicial stamp paper and file Form 3 within 30 days of incorporation."
       }
     ],
     timeline: {
-      duration: "7 - 10 Business Days",
-      qualification: "Subject to ROC name approval and timely execution of the stamped LLP agreement."
+      duration: "Approximately 10 Working Days*",
+      qualification: "Name Approval → DSC → Incorporation → LLP Agreement → Statutory Filing (Subject to document readiness and MCA processing)."
     },
     taxCompliance: [
-      "Flat 30% Income Tax rate on taxable profits (+ applicable surcharge and cess).",
-      "Annual Return filing: Form 11 due on or before May 30th each year.",
-      "Statement of Accounts & Solvency: Form 8 due on or before October 30th each year.",
-      "ITR-5 filing by July 31st (or October 31st if audit is applicable)."
+      "Taxed as a partnership firm: Flat 30% Income Tax + 4% Cess = Approx. 31.20% effective (12% surcharge if taxable income > ₹1 Crore).",
+      "Important New Compliance: Section 194T TDS on Partner Remuneration (From 1 April 2025 onwards): LLPs must deduct TDS @ 10% on salary, remuneration, commission, bonus, or interest paid/credited to a partner exceeding ₹20,000 in the financial year.",
+      "Annual Return Form 11 due on or before May 30th each year.",
+      "Statement of Accounts & Solvency Form 8 due on or before October 30th each year.",
+      "Income Tax return filing on Form ITR-5 by July 31st (or October 31st if audit applies)."
     ],
     comparison: {
-      title: "Comparison: LLP vs Traditional Partnership vs Private Limited",
-      headers: ["Feature", "LLP", "Traditional Partnership", "Private Limited Company"],
+      title: "Comparison: LLP vs Private Limited Company",
+      headers: ["Particular", "LLP (Limited Liability Partnership)", "Private Limited Company"],
       rows: [
-        ["Liability", "Limited to capital contribution", "Unlimited personal liability", "Limited to unpaid share value"],
-        ["Governing Act", "LLP Act, 2008", "Indian Partnership Act, 1932", "Companies Act, 2013"],
-        ["Legal Status", "Separate legal entity", "Not a separate entity", "Separate legal entity"],
-        ["Compliance Level", "Low to Medium", "Minimal", "High & Rigorous"]
+        ["Ownership", "Partners (Agreed profit sharing)", "Shareholders (Share-based ownership)"],
+        ["Management", "Partners / Designated Partners", "Board of Directors"],
+        ["Best Suited For", "Professionals, Consultants & Service Businesses", "Startups, Tech Ventures & Scalable Businesses"],
+        ["Equity Structure", "No conventional share capital", "Share-based ownership (Equity & CCPS)"],
+        ["Equity Funding", "Not the preferred structure for VCs/Angels", "Highly Investor-Friendly"],
+        ["ESOPs", "Conventional company ESOP structure not available", "Can issue ESOPs to attract top talent"],
+        ["Internal Governance", "Comparatively simpler (No mandatory board meetings/AGMs)", "More structured compliance (Board meetings & AGM applicable)"],
+        ["Ownership Dilution", "No conventional equity dilution", "Can occur when new shares are issued"],
+        ["Tax Rate", "30% flat + applicable surcharge & cess", "22% base (~25.17% effective under Section 115BAA)"],
+        ["Partner / Director TDS", "Section 194T applies to partner remuneration (>₹20k)", "Section 192 / 194J applies depending on director payment"],
+        ["Best Growth Model", "Partner-led / profit-led sustainable growth", "Equity-funded / venture-scale high growth"]
       ]
     },
     growthImpact: [
-      "Enables collaborative joint ventures with transparent capital contribution and profit sharing.",
-      "Protects individual partner net worth from commercial claims and enterprise contractual disputes.",
-      "Provides legal credibility to bid for institutional consulting contracts and professional retainers."
+      "01 — Grow Without Conventional Equity Dilution: Founders earn, reinvest, expand, and retain control among partners.",
+      "02 — Ideal for Service & Professional Businesses: Perfect for consultants, agencies, IT services, designers, architects, and CA/law firms.",
+      "03 — Build a Separate Business Identity: Build a formal corporate identity independent of individual partners.",
+      "04 — Limited Liability Protection: Shield personal assets against liabilities caused by other partners' negligence.",
+      "05 — Flexible Profit Sharing: Tailor profit distributions and management roles via the LLP Agreement.",
+      "06 — Add Partners as You Expand: Introduce new junior or senior partners seamlessly as revenue expands.",
+      "07 — Comparatively Simpler Compliance: Operate a formal legal structure with relatively simpler compliance requirements."
     ],
-    localInformation: "LLP incorporation is handled digitally by the Ministry of Corporate Affairs ROC across all states. State stamp duty for the LLP Agreement is determined by the respective state government where the registered office is located.",
+    localInformation: "At The Corporate Hub, we don't recommend a structure simply because it is easier to register. We look at: Your Business Model → Founders → Ownership → Taxation → Funding Plans → Future Growth, and then help you select an appropriate structure. Because the right question isn't 'LLP or Private Limited?' The right question is: 'Where do you want your business to be 5 years from now?'",
     whyCorporateHub: [
-      "Customized LLP agreement drafting tailored specifically to your profit-sharing and exit clauses.",
-      "Dedicated secretarial compliance tracking to avoid daily MCA late filing penalties.",
-      "100% digital incorporation process with proactive CA support."
+      "Customized LLP agreement drafting tailored specifically to your profit-sharing, lock-in, and dispute exit clauses.",
+      "Advisory on Section 194T partner remuneration TDS planning to maintain full tax compliance.",
+      "Proactive compliance tracking for Form 11 and Form 8 to avoid daily MCA delay penalties."
     ],
     faqs: [
       {
-        q: "Is statutory audit mandatory for all LLPs in India?",
-        a: "No. An LLP is exempt from audit if its annual turnover does not exceed ₹40 Lakhs and partner contribution does not exceed ₹25 Lakhs."
+        q: "What is the new Section 194T TDS compliance for LLPs from 1 April 2025?",
+        a: "Under Section 194T of the Income-tax Act, LLPs must deduct TDS @ 10% on payments or credits in the nature of salary, remuneration, commission, bonus, or interest to a partner if the aggregate amount exceeds ₹20,000 during the financial year."
       },
       {
-        q: "Can an existing partnership firm be converted into an LLP?",
-        a: "Yes, an existing partnership firm or private company can be converted into an LLP under the Second, Third, or Fourth Schedules of the LLP Act."
+        q: "Is a statutory audit mandatory for all LLPs in India?",
+        a: "No. An LLP is exempt from mandatory audit if its annual turnover does not exceed ₹40 Lakhs and partner contribution does not exceed ₹25 Lakhs."
       },
       {
-        q: "What is the penalty for late filing of LLP Form 8 and Form 11?",
-        a: "MCA charges statutory delay fees of ₹100 per day until the annual returns are filed."
+        q: "When should I choose an LLP over a Private Limited Company?",
+        a: "Choose an LLP if you are building a professional practice, consultancy, agency, or service firm where growth is driven by partner profits rather than raising external venture capital."
       }
     ],
     relatedServices: [
       { name: "Private Limited Company", slug: "pvt-ltd", categorySlug: "business-registration" },
+      { name: "One Person Company (OPC)", slug: "opc-reg", categorySlug: "business-registration" },
       { name: "Accounting & Bookkeeping", slug: "acc-bookkeeping", categorySlug: "accounting-taxation" },
       { name: "LLP Compliance", slug: "llp-compliance", categorySlug: "corporate-compliance" }
     ]
@@ -313,126 +511,161 @@ export const subServiceDetailsData = {
     categorySlug: "business-registration",
     categoryTitle: "Business Registration",
     name: "Section 8 Company (NGO) Registration",
-    locationHeading: "Section 8 Company Registration in India",
-    heroIntro: "Establish a non-profit organization under Section 8 of the Companies Act, 2013 with maximum credibility, institutional donor trust, and eligibility for 12A, 80G, and CSR funding.",
-    whatIs: "A Section 8 Company is an entity registered for promoting commerce, art, science, sports, education, research, social welfare, religion, charity, protection of the environment, or other non-profit objectives. Any profits or other income earned are applied solely to promoting its objects, and payment of dividends to members is prohibited by law.",
+    locationHeading: "Section 8 Company (NGO) Registration in India",
+    heroIntro: "Build an NGO with a Corporate Structure. A Section 8 Company is a non-profit company incorporated under the Companies Act, 2013 for charitable or socially beneficial objects (Education | Social Welfare | Environment | Research | Sports | Charity | Healthcare | Art | Science | Community Development). Income and profits are applied towards its stated objects, and dividends are not distributed to members.",
+    whatIs: "A Section 8 Company is a non-profit corporate entity incorporated under the Companies Act, 2013. It offers a structured governance framework under the Ministry of Corporate Affairs (MCA), granting the NGO a separate legal corporate identity, transparent records, and maximum institutional credibility for CSR and international grants.",
     whoShouldChoose: [
       {
-        title: "Social Entrepreneurs & Activists",
-        desc: "Individuals creating structured programs in education, healthcare, rural development, and environmental protection."
+        title: "Professionally Governed NGOs",
+        desc: "Social organizations building structured non-profit operations with transparent board governance and corporate accountability."
       },
       {
-        title: "Corporate Foundations & CSR Arms",
-        desc: "Corporates establishing dedicated non-profit vehicles for corporate social responsibility mandates."
+        title: "Institution-Led & CSR-Focused Organizations",
+        desc: "Foundations seeking corporate CSR partnerships, government grants, and institutional funding."
       },
       {
-        title: "Research & Educational Institutions",
-        desc: "Foundations building academic institutions, incubation centers, and scientific laboratories."
+        title: "Scalable Social Enterprises",
+        desc: "Social ventures scaling pan-India educational, healthcare, environmental, and community welfare programs."
       }
     ],
     keyBenefits: [
       {
+        title: "Separate Legal Identity",
+        desc: "The Section 8 company has its own independent corporate identity, owning assets and signing agreements in its name."
+      },
+      {
+        title: "Limited Liability",
+        desc: "Directors and members enjoy limited liability protection against operational claims and liabilities."
+      },
+      {
         title: "Highest Institutional Credibility",
-        desc: "Recognized as more transparent and accountable than traditional trusts or societies by international donors."
+        desc: "MCA-regulated corporate records provide unmatched transparency for institutional donors and grant committees."
       },
       {
-        title: "Eligible for 12A & 80G Tax Exemptions",
-        desc: "Unlocks 100% tax exemption on income and provides tax deductions for donors."
+        title: "No Dividend Distribution",
+        desc: "All surplus and profits are dedicated solely to advancing the social objects of the organization."
       },
       {
-        title: "CSR Grant Eligibility",
-        desc: "Eligible to receive corporate CSR funding upon registering Form CSR-1 with the MCA."
+        title: "12A / 12AB Tax Exemption Eligibility",
+        desc: "Eligible to apply for income-tax exemption on charitable income under the Income-tax Act."
       },
       {
-        title: "Exemption from Using 'Limited' Suffix",
-        desc: "Operates with clean foundation/association naming without appending 'Pvt Ltd' or 'Limited'."
+        title: "80G Donor Tax Benefit Eligibility",
+        desc: "Eligible donors can claim 50% tax deductions on qualifying contributions, boosting fundraising appeal."
+      },
+      {
+        title: "CSR Funding Opportunity",
+        desc: "Eligible to register Form CSR-1 to act as an authorized CSR implementing partner for corporate grants."
       }
     ],
     eligibility: [
-      "Minimum 2 Directors and Shareholders",
-      "Objects strictly dedicated to charity, education, environment, healthcare, or social welfare",
-      "Prohibition of dividend distribution or return of capital to members",
-      "Clear 3-year projected income and expenditure roadmap"
+      "Minimum 2 Members (Shareholders / Subscribers)",
+      "Minimum 2 Directors (At least 1 resident director in India)",
+      "Registered Office in India",
+      "Charitable / Non-profit Objects (Education, Healthcare, Environment, Sports, Social Welfare, etc.)",
+      "Digital Signature Certificates (DSC Class 3)",
+      "Proposed Section 8 Compliant Name (e.g., Foundation, Association, Forum, Council, Institute)",
+      "Strict prohibition of dividend or capital distribution to members"
     ],
     documentsRequired: {
       directors: [
-        "PAN Card and Aadhaar/Passport of promoters & directors",
-        "Bank statements and identity proof",
-        "Promoter profile and social work credentials"
+        "PAN Card and Aadhaar/Passport of promoters and directors",
+        "Identity & address proofs (Bank statement / Utility bill not older than 2 months)",
+        "Brief profile of promoters and past social initiatives"
       ],
       registeredOffice: [
-        "Premises proof (Utility bill & Rent agreement/NOC)",
+        "Premises utility bill (Electricity / Water bill not older than 2 months)",
+        "Rent agreement & property owner NOC (If rented)",
         "3-year future projected income and expenditure statement",
-        "Declaration of non-profit objects under Section 8(1)"
+        "Declaration of non-profit objectives under Section 8(1)"
       ]
     },
     processSteps: [
       {
         step: 1,
-        title: "Name Approval (RUN/SPICe+)",
+        title: "Name Reservation (RUN/SPICe+ Part A)",
         desc: "Reserve non-profit name incorporating words like Foundation, Association, Council, or Forum."
       },
       {
         step: 2,
-        title: "License Application (Form INC-12)",
-        desc: "Apply for Section 8 License from Central Government / Regional Director with detailed MOA objectives."
+        title: "Section 8 License Application (Form INC-12)",
+        desc: "Submit application for Central Government / Regional Director license with detailed non-profit charters."
       },
       {
         step: 3,
-        title: "Filing SPICe+ Incorporation",
-        desc: "Submit incorporation forms and receive Certificate of Incorporation."
+        title: "SPICe+ Part B Incorporation Filing",
+        desc: "File final incorporation form with MCA for Certificate of Incorporation, PAN, and TAN."
       },
       {
         step: 4,
-        title: "12A, 80G & CSR-1 Registrations",
-        desc: "Apply for Income Tax exemption certificates and CSR grant receiving authorization."
+        title: "12A / 12AB & 80G Registration",
+        desc: "File application with the Income Tax Department for charitable tax exemption and donor deductions."
+      },
+      {
+        step: 5,
+        title: "CSR-1 Portal Registration",
+        desc: "Register on MCA portal for CSR Registration Number to accept corporate CSR funds."
       }
     ],
     timeline: {
-      duration: "12 - 15 Business Days",
-      qualification: "Includes Section 8 Central Government license processing and ROC certificate issuance."
+      duration: "Approximately 20 Working Days*",
+      qualification: "Name Approval → DSC → Section 8 Incorporation Filing → Licence Approval → PAN/TAN → Certificate of Incorporation."
     },
     taxCompliance: [
-      "Mandatory annual filing of Form AOC-4 and Form MGT-7 with ROC.",
-      "Filing of Form ITR-7 on Income Tax Portal.",
-      "Maintenance of books of accounts and mandatory CA statutory audit.",
-      "Compliance with Foreign Contribution Regulation Act (FCRA) if receiving international grants."
+      "Mandatory annual filing of Form AOC-4 and Form MGT-7 with MCA.",
+      "Filing of Form ITR-7 on the Income Tax portal annually.",
+      "Maintenance of books of accounts and mandatory statutory audit by a practicing Chartered Accountant.",
+      "Compliance with Foreign Contribution Regulation Act (FCRA) if accepting foreign donations (requires separate FCRA registration)."
     ],
     comparison: {
-      title: "Comparison: Section 8 Company vs Trust vs Society",
-      headers: ["Parameter", "Section 8 Company", "Trust", "Society"],
+      title: "Comparison: Section 8 Company vs Trust",
+      headers: ["Particular", "Section 8 Company", "Trust"],
       rows: [
-        ["Governing Authority", "Ministry of Corporate Affairs (Central)", "State Charity Commissioner / Registrar", "State Registrar of Societies"],
-        ["Credibility for CSR Grants", "Highest across India", "Moderate", "Moderate"],
-        ["Management Structure", "Board of Directors", "Board of Trustees", "Governing Body / Committee"],
-        ["Transparency & Compliance", "Stringent digital disclosures", "Varies by state", "Varies by state"]
+        ["Legal Structure", "Company incorporated under Companies Act, 2013", "Trust registered under state/public trust law"],
+        ["Governing Authority", "Ministry of Corporate Affairs (MCA / ROC)", "State Charity Commissioner / Sub-Registrar"],
+        ["Management", "Board of Directors & Members", "Board of Trustees"],
+        ["Governance", "Structured national corporate governance", "Comparatively flexible / state-dependent"],
+        ["Separate Legal Identity", "Company has separate corporate legal identity", "Legal position depends on state trust legislation"],
+        ["12A / 12AB Exemption", "Separate application required", "Separate application required"],
+        ["80G Donor Deductions", "Separate application required", "Separate application required"],
+        ["CSR Eligibility", "Highly preferred by corporates (Subject to CSR Rules)", "Possible for eligible registered public trusts"],
+        ["Best For", "Structured, scalable, pan-India NGOs", "Simpler, local, or family charitable trusts"]
       ]
     },
     growthImpact: [
-      "Unlocks corporate CSR partnership programs and central government welfare grants.",
-      "Instills deep donor confidence through statutory auditing and MCA digital transparency.",
-      "Allows structured hiring of professionals to scale charitable operations nationally."
+      "01 — Build a Professional NGO Identity: Individual Initiative → Registered Organisation → Structured NGO.",
+      "02 — Build Institutional Credibility: Present professionally before Donors, Corporates, Institutions, Banks, and Grant Agencies.",
+      "03 — Apply for 12A / 12AB Registration: Framework for income-tax exemption on eligible charitable income (not automatic upon incorporation).",
+      "04 — Apply for 80G Registration: Allow donors to claim tax deductions on qualifying contributions, boosting fundraising appeal (Section 8 → 12A → 80G).",
+      "05 — Become CSR Ready: Section 8 + 12A + 80G + CSR-1 + track record enables receiving corporate CSR grant funding.",
+      "06 — Access Donations & Grants: Individual donations, institutional grants, corporate CSR, and government schemes.",
+      "07 — Build for Long-Term Social Impact: Local Activity → Structured NGO → Donor Network → CSR Projects → Larger Social Impact."
     ],
-    localInformation: "Section 8 companies operate pan-India under unified Central Government MCA guidelines, ensuring seamless branch expansion across any state without regional trust deed re-registration.",
+    localInformation: "At The Corporate Hub, our focus is not only to register your NGO. We help you plan the complete structure: Section 8 Incorporation → 12A/12AB → 80G → CSR Readiness → Compliance → Growth. Build the Organisation. Earn Trust. Create Impact.",
     whyCorporateHub: [
-      "Comprehensive guidance on drafting bulletproof non-profit charters and Section 8 license approvals.",
-      "End-to-end support for 12A, 80G, and CSR-1 portal registrations.",
-      "Experienced advisory on FCRA compliance and philanthropic tax planning."
+      "Comprehensive structuring: We guide you through the 4 essential layers: Section 8 + 12A + 80G + CSR-1.",
+      "Expert drafting of non-profit object clauses to ensure swift license approval without MCA objections.",
+      "Advisory on FCRA compliance and philanthropic donor tax planning."
     ],
     faqs: [
       {
-        q: "Can directors in a Section 8 Company draw a salary?",
-        a: "Directors who act as executive administrators or full-time managers may draw reasonable remuneration for actual services rendered, provided it is permitted under the Articles of Association."
+        q: "Does a Section 8 Company automatically get tax exemption upon incorporation?",
+        a: "No. Section 8 incorporation creates the legal corporate structure. Tax exemption requires a separate application for 12A/12AB registration with the Income Tax Department."
       },
       {
-        q: "How can a Section 8 Company receive CSR funds from corporates?",
-        a: "The company must register Form CSR-1 on the MCA portal to obtain a unique CSR Registration Number."
+        q: "How can a Section 8 Company become eligible for CSR funding?",
+        a: "To receive corporate CSR grants, the Section 8 Company must have 12A registration, 80G approval, register Form CSR-1 on the MCA portal, and meet applicable track-record criteria."
+      },
+      {
+        q: "Can directors in a Section 8 Company draw remuneration?",
+        a: "Executive administrators or full-time managing directors may draw reasonable remuneration for actual services rendered, provided it is permitted under the company's Articles of Association."
       }
     ],
     relatedServices: [
+      { name: "Private Limited Company", slug: "pvt-ltd", categorySlug: "business-registration" },
       { name: "Startup India & MSME", slug: "startup-msme", categorySlug: "business-registration" },
       { name: "Income Tax Consultancy", slug: "it-consultancy", categorySlug: "accounting-taxation" },
-      { name: "DPIIT Recognition", slug: "dpiit-recognition", categorySlug: "business-growth" }
+      { name: "ROC Compliance", slug: "roc-compliance", categorySlug: "corporate-compliance" }
     ]
   },
 
@@ -441,7 +674,7 @@ export const subServiceDetailsData = {
     categorySlug: "business-registration",
     categoryTitle: "Business Registration",
     name: "Startup India & MSME (Udyam) Registration",
-    locationHeading: "Startup India & MSME Udyam Registration",
+    locationHeading: "Startup India & MSME Udyam Registration in India",
     heroIntro: "Unlock government recognition, Section 80-IAC tax holidays, collateral-free credit under CGTMSE, priority sector lending, and subsidized intellectual property filings.",
     whatIs: "Startup India is the flagship initiative of the Government of India launched to foster innovation and entrepreneurship, providing DPIIT Recognition. MSME (Udyam) Registration classifies micro, small, and medium enterprises under the MSMED Act, 2006 to avail government subsidies, tenders, and delayed payment protections.",
     whoShouldChoose: [
@@ -555,7 +788,7 @@ export const subServiceDetailsData = {
     categorySlug: "business-registration",
     categoryTitle: "Business Registration",
     name: "Export Business Setup & IEC Allotment",
-    locationHeading: "Export Business Setup & IEC Registration",
+    locationHeading: "Export Business Setup & IEC Registration in India",
     heroIntro: "Launch your cross-border trade operations with complete regulatory licensing: Import Export Code (IEC) from DGFT, AD Code registration, Port registration, and Export Promotion Council RCMC.",
     whatIs: "Export Business Setup involves registering a business entity with the Directorate General of Foreign Trade (DGFT) to obtain a 10-digit Import Export Code (IEC). It enables Indian enterprises to legally export goods and services worldwide and claim export duty incentives (RoDTEP, EPCG).",
     whoShouldChoose: [
@@ -673,7 +906,7 @@ export const subServiceDetailsData = {
     categorySlug: "business-registration",
     categoryTitle: "Business Registration",
     name: "Food and Franchisee Business Setup",
-    locationHeading: "Food and Franchisee Business Legal Setup",
+    locationHeading: "Food and Franchisee Business Legal Setup in India",
     heroIntro: "Turn-key legal setup for restaurants, cloud kitchens, cafes, FMCG brands, and franchise networks: FSSAI licensing, trademark protection, franchise agreements, and municipal health NOCs.",
     whatIs: "Food and Franchisee Business Setup establishes the legal, regulatory, and contractual foundation required to operate restaurants, food production units, cloud kitchens, and franchise models compliant with FSSAI regulations, local health departments, and commercial contract law.",
     whoShouldChoose: [
@@ -925,7 +1158,7 @@ export const subServiceDetailsData = {
     categorySlug: "intellectual-property",
     categoryTitle: "Intellectual Property",
     name: "Trademark Litigation & Objection Defense",
-    locationHeading: "Trademark Litigation & Hearing Defense",
+    locationHeading: "Trademark Litigation & Hearing Defense in India",
     heroIntro: "Expert IP attorney representation for reply to examination reports, opposition notices (Form TM-O), hearing appearances, and brand infringement notices.",
     whatIs: "Trademark Litigation covers legal defense procedures before the Trademark Registry, Intellectual Property Appellate bodies, and High Courts to overcome statutory objections under Section 9 (distinctiveness) or Section 11 (similarity), respond to third-party oppositions, and enforce cease-and-desist actions.",
     whoShouldChoose: [
@@ -1326,7 +1559,7 @@ export const subServiceDetailsData = {
     categorySlug: "intellectual-property",
     categoryTitle: "Intellectual Property",
     name: "IP Advisory & Portfolio Management",
-    locationHeading: "Intellectual Property Advisory & Licensing",
+    locationHeading: "Intellectual Property Advisory & Licensing in India",
     heroIntro: "Strategic advisory for technology transfer, IP valuation, licensing agreements, trade secret protection, and IP audit to maximize enterprise valuation.",
     whatIs: "IP Advisory provides high-level legal and commercial strategy to identify, protect, monetize, and audit an organization's intangible assets, including patents, trade secrets, software code, and brand portfolios.",
     whoShouldChoose: [
@@ -2038,7 +2271,7 @@ export const subServiceDetailsData = {
     categorySlug: "corporate-compliance",
     categoryTitle: "Corporate Compliance",
     name: "ROC Annual Compliance",
-    locationHeading: "ROC Annual Compliance & Secretarial Filings",
+    locationHeading: "ROC Annual Compliance & Secretarial Filings in India",
     heroIntro: "Mandatory annual MCA filings for Private Limited and Public Companies: Form AOC-4 (Financials), Form MGT-7/7A (Annual Return), DIR-3 KYC, and Board Meeting documentation to avoid daily penalties.",
     whatIs: "ROC (Registrar of Companies) Compliance is the statutory obligation mandated under the Companies Act, 2013 for all registered companies to file annual financial statements, shareholding patterns, and director records on the MCA portal every year.",
     whoShouldChoose: [
@@ -2144,7 +2377,7 @@ export const subServiceDetailsData = {
     categorySlug: "corporate-compliance",
     categoryTitle: "Corporate Compliance",
     name: "LLP Annual Compliance",
-    locationHeading: "LLP Annual Compliance & Filings",
+    locationHeading: "LLP Annual Compliance & Filings in India",
     heroIntro: "Annual statutory MCA compliance for Limited Liability Partnerships: Form 11 (Annual Return) and Form 8 (Statement of Accounts & Solvency) to keep your LLP active and penalty-free.",
     whatIs: "LLP Compliance represents the mandatory annual regulatory filings required by the Ministry of Corporate Affairs under the LLP Act, 2008 to disclose financial accounts, solvency, and partner details.",
     whoShouldChoose: [
@@ -2228,7 +2461,7 @@ export const subServiceDetailsData = {
     categorySlug: "corporate-compliance",
     categoryTitle: "Corporate Compliance",
     name: "Secretarial Compliance & Audits",
-    locationHeading: "Secretarial Compliance & Governance Services",
+    locationHeading: "Secretarial Compliance & Governance Services in India",
     heroIntro: "Company Secretarial support for drafting board minutes, AGM notices, statutory register maintenance, share allotments (PAS-3), director changes (DIR-12), and Secretarial Audits (MR-3).",
     whatIs: "Secretarial Compliance ensures an enterprise adheres strictly to the corporate governance provisions of the Companies Act, Secretarial Standards (SS-1 and SS-2) issued by ICSI, and statutory register rules.",
     whoShouldChoose: [
@@ -2321,7 +2554,7 @@ export const subServiceDetailsData = {
     categorySlug: "corporate-compliance",
     categoryTitle: "Corporate Compliance",
     name: "Listed Company & SEBI Compliance",
-    locationHeading: "SEBI Compliance & Listed Company Advisory",
+    locationHeading: "SEBI Compliance & Listed Company Advisory in India",
     heroIntro: "Advisory for public listed companies under SEBI (LODR) Regulations, quarterly financial disclosures, Prohibition of Insider Trading (PIT) compliance, and secretarial governance.",
     whatIs: "SEBI Compliance encompasses the comprehensive regulatory requirements mandated by the Securities and Exchange Board of India (SEBI) for companies listed on BSE and NSE stock exchanges.",
     whoShouldChoose: [
@@ -2491,7 +2724,7 @@ export const subServiceDetailsData = {
     categorySlug: "corporate-compliance",
     categoryTitle: "Corporate Compliance",
     name: "PF & ESIC Compliances",
-    locationHeading: "PF & ESIC Monthly Compliance & Registrations",
+    locationHeading: "PF & ESIC Monthly Compliance & Registrations in India",
     heroIntro: "Employee Provident Fund (EPFO) and Employee State Insurance (ESIC) registration, monthly Electronic Challan-cum-Return (ECR) filing, employee UAN generation, and labor notice defense.",
     whatIs: "PF & ESIC Compliance represents the statutory labor welfare obligations under the EPF & MP Act, 1952 and ESI Act, 1948 ensuring employee social security and healthcare benefits.",
     whoShouldChoose: [
@@ -2641,11 +2874,13 @@ export const subServiceDetailsData = {
       ]
     },
     growthImpact: [
-      "Accelerates venture capital fundraising cycles and minimizes founder equity dilution."
+      "Accelerates venture capital fundraising cycles and minimizes founder equity dilution.",
+      "Why Investors Prefer Private Limited Companies: (1) Share Issuance: can issue equity, preference shares, and ESOPs; (2) Legal Structure: separate legal entity survives even if founders leave; (3) Transparency: audited accounts and ROC filings; (4) Exit Options: secondary share sales, M&A, or IPO."
     ],
     localInformation: "Advisory services tailored to startup hubs in Bengaluru, Mumbai, Delhi NCR, Hyderabad, and Ahmedabad.",
     whyCorporateHub: [
-      "Deep experience structuring institutional VC funding rounds and investor agreements."
+      "Deep experience structuring institutional VC funding rounds and investor agreements.",
+      "Golden Rule for Startup Founders: If you plan to raise funding in the next 2 years, register as a Private Limited Company from Day 1 to avoid costly restructuring later."
     ],
     faqs: [
       {
@@ -2655,7 +2890,8 @@ export const subServiceDetailsData = {
     ],
     relatedServices: [
       { name: "Business Valuation", slug: "business-valuation", categorySlug: "business-growth" },
-      { name: "Investor Documentation", slug: "investor-docs", categorySlug: "business-growth" }
+      { name: "Investor Documentation", slug: "investor-docs", categorySlug: "business-growth" },
+      { name: "Private Limited Company", slug: "pvt-ltd", categorySlug: "business-registration" }
     ]
   },
 
@@ -2688,7 +2924,7 @@ export const subServiceDetailsData = {
       }
     ],
     eligibility: [
-      "Incorporated as Pvt Ltd or LLP within the last 10 years",
+      "Incorporated as Pvt Ltd, LLP, or OPC within the last 10 years (Not available for Proprietorships or Partnerships)",
       "Turnover below ₹100 Crores in any preceding financial year",
       "Working towards innovation, development, or improvement of products/services"
     ],
@@ -2759,7 +2995,7 @@ export const subServiceDetailsData = {
     categorySlug: "business-growth",
     categoryTitle: "Business Growth",
     name: "Project Report & CMA Data for Bank Loans",
-    locationHeading: "Project Report & CMA Data for Bank Loans",
+    locationHeading: "Project Report & CMA Data for Bank Loans in India",
     heroIntro: "Detailed Project Reports (DPR) and Credit Monitoring Arrangement (CMA) Data prepared by Chartered Accountants for bank loan approvals, CC limits, term loans, and government subsidy schemes.",
     whatIs: "CMA Data and Detailed Project Reports provide the standardized financial ratios, cash flow projections, and debt-service coverage calculations required by commercial banks and financial institutions for credit sanctions.",
     whoShouldChoose: [
@@ -2939,7 +3175,7 @@ export const subServiceDetailsData = {
     categorySlug: "business-growth",
     categoryTitle: "Business Growth",
     name: "Investor Documentation (SHA / SSA / Term Sheets)",
-    locationHeading: "Investor Documentation & Legal Drafting",
+    locationHeading: "Investor Documentation & Legal Drafting in India",
     heroIntro: "Expert corporate drafting and legal negotiation for Term Sheets, Shareholders Agreements (SHA), Share Subscription Agreements (SSA), Founder Vesting Deeds, and ESOP Schemes.",
     whatIs: "Investor Documentation forms the binding legal framework governing investment transactions, founder equity vesting, board governance, veto matters, liquidation preferences, and exit rights.",
     whoShouldChoose: [
@@ -3121,7 +3357,7 @@ export const subServiceDetailsData = {
     categorySlug: "licenses-certifications",
     categoryTitle: "Licenses & Certifications",
     name: "FSSAI Food Safety License",
-    locationHeading: "FSSAI Food Safety License Registration",
+    locationHeading: "FSSAI Food Safety License Registration in India",
     heroIntro: "Obtain your 14-digit FSSAI Food Safety License (Basic Registration, State License, or Central License) on the FoSCoS portal for restaurants, cloud kitchens, food manufacturers, and repackers.",
     whatIs: "An FSSAI License is a statutory authorization issued by the Food Safety and Standards Authority of India (FSSAI) under the Food Safety and Standards Act, 2006, certifying that food products meet safety, hygienic, and nutritional standards.",
     whoShouldChoose: [
