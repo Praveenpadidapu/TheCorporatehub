@@ -1,6 +1,7 @@
 import { servicesData } from "@/data/servicesData";
 import { subServiceDetailsData } from "@/data/serviceDetailsData";
 import { createClient } from "@supabase/supabase-js";
+import { TOP_CITIES, TOP_SERVICES } from "@/lib/seo/locationServiceHelper";
 
 export default async function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thecorporatehub.in";
@@ -98,23 +99,25 @@ export default async function sitemap() {
     console.error("Error fetching SEO location pages for sitemap:", err);
   }
 
-  // Fallback seed published pages if none returned from DB yet
-  if (locationRoutes.length === 0) {
-    locationRoutes = [
-      {
-        url: `${baseUrl}/locations/ahmedabad/company-registration`,
+  // Programmatic location routes for high-traffic cities and services
+  const programmaticLocationRoutes = [];
+  for (const city of TOP_CITIES) {
+    for (const service of TOP_SERVICES) {
+      programmaticLocationRoutes.push({
+        url: `${baseUrl}/locations/${city}/${service}`,
         lastModified: new Date(),
         changeFrequency: "weekly",
         priority: 0.85,
-      },
-      {
-        url: `${baseUrl}/locations/mumbai/trademark-registration`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.85,
-      },
-    ];
+      });
+    }
   }
 
-  return [...staticRoutes, ...serviceRoutes, ...subServiceRoutes, ...locationRoutes];
+  // Combine and deduplicate location routes
+  const urlMap = new Map();
+  [...programmaticLocationRoutes, ...locationRoutes].forEach((route) => {
+    urlMap.set(route.url, route);
+  });
+  const allLocationRoutes = Array.from(urlMap.values());
+
+  return [...staticRoutes, ...serviceRoutes, ...subServiceRoutes, ...allLocationRoutes];
 }

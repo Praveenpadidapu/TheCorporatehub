@@ -12,6 +12,7 @@ import {
   FiX
 } from "react-icons/fi";
 import { createClient } from "@/utils/supabase/client";
+import { getSubServicesByCategory } from "@/data/serviceDetailsData";
 import "./ServiceDetailPage.css";
 
 // City-specific local regulatory data for interactive local info section
@@ -39,10 +40,59 @@ const LOCAL_REGULATORY_INFO = {
   "pune": {
     name: "Pune (Maharashtra)",
     info: "The Registrar of Companies Pune oversees Maharashtra's secondary industrial and IT corridor at PMT Commercial Building, Swargate, Pune. Ideal for automotive engineering, manufacturing units, and tech startups."
+  },
+  "hyderabad": {
+    name: "Hyderabad (Telangana)",
+    info: "The Registrar of Companies Telangana is located at Kendriya Sadan, Sultan Bazar, Koti, Hyderabad. Serving the HITEC City, pharmaceutical, and biotechnology ecosystem with rapid digital clearances."
+  },
+  "chennai": {
+    name: "Chennai (Tamil Nadu)",
+    info: "The Registrar of Companies Tamil Nadu is situated at Shastri Bhavan, 26 Haddows Road, Nungambakkam, Chennai. Supporting South India's automotive, electronics manufacturing, software, and export trade clusters."
+  },
+  "kolkata": {
+    name: "Kolkata (West Bengal)",
+    info: "The Registrar of Companies West Bengal is located at Nizam Palace, 234/4 AJC Bose Road, Kolkata. Serving East India's primary financial, mercantile, shipping, and cross-border trade gateway."
+  },
+  "jaipur": {
+    name: "Jaipur (Rajasthan)",
+    info: "The Registrar of Companies Rajasthan is situated at Corporate Bhawan, G-6-7, Residency Area, Jaipur. Supporting industrial corridors, handicraft exports, gems & jewelry, and emerging tech startups across Rajasthan."
+  },
+  "surat": {
+    name: "Surat (Gujarat)",
+    info: "Surat's dynamic business community operates under the Registrar of Companies Gujarat. Recognized as a global textile, diamond cutting, and manufacturing powerhouse with swift access to commercial banking and state subsidies."
+  },
+  "lucknow": {
+    name: "Lucknow (Uttar Pradesh)",
+    info: "The Registrar of Companies Uttar Pradesh operates under MCA jurisdiction overseeing Northern India's largest consumer and manufacturing market with growing IT and MSME clusters."
+  },
+  "chandigarh": {
+    name: "Chandigarh (Punjab & Haryana)",
+    info: "The Registrar of Companies Punjab & Chandigarh is located at Corporate Bhawan, Sector 27B, Chandigarh. Serving agricultural enterprises, healthcare, FMCG, and technology firms across the tricity region."
+  },
+  "indore": {
+    name: "Indore (Madhya Pradesh)",
+    info: "The Registrar of Companies Madhya Pradesh oversees Central India's commercial hub at Indore. Facilitating rapid corporate formation for manufacturing, logistics, and IT service providers."
   }
 };
 
-export default function ServiceDetailPage({ data, categorySlug }) {
+export default function ServiceDetailPage({ data, categorySlug, locationName, locationSlug }) {
+  const normSlug = locationSlug ? locationSlug.toLowerCase().trim() : null;
+  const catSlug = categorySlug || data.categorySlug || "business-registration";
+  const siblingServices = getSubServicesByCategory(catSlug);
+
+  // Build dynamic city registry including custom city if not in default table
+  const cityRegistry = {
+    ...LOCAL_REGULATORY_INFO,
+    ...(normSlug && !LOCAL_REGULATORY_INFO[normSlug] ? {
+      [normSlug]: {
+        name: locationName || normSlug.charAt(0).toUpperCase() + normSlug.slice(1),
+        info: `Businesses, startups, and corporate entities in ${locationName || normSlug} operate under the statutory jurisdiction of the relevant State Registrar of Companies (ROC) and national digital MCA, DGFT, and CBDT frameworks. The Corporate Hub executes 100% of corporate incorporation, compliance, and legal filings digitally without requiring physical office visits.`
+      }
+    } : {})
+  };
+
+  const initialCity = normSlug && cityRegistry[normSlug] ? normSlug : "all-india";
+
   // Accordion state: only whatIs, whoShouldChoose, and keyBenefits open by default
   const [openSections, setOpenSections] = useState({
     whatIs: true,
@@ -55,14 +105,14 @@ export default function ServiceDetailPage({ data, categorySlug }) {
     taxCompliance: false,
     comparison: false,
     growthImpact: false,
-    localInformation: false,
+    localInformation: !!normSlug,
     whyCorporateHub: false,
     faqs: false,
     relatedServices: false
   });
 
   const [activeFaq, setActiveFaq] = useState(null);
-  const [selectedCity, setSelectedCity] = useState("all-india");
+  const [selectedCity, setSelectedCity] = useState(initialCity);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -72,7 +122,7 @@ export default function ServiceDetailPage({ data, categorySlug }) {
     fullName: "",
     email: "",
     phone: "",
-    message: `Inquiry for ${data.name}`
+    message: locationName ? `Inquiry for ${data.name} in ${locationName}` : `Inquiry for ${data.name}`
   });
 
   const toggleSection = (sectionKey) => {
@@ -106,7 +156,9 @@ export default function ServiceDetailPage({ data, categorySlug }) {
     setIsSubmitting(true);
 
     try {
-      const landingPage = typeof window !== "undefined" ? window.location.pathname : `/services/${categorySlug}/${data.id}`;
+      const landingPage = typeof window !== "undefined"
+        ? window.location.pathname
+        : (locationSlug ? `/locations/${locationSlug}/${data.id}` : `/services/${categorySlug}/${data.id}`);
       const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
 
       const supabase = createClient();
@@ -116,13 +168,13 @@ export default function ServiceDetailPage({ data, categorySlug }) {
           fullName: formData.fullName,
           email: formData.email,
           phone: formData.phone,
-          service: data.name,
-          subject: `${data.name} Consultation Inquiry`,
+          service: locationName ? `${data.name} (${locationName})` : data.name,
+          subject: locationName ? `${data.name} in ${locationName} Consultation Inquiry` : `${data.name} Consultation Inquiry`,
           message: formData.message,
           landing_page: landingPage,
           utm_source: searchParams.get("utm_source") || "service_detail_page",
           utm_medium: searchParams.get("utm_medium") || "direct_inquiry",
-          utm_campaign: searchParams.get("utm_campaign") || data.id
+          utm_campaign: searchParams.get("utm_campaign") || (locationSlug ? `${locationSlug}-${data.id}` : data.id)
         });
 
       if (error) {
@@ -142,15 +194,56 @@ export default function ServiceDetailPage({ data, categorySlug }) {
 
   return (
     <div className="service-detail-container">
-      <div className="service-detail-inner">
-        {/* Navigation & Breadcrumbs */}
-        <nav className="detail-breadcrumbs" aria-label="Breadcrumb">
-          <Link href={`/services/${categorySlug}`} className="detail-back-link">
-            <FiArrowLeft /> Back to {data.categoryTitle}
-          </Link>
-          <span className="breadcrumb-separator">/</span>
-          <span className="breadcrumb-current">{data.name}</span>
-        </nav>
+      <div className="service-detail-layout">
+        {/* Navigation Left Sidebar */}
+        {siblingServices && siblingServices.length > 0 && (
+          <aside className="service-detail-sidebar">
+            <Link
+              href={`/services/${catSlug}`}
+              className="detail-sidebar-back-link"
+            >
+              <FiArrowLeft /> Back to {data.categoryTitle}
+            </Link>
+
+            <div className="detail-sidebar-header">
+              <span className="detail-sidebar-subtitle">{data.categoryTitle}</span>
+              <h3 className="detail-sidebar-title">Our Services</h3>
+            </div>
+
+            <nav className="detail-sidebar-tabs" aria-label="Sub-services navigation">
+              {siblingServices.map((item) => {
+                const isActive = item.id === data.id;
+                const targetHref = locationSlug
+                  ? `/locations/${locationSlug}/${item.id}`
+                  : `/services/${catSlug}/${item.id}`;
+
+                return (
+                  <Link
+                    key={item.id}
+                    href={targetHref}
+                    className={`detail-sidebar-tab ${isActive ? "active" : ""}`}
+                  >
+                    <span className="tab-icon">
+                      <FiCheckCircle />
+                    </span>
+                    <span className="tab-title">{item.name}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </aside>
+        )}
+
+        {/* Main Content Area */}
+        <div className="service-detail-main">
+          {/* Navigation & Breadcrumbs */}
+          <nav className="detail-breadcrumbs" aria-label="Breadcrumb">
+            <Link href={`/services/${catSlug}`} className="detail-back-link">
+              <FiArrowLeft /> Back to {data.categoryTitle}
+            </Link>
+            <span className="breadcrumb-separator">/</span>
+            <span className="breadcrumb-current">{data.locationHeading || (locationName ? `${data.name} in ${locationName}` : data.name)}</span>
+          </nav>
 
         {/* 1. Main Heading & 2. Hero Introduction */}
         <header className="detail-hero-card">
@@ -159,12 +252,6 @@ export default function ServiceDetailPage({ data, categorySlug }) {
           <p className="detail-hero-intro">{data.heroIntro}</p>
 
           <div className="detail-hero-actions">
-            <button
-              className="detail-cta-primary"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <FiSend /> Request Free Consultation
-            </button>
             <Link
               href={`/contact?service=${encodeURIComponent(data.categorySlug)}&subject=${encodeURIComponent(`Inquiry for ${data.name}`)}`}
               className="detail-cta-secondary"
@@ -511,20 +598,20 @@ export default function ServiceDetailPage({ data, categorySlug }) {
           {openSections.localInformation && (
             <div className="detail-accordion-body">
               <div className="local-city-tabs">
-                {Object.keys(LOCAL_REGULATORY_INFO).map((cityKey) => (
+                {Object.keys(cityRegistry).map((cityKey) => (
                   <button
                     key={cityKey}
                     type="button"
                     className={`city-tab-btn ${selectedCity === cityKey ? "active" : ""}`}
                     onClick={() => setSelectedCity(cityKey)}
                   >
-                    {LOCAL_REGULATORY_INFO[cityKey].name}
+                    {cityRegistry[cityKey].name}
                   </button>
                 ))}
               </div>
               <div className="local-city-content">
                 <p className="detail-body-text">
-                  {LOCAL_REGULATORY_INFO[selectedCity].info}
+                  {cityRegistry[selectedCity]?.info || cityRegistry["all-india"].info}
                 </p>
                 {data.localInformation && (
                   <p className="detail-body-text" style={{ marginTop: "12px" }}>
@@ -644,17 +731,11 @@ export default function ServiceDetailPage({ data, categorySlug }) {
 
         {/* 17. Final Call to Action */}
         <section className="detail-final-cta">
-          <h2 className="final-cta-heading">Ready to Get Started with {data.name}?</h2>
+          <h2 className="final-cta-heading">Ready to Get Started with {data.name}{locationName ? ` in ${locationName}` : ""}?</h2>
           <p className="final-cta-sub">
-            Speak with our chartered accountants, company secretaries, and legal experts to get a customized consultation tailored to your business needs.
+            Speak with our chartered accountants, company secretaries, and legal experts to get a customized consultation tailored to your business needs{locationName ? ` in ${locationName}` : ""}.
           </p>
           <div className="final-cta-buttons">
-            <button
-              className="detail-cta-primary large-cta"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <FiSend /> Request a Customized Consultation
-            </button>
             <Link
               href={`/contact?service=${encodeURIComponent(data.categorySlug)}&subject=${encodeURIComponent(`Inquiry for ${data.name}`)}`}
               className="detail-cta-secondary large-cta"
@@ -663,6 +744,7 @@ export default function ServiceDetailPage({ data, categorySlug }) {
             </Link>
           </div>
         </section>
+        </div>
       </div>
 
       {/* Consultation Inquiry Modal */}

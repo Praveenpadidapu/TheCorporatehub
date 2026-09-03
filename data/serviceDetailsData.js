@@ -3854,3 +3854,11 @@ export function getSubServiceDetail(subServiceId) {
 export function getAllSubServiceDetails() {
   return Object.values(subServiceDetailsData);
 }
+
+// Helper to get all sub-services belonging to a specific category
+export function getSubServicesByCategory(categorySlug) {
+  if (!categorySlug) return [];
+  return Object.values(subServiceDetailsData).filter(
+    (item) => item.categorySlug === categorySlug
+  );
+}
