@@ -1,51 +1,74 @@
 import React from "react";
 import { notFound } from "next/navigation";
+import ServiceDetailPage from "@/components/service-detail/ServiceDetailPage";
+import CorporateFooter from "@/components/CorporateFooter";
+import {
+  getLocalizedServiceDetail,
+  formatCityName,
+  resolveSubService,
+  TOP_CITIES,
+  TOP_SERVICES
+} from "@/lib/seo/locationServiceHelper";
 import { getSeoLocationPage } from "@/lib/seo/getSeoLocationPage";
 
-import Breadcrumbs from "@/components/seo/Breadcrumbs";
-import SeoHero from "@/components/seo/SeoHero";
-import ServiceOverview from "@/components/seo/ServiceOverview";
-import DocumentsSection from "@/components/seo/DocumentsSection";
-import RegistrationProcess from "@/components/seo/RegistrationProcess";
-import PricingSection from "@/components/seo/PricingSection";
-import LocalInformation from "@/components/seo/LocalInformation";
-import ComparisonSection from "@/components/seo/ComparisonSection";
-import BusinessGrowthSection from "@/components/seo/BusinessGrowthSection";
-import WhyCorporateHub from "@/components/seo/WhyCorporateHub";
-import FAQSection from "@/components/seo/FAQSection";
-import RelatedServices from "@/components/seo/RelatedServices";
-import RelatedLocations from "@/components/seo/RelatedLocations";
-import FinalCtaSection from "@/components/seo/FinalCtaSection";
-import CorporateFooter from "@/components/CorporateFooter";
+// Enable static pre-rendering for top commercial hubs, with on-demand SSR for any other location
+export const dynamicParams = true;
 
-import "@/components/seo/SeoPages.css";
+export async function generateStaticParams() {
+  const params = [];
+  for (const city of TOP_CITIES) {
+    for (const service of TOP_SERVICES) {
+      params.push({ city, service });
+    }
+  }
+  return params;
+}
 
-export const revalidate = 60; // Dynamic revalidation every 60s for live admin updates
-
-// Dynamic Metadata Generator
+// Dynamic Metadata Generator for Search Engines
 export async function generateMetadata({ params, searchParams }) {
-  const { city, service } = await params;
+  const resolvedParams = await params;
+  const { city, service } = resolvedParams;
   const sParams = await searchParams;
   const isPreview = sParams?.preview === "true";
 
-  const pageData = await getSeoLocationPage(city, service, isPreview);
+  // Check localized service detail
+  const localizedData = getLocalizedServiceDetail(city, service);
 
-  if (!pageData || !pageData.page) {
+  if (!localizedData) {
+    // Fallback check to database-backed SEO page
+    const pageData = await getSeoLocationPage(city, service, isPreview);
+    if (!pageData || !pageData.page) {
+      return {
+        title: "Page Not Found | The Corporate Hub",
+        description: "The requested location or service page could not be found."
+      };
+    }
+    const { location, service: sObj, page } = pageData;
+    const canonical = page.canonical_url || `https://www.thecorporatehub.in/locations/${location.city_slug}/${sObj.service_slug}`;
     return {
-      title: "Page Not Found | Corporate Hub",
-      description: "The requested location or service page could not be found."
+      title: isPreview ? `[PREVIEW DRAFT] ${page.meta_title}` : page.meta_title,
+      description: page.meta_description,
+      robots: isPreview ? { index: false, follow: false } : { index: true, follow: true },
+      alternates: { canonical },
+      openGraph: {
+        title: page.meta_title,
+        description: page.meta_description,
+        url: canonical,
+        type: "website",
+        images: page.og_image ? [{ url: page.og_image }] : [{ url: "/logo.png" }]
+      }
     };
   }
 
-  const { location, service: serviceObj, page } = pageData;
-  const canonicalUrl = page.canonical_url || `https://www.thecorporatehub.in/locations/${location.city_slug}/${serviceObj.service_slug}`;
-  const title = isPreview ? `[PREVIEW DRAFT] ${page.meta_title}` : page.meta_title;
-  const description = page.meta_description;
+  const { cityName, detail } = localizedData;
+  const title = `${detail.name} in ${cityName} | The Corporate Hub`;
+  const description = `Register your ${detail.name} in ${cityName} with The Corporate Hub. 100% online MCA, DGFT & tax filing, expert CA/CS consultation, and fast turnaround.`;
+  const canonicalUrl = `https://www.thecorporatehub.in/locations/${city.toLowerCase()}/${service.toLowerCase()}`;
 
   return {
     title,
     description,
-    robots: isPreview ? { index: false, follow: false } : { index: true, follow: true },
+    robots: { index: true, follow: true },
     alternates: {
       canonical: canonicalUrl
     },
@@ -54,235 +77,161 @@ export async function generateMetadata({ params, searchParams }) {
       description,
       url: canonicalUrl,
       type: "website",
-      images: page.og_image ? [{ url: page.og_image }] : [{ url: "/logo.png" }]
+      siteName: "The Corporate Hub",
+      images: [{ url: "/logo.png", width: 1200, height: 630, alt: title }]
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description
+      description,
+      images: ["/logo.png"]
     }
   };
 }
 
-export default async function SeoLocationPage({ params, searchParams }) {
-  const { city, service } = await params;
+export default async function LocationServicePage({ params, searchParams }) {
+  const resolvedParams = await params;
+  const { city, service } = resolvedParams;
   const sParams = await searchParams;
   const isPreview = sParams?.preview === "true";
 
-  const pageData = await getSeoLocationPage(city, service, isPreview);
+  // 1. Resolve localized service detail from serviceDetailsData.js
+  const localizedData = getLocalizedServiceDetail(city, service);
 
-  // Return 404 for invalid/unpublished pages (unless in preview mode)
-  if (!pageData || !pageData.page) {
-    notFound();
+  // 2. If not found in static data, check Supabase DB fallback
+  let customDbPage = null;
+  if (!localizedData) {
+    customDbPage = await getSeoLocationPage(city, service, isPreview);
+    if (!customDbPage || !customDbPage.page) {
+      notFound();
+    }
   }
 
-  const { location, service: serviceObj, page, faqs, relatedServices, relatedLocations } = pageData;
+  // If resolved via static subServiceDetailsData
+  if (localizedData) {
+    const { cityName, detail } = localizedData;
+    const canonicalUrl = `https://www.thecorporatehub.in/locations/${city.toLowerCase()}/${service.toLowerCase()}`;
 
+    // Schema.org Structured Data
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.thecorporatehub.in"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services",
+          "item": "https://www.thecorporatehub.in/services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": detail.categoryTitle,
+          "item": `https://www.thecorporatehub.in/services/${detail.categorySlug}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": `${detail.name} in ${cityName}`,
+          "item": canonicalUrl
+        }
+      ]
+    };
+
+    const serviceSchema = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": `${detail.name} in ${cityName}`,
+      "serviceType": detail.name,
+      "provider": {
+        "@type": "Organization",
+        "name": "The Corporate Hub",
+        "url": "https://www.thecorporatehub.in",
+        "logo": "https://www.thecorporatehub.in/logo.png"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": cityName
+      },
+      "description": detail.heroIntro || detail.whatIs,
+      "url": canonicalUrl
+    };
+
+    const faqSchema = detail.faqs && detail.faqs.length > 0 ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": detail.faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    } : null;
+
+    return (
+      <main style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        {/* JSON-LD Schemas for Search Engine Rich Snippets */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
+        {faqSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          />
+        )}
+
+        <div style={{ flex: 1 }}>
+          <ServiceDetailPage
+            data={detail}
+            categorySlug={detail.categorySlug}
+            locationName={cityName}
+            locationSlug={city}
+          />
+        </div>
+        <CorporateFooter />
+      </main>
+    );
+  }
+
+  // Fallback for custom DB page if ever configured without static service
+  const { location, service: serviceObj, page, faqs } = customDbPage;
   const canonicalUrl = page.canonical_url || `https://www.thecorporatehub.in/locations/${location.city_slug}/${serviceObj.service_slug}`;
 
-  // Structured Data (JSON-LD) for Search Engine Rich Snippets
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://www.thecorporatehub.in"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Locations",
-        "item": "https://www.thecorporatehub.in/locations"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": location.city_name,
-        "item": `https://www.thecorporatehub.in/locations/${location.city_slug}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": serviceObj.service_name,
-        "item": canonicalUrl
-      }
-    ]
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": `Corporate Hub ${serviceObj.service_name} in ${location.city_name}`,
-    "url": canonicalUrl,
-    "logo": "https://www.thecorporatehub.in/logo.png",
-    "description": page.meta_description || `${serviceObj.service_name} services in ${location.city_name}, ${location.state_name}.`,
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": location.city_name,
-      "addressRegion": location.state_name,
-      "addressCountry": "IN"
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": location.city_name
-    }
-  };
-
-  const faqSchema = faqs && faqs.length > 0 ? {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map((f) => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": f.answer
-      }
-    }))
-  } : null;
-
   return (
-    <div className="seo-page-container">
-      {/* Draft Preview Banner */}
-      {isPreview && (
-        <div style={{ background: "#f59e0b", color: "#000000", padding: "10px 20px", textCenter: "center", fontWeight: 700, fontSize: "0.9rem", textAlign: "center" }}>
-          ⚠️ PREVIEW MODE: You are viewing an UNPUBLISHED DRAFT page ({location.city_name} × {serviceObj.service_name}). Search engines will not index this page.
-        </div>
-      )}
-
-      {/* Search Engine Rich Snippet JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      {!isPreview && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+    <main style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <div style={{ flex: 1 }}>
+        <ServiceDetailPage
+          data={{
+            id: serviceObj.service_slug,
+            categorySlug: serviceObj.parent_service || "business-registration",
+            categoryTitle: "Business Services",
+            name: serviceObj.service_name,
+            locationHeading: page.h1 || `${serviceObj.service_name} in ${location.city_name}`,
+            heroIntro: page.intro,
+            whatIs: page.why_choose_service,
+            localInformation: page.local_information,
+            faqs: (faqs || []).map((f) => ({ q: f.question, a: f.answer }))
+          }}
+          categorySlug={serviceObj.parent_service || "business-registration"}
+          locationName={location.city_name}
+          locationSlug={location.city_slug}
         />
-      )}
-      {!isPreview && faqSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-      )}
-
-      {/* Breadcrumbs */}
-      <Breadcrumbs
-        cityName={location.city_name}
-        serviceName={serviceObj.service_name}
-        citySlug={location.city_slug}
-      />
-
-      {/* 1. Main Heading & 2. Hero Introduction */}
-      <SeoHero
-        h1={page.h1}
-        intro={page.intro}
-        cityName={location.city_name}
-        stateName={location.state_name}
-        serviceName={serviceObj.service_name}
-        citySlug={location.city_slug}
-        serviceSlug={serviceObj.service_slug}
-      />
-
-      {/* 3. What Is the Service?, 4. Who Should Choose This?, 5. Key Benefits, 6. Eligibility / Requirements */}
-      <ServiceOverview
-        serviceName={serviceObj.service_name}
-        cityName={location.city_name}
-        whatIsService={page.what_is_service}
-        whoShouldChoose={page.who_should_choose}
-        keyBenefits={page.key_benefits}
-        eligibility={page.eligibility}
-        whyChooseService={page.why_choose_service}
-      />
-
-      {/* 7. Documents Required */}
-      <DocumentsSection
-        serviceName={serviceObj.service_name}
-        cityName={location.city_name}
-        documentsText={page.documents}
-      />
-
-      {/* 8. Process */}
-      <RegistrationProcess
-        serviceName={serviceObj.service_name}
-        cityName={location.city_name}
-        processText={page.process}
-      />
-
-      {/* 9. Timeline */}
-      <PricingSection
-        timelineText={page.timeline}
-        cityName={location.city_name}
-        serviceName={serviceObj.service_name}
-        citySlug={location.city_slug}
-        serviceSlug={serviceObj.service_slug}
-      />
-
-      {/* 10. Tax & Compliance & 13. Local Information */}
-      <LocalInformation
-        cityName={location.city_name}
-        serviceName={serviceObj.service_name}
-        localInformation={page.local_information}
-        taxCompliance={page.tax_compliance}
-      />
-
-      {/* 11. Comparison */}
-      <ComparisonSection
-        serviceName={serviceObj.service_name}
-        cityName={location.city_name}
-        comparisonText={page.comparison}
-        citySlug={location.city_slug}
-        serviceSlug={serviceObj.service_slug}
-      />
-
-      {/* 12. How It Helps Your Business Grow */}
-      <BusinessGrowthSection
-        serviceName={serviceObj.service_name}
-        cityName={location.city_name}
-        businessGrowthText={page.business_growth}
-      />
-
-      {/* 14. Why The Corporate Hub? */}
-      <WhyCorporateHub
-        whyCorporateHub={page.why_corporate_hub}
-        cityName={location.city_name}
-      />
-
-      {/* 15. Frequently Asked Questions */}
-      <FAQSection
-        faqs={faqs}
-        cityName={location.city_name}
-        serviceName={serviceObj.service_name}
-      />
-
-      {/* 16. Related Services & Locations */}
-      <RelatedServices
-        relatedServices={relatedServices}
-        cityName={location.city_name}
-        citySlug={location.city_slug}
-        parentCategorySlug={serviceObj.parent_service}
-      />
-      <RelatedLocations
-        relatedLocations={relatedLocations}
-        serviceName={serviceObj.service_name}
-        serviceSlug={serviceObj.service_slug}
-      />
-
-      {/* 17. Final Call to Action */}
-      <FinalCtaSection
-        serviceName={serviceObj.service_name}
-        cityName={location.city_name}
-        citySlug={location.city_slug}
-        serviceSlug={serviceObj.service_slug}
-      />
-
-      {/* Footer */}
+      </div>
       <CorporateFooter />
-    </div>
+    </main>
   );
 }
