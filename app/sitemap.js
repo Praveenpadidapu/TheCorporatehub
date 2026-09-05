@@ -20,6 +20,12 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/locations`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -80,20 +86,41 @@ export default async function sitemap() {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
 
     const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // 1. Fetch active city locations
+    const { data: locations } = await supabase
+      .from("seo_locations")
+      .select("city_slug, updated_at")
+      .eq("is_active", true);
+
+    if (locations && locations.length > 0) {
+      locations.forEach((loc) => {
+        locationRoutes.push({
+          url: `${baseUrl}/locations/${loc.city_slug}`,
+          lastModified: new Date(loc.updated_at || Date.now()),
+          changeFrequency: "weekly",
+          priority: 0.85,
+        });
+      });
+    }
+
+    // 2. Fetch published location-service pages
     const { data: pages } = await supabase
       .from("seo_location_pages")
       .select("updated_at, seo_locations(city_slug), seo_services(service_slug)")
       .eq("published", true);
 
     if (pages && pages.length > 0) {
-      locationRoutes = pages
+      pages
         .filter((p) => p.seo_locations?.city_slug && p.seo_services?.service_slug)
-        .map((p) => ({
-          url: `${baseUrl}/locations/${p.seo_locations.city_slug}/${p.seo_services.service_slug}`,
-          lastModified: new Date(p.updated_at || Date.now()),
-          changeFrequency: "weekly",
-          priority: 0.85,
-        }));
+        .forEach((p) => {
+          locationRoutes.push({
+            url: `${baseUrl}/locations/${p.seo_locations.city_slug}/${p.seo_services.service_slug}`,
+            lastModified: new Date(p.updated_at || Date.now()),
+            changeFrequency: "weekly",
+            priority: 0.85,
+          });
+        });
     }
   } catch (err) {
     console.error("Error fetching SEO location pages for sitemap:", err);

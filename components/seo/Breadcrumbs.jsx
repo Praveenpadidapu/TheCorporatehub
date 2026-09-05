@@ -14,20 +14,40 @@ export default function Breadcrumbs({ cityName, serviceName, citySlug }) {
           <FiChevronRight />
         </span>
 
-        <span className="seo-breadcrumb-text">Locations</span>
+        {cityName ? (
+          <Link href="/locations" title="Locations">
+            Locations
+          </Link>
+        ) : (
+          <span className="seo-breadcrumb-current">Locations</span>
+        )}
 
-        <span className="seo-breadcrumb-separator">
-          <FiChevronRight />
-        </span>
+        {cityName && (
+          <>
+            <span className="seo-breadcrumb-separator">
+              <FiChevronRight />
+            </span>
 
-        <span className="seo-breadcrumb-text">{cityName}</span>
+            {serviceName && citySlug ? (
+              <Link href={`/locations/${citySlug}`} title={cityName}>
+                {cityName}
+              </Link>
+            ) : (
+              <span className="seo-breadcrumb-current">{cityName}</span>
+            )}
+          </>
+        )}
 
-        <span className="seo-breadcrumb-separator">
-          <FiChevronRight />
-        </span>
-
-        <span className="seo-breadcrumb-current">{serviceName}</span>
+        {serviceName && (
+          <>
+            <span className="seo-breadcrumb-separator">
+              <FiChevronRight />
+            </span>
+            <span className="seo-breadcrumb-current">{serviceName}</span>
+          </>
+        )}
       </div>
     </div>
   );
 }
+
