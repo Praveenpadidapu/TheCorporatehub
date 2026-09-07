@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { getCityHubData } from "@/lib/seo/getSeoLocationPage";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import CorporateFooter from "@/components/CorporateFooter";
-import { FiMapPin, FiArrowRight, FiCheckCircle, FiShield, FiBriefcase } from "react-icons/fi";
+import SeoContactModalTrigger from "@/components/seo/SeoContactModalTrigger";
+import { FiMapPin, FiArrowRight, FiCheckCircle, FiShield, FiBriefcase, FiAward } from "react-icons/fi";
 import "@/components/seo/SeoPages.css";
 
 export const revalidate = 60; // Dynamic revalidation every 60s for live admin updates
@@ -85,7 +86,7 @@ export default async function CityHubPage({ params }) {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": `Corporate Hub - ${location.city_name}`,
+    "name": `The Corporate Hub - ${location.city_name}`,
     "url": canonicalUrl,
     "logo": "https://www.thecorporatehub.in/logo.png",
     "description": `Corporate registration, legal compliance, and tax advisory services in ${location.city_name}, ${location.state_name}.`,
@@ -103,7 +104,7 @@ export default async function CityHubPage({ params }) {
 
   return (
     <div className="seo-page-container">
-      {/* Schemas */}
+      {/* Structured Schemas */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -122,10 +123,10 @@ export default async function CityHubPage({ params }) {
               <FiMapPin /> {location.city_name}, {location.state_name}
             </div>
             <h1 className="seo-hero-title">
-              Legal, Tax & Corporate Registration Services in {location.city_name}
+              Legal, Tax & Corporate Services in {location.city_name}
             </h1>
             <p className="seo-hero-intro">
-              Setup and grow your business in {location.city_name}. We handle complete ROC company incorporation, trademark protection, GST compliance, and annual legal filings with dedicated local expertise.
+              Establish and scale your business in {location.city_name} with The Corporate Hub. We handle complete ROC company incorporation, trademark protection, GST compliance, and annual legal filings with dedicated local expertise.
             </p>
             <div className="seo-hero-stats-grid">
               <div className="seo-hero-stat-card">
@@ -142,15 +143,31 @@ export default async function CityHubPage({ params }) {
               </div>
             </div>
           </div>
+
+          <div className="seo-quick-card">
+            <h3>Get Consultation in {location.city_name}</h3>
+            <p>
+              Connect with our corporate compliance & tax professionals for personalized advice in {location.city_name}.
+            </p>
+            <SeoContactModalTrigger
+              cityName={location.city_name}
+              serviceName="Corporate Services"
+              citySlug={location.city_slug}
+              serviceSlug="consultation"
+            />
+          </div>
         </div>
       </header>
 
-      <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "40px 20px" }}>
+      <main className="seo-main-content">
         {/* Services in City */}
-        <section className="seo-section-wrapper">
+        <section className="seo-card-section">
           <div className="seo-section-header">
             <span className="seo-section-tag">Available Services</span>
             <h2 className="seo-section-title">Corporate Services Offered in {location.city_name}</h2>
+            <p className="seo-section-desc">
+              Select a service below to view local compliance requirements, documents needed, filing timelines, and transparent pricing in {location.city_name}.
+            </p>
           </div>
 
           <div className="seo-links-grid">
@@ -160,18 +177,67 @@ export default async function CityHubPage({ params }) {
                 href={`/locations/${location.city_slug}/${srv.service_slug}`}
                 className="seo-link-pill"
               >
-                <span><FiBriefcase style={{ verticalAlign: "middle", marginRight: "6px" }} /> {srv.service_name} in {location.city_name}</span>
+                <span className="seo-link-pill-label">
+                  <FiBriefcase className="seo-link-pill-icon" />
+                  {srv.service_name} in {location.city_name}
+                </span>
                 <FiArrowRight className="seo-link-pill-arrow" />
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Other Cities */}
-        <section className="seo-section-wrapper" style={{ marginTop: "50px" }}>
+        {/* Why Choose The Corporate Hub in City */}
+        <section className="seo-card-section">
           <div className="seo-section-header">
-            <span className="seo-section-tag">Other Cities</span>
+            <span className="seo-section-tag">Why The Corporate Hub</span>
+            <h2 className="seo-section-title">Why Businesses in {location.city_name} Choose The Corporate Hub</h2>
+            <p className="seo-section-desc">
+              From fast-growing startups to established commercial enterprises, we streamline corporate administration and regulatory compliance.
+            </p>
+          </div>
+
+          <div className="seo-grid-3">
+            <div className="seo-info-card">
+              <div className="seo-card-icon">
+                <FiShield />
+              </div>
+              <h4>100% Online & Paperless</h4>
+              <p>
+                Complete your company formation, trademark filing, and GST registration digitally without visiting government offices.
+              </p>
+            </div>
+
+            <div className="seo-info-card">
+              <div className="seo-card-icon">
+                <FiCheckCircle />
+              </div>
+              <h4>Direct CA & CS Consultation</h4>
+              <p>
+                Every filing is managed and reviewed by certified Chartered Accountants, Company Secretaries, and corporate attorneys.
+              </p>
+            </div>
+
+            <div className="seo-info-card">
+              <div className="seo-card-icon">
+                <FiAward />
+              </div>
+              <h4>Transparent & Fixed Pricing</h4>
+              <p>
+                Clear upfront quotations with no hidden costs, covering all government filing fees and professional advisory charges.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Other Cities */}
+        <section className="seo-card-section">
+          <div className="seo-section-header">
+            <span className="seo-section-tag">Nationwide Network</span>
             <h2 className="seo-section-title">Explore Other Locations Across India</h2>
+            <p className="seo-section-desc">
+              The Corporate Hub serves entrepreneurs and enterprises in major commercial centers nationwide.
+            </p>
           </div>
 
           <div className="seo-links-grid">
@@ -181,7 +247,10 @@ export default async function CityHubPage({ params }) {
                 href={`/locations/${loc.city_slug}`}
                 className="seo-link-pill"
               >
-                <span><FiMapPin style={{ verticalAlign: "middle", marginRight: "6px" }} /> Services in {loc.city_name}</span>
+                <span className="seo-link-pill-label">
+                  <FiMapPin className="seo-link-pill-icon" />
+                  Services in {loc.city_name}
+                </span>
                 <FiArrowRight className="seo-link-pill-arrow" />
               </Link>
             ))}

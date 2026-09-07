@@ -1,34 +1,52 @@
-/* Styles for Location x Service SEO Landing Pages */
+/* ==========================================================================
+   Corporate Hub - Location & City Landing Pages Stylesheet
+   Design Language:
+   - Primary Background: #193563 (Corporate Hub Navy)
+   - Cards: #ffffff with 1.5px solid #112344, border-radius: 4px, shadow: 0 10px 25px rgba(0,0,0,0.12)
+   - Primary Accent: #ff6000 (Corporate Orange), hover: #e05500
+   - Text on Navy: #ffffff (heading), #cbd5e1 (subtitle/body)
+   - Text on White: #0f172a (heading), #334155 / #475569 (body)
+   - Badges: #eef2ff with 1px solid #c7d2fe, color: #193563, font-weight: 700
+   ========================================================================== */
 
 .seo-page-container {
   min-height: 100vh;
-  background-color: #0b172a;
-  color: #f8fafc;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #193563;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   line-height: 1.6;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Breadcrumbs Bar */
+/* --------------------------------------------------------------------------
+   Breadcrumbs Bar
+   -------------------------------------------------------------------------- */
 .seo-breadcrumbs-wrapper {
-  background: #0f213e;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 14px 24px;
+  background: rgba(17, 35, 68, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 24px;
 }
 
 .seo-breadcrumbs-container {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 0.88rem;
-  color: #94a3b8;
+  color: #cbd5e1;
   flex-wrap: wrap;
 }
 
 .seo-breadcrumbs-container a {
   color: #cbd5e1;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
   transition: color 0.2s ease;
 }
 
@@ -37,282 +55,420 @@
 }
 
 .seo-breadcrumb-separator {
-  color: #64748b;
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
 }
 
 .seo-breadcrumb-current {
-  color: #ff6000;
+  color: #ffffff;
   font-weight: 600;
 }
 
-/* Hero Section */
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
 .seo-hero-section {
   position: relative;
-  background: linear-gradient(135deg, #0b172a 0%, #193563 60%, #0d2247 100%);
-  padding: 64px 24px;
-  overflow: hidden;
+  background-color: #193563;
+  padding: 40px 24px 48px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .seo-hero-inner {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 48px;
+  grid-template-columns: 1fr 380px;
+  gap: 36px;
   align-items: center;
+}
+
+.seo-hero-inner.single-col {
+  grid-template-columns: 1fr;
 }
 
 .seo-hero-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .seo-location-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 96, 0, 0.12);
-  border: 1px solid rgba(255, 96, 0, 0.35);
-  color: #ff6000;
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
   width: fit-content;
-  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .seo-hero-title {
-  font-size: 2.75rem;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 800;
   color: #ffffff;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.5px;
+  margin: 0;
 }
 
 .seo-hero-intro {
-  font-size: 1.12rem;
+  font-size: 1.05rem;
   color: #cbd5e1;
-  max-width: 680px;
-  line-height: 1.7;
+  max-width: 720px;
+  line-height: 1.65;
+  margin: 0;
 }
 
+/* Stat Cards in Hero */
 .seo-hero-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 12px;
+  gap: 14px;
+  margin-top: 8px;
 }
 
 .seo-hero-stat-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 16px;
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1.5px solid #112344;
+  border-radius: 4px;
+  padding: 16px 14px;
   text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.seo-hero-stat-card:hover {
+  transform: translateY(-2px);
 }
 
 .seo-hero-stat-value {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #ff6000;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #193563;
 }
 
 .seo-hero-stat-label {
-  font-size: 0.8rem;
-  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
   margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Quick Inquiry Card */
+/* Quick Inquiry Card (Right Column) */
 .seo-quick-card {
-  background: #14284b;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background: #ffffff;
+  color: #0f172a;
+  border: 1.5px solid #112344;
+  border-radius: 4px;
+  padding: 28px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 }
 
 .seo-quick-card h3 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 8px;
+  color: #193563;
+  margin: 0 0 8px 0;
 }
 
 .seo-quick-card p {
   font-size: 0.88rem;
-  color: #94a3b8;
-  margin-bottom: 20px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 18px 0;
 }
 
+/* Primary CTA Button */
 .seo-cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  padding: 14px 24px;
-  background: linear-gradient(135deg, #ff6000 0%, #e05300 100%);
+  padding: 12px 20px;
+  background-color: #ff6000;
   color: #ffffff;
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   text-decoration: none;
+  box-sizing: border-box;
 }
 
 .seo-cta-btn:hover {
+  background-color: #e05500;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 96, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 96, 0, 0.3);
 }
 
-/* Section Blocks */
-.seo-section-wrapper {
-  max-width: 1200px;
+/* --------------------------------------------------------------------------
+   Section Cards Layout (Matching Website White-Card Theme)
+   -------------------------------------------------------------------------- */
+.seo-main-content {
+  max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
-  padding: 64px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 36px 20px 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.seo-card-section {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1.5px solid #112344;
+  border-radius: 4px;
+  padding: 32px 28px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+
+.seo-section-wrapper {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1.5px solid #112344;
+  border-radius: 4px;
+  padding: 32px 28px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  margin-bottom: 24px;
+  box-sizing: border-box;
 }
 
 .seo-section-header {
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .seo-section-tag {
-  font-size: 0.82rem;
+  display: inline-block;
+  background: #eef2ff;
+  color: #193563;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #ff6000;
-  font-weight: 700;
-  margin-bottom: 8px;
-  display: block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #c7d2fe;
+  margin-bottom: 10px;
 }
 
 .seo-section-title {
-  font-size: 2rem;
+  font-size: 1.55rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   line-height: 1.3;
+  margin: 0;
 }
 
-/* Overview & Local Content Cards */
+.seo-section-desc {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Service & Location Link Cards (Pill Replacement)
+   -------------------------------------------------------------------------- */
+.seo-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.seo-link-pill {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 14px 18px;
+  color: #0f172a;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.seo-link-pill:hover {
+  background: #193563;
+  border-color: #193563;
+  color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(25, 53, 99, 0.2);
+}
+
+.seo-link-pill-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.35;
+}
+
+.seo-link-pill-icon {
+  color: #ff6000;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.seo-link-pill:hover .seo-link-pill-icon {
+  color: #ff6000;
+}
+
+.seo-link-pill-arrow {
+  color: #ff6000;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.seo-link-pill:hover .seo-link-pill-arrow {
+  transform: translateX(3px);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Content Boxes & Info Cards
+   -------------------------------------------------------------------------- */
 .seo-content-box {
-  background: #112240;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 32px;
-  font-size: 1.02rem;
-  color: #cbd5e1;
-  line-height: 1.8;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 24px;
+  font-size: 0.98rem;
+  color: #334155;
+  line-height: 1.75;
 }
 
-/* Process Timeline List */
+.seo-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.seo-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.seo-info-card {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.seo-info-card:hover {
+  transform: translateY(-2px);
+  border-color: #193563;
+  box-shadow: 0 6px 16px rgba(25, 53, 99, 0.08);
+}
+
+.seo-card-icon {
+  font-size: 1.8rem;
+  color: #ff6000;
+  margin-bottom: 2px;
+}
+
+.seo-info-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.seo-info-card p {
+  font-size: 0.92rem;
+  color: #475569;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Process Steps
+   -------------------------------------------------------------------------- */
 .seo-process-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .seo-process-item {
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  background: #112240;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 16px 20px;
 }
 
 .seo-process-step-num {
   background: #ff6000;
   color: #ffffff;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
 }
 
 .seo-process-step-text {
-  font-size: 0.98rem;
-  color: #e2e8f0;
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.6;
 }
 
-/* Grid Cards (Pricing, Timeline, Documents) */
-.seo-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.seo-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
-
-.seo-info-card {
-  background: #112240;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.seo-info-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 96, 0, 0.4);
-}
-
-.seo-card-icon {
-  font-size: 2rem;
-  color: #ff6000;
-}
-
-.seo-info-card h4 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.seo-info-card p {
-  font-size: 0.94rem;
-  color: #94a3b8;
-  margin: 0;
-  white-space: pre-wrap;
-}
-
-/* FAQs Accordion */
+/* --------------------------------------------------------------------------
+   FAQs Accordion List
+   -------------------------------------------------------------------------- */
 .seo-faq-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .seo-faq-item {
-  background: #112240;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 24px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 20px;
 }
 
 .seo-faq-question {
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 10px;
+  color: #0f172a;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -324,55 +480,45 @@
 }
 
 .seo-faq-answer {
-  font-size: 0.96rem;
-  color: #94a3b8;
-  line-height: 1.6;
+  font-size: 0.94rem;
+  color: #475569;
+  line-height: 1.65;
   margin: 0;
-  padding-left: 28px;
+  padding-left: 26px;
 }
 
-/* Related Links Pills */
-.seo-links-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-}
-
-.seo-link-pill {
-  background: #112240;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 14px 18px;
-  color: #e2e8f0;
-  text-decoration: none;
-  font-size: 0.92rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.2s ease;
-}
-
-.seo-link-pill:hover {
-  background: #193563;
-  border-color: #ff6000;
-  color: #ffffff;
-  transform: translateX(4px);
-}
-
-.seo-link-pill-arrow {
-  color: #ff6000;
-}
-
-/* Responsive Styles */
+/* --------------------------------------------------------------------------
+   Responsive Layout
+   -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
   .seo-hero-inner {
     grid-template-columns: 1fr;
   }
-  .seo-grid-3, .seo-grid-2 {
+  .seo-hero-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .seo-grid-3,
+  .seo-grid-2 {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 640px) {
+  .seo-hero-section {
+    padding: 28px 16px 36px;
+  }
   .seo-hero-title {
-    font-size: 2.1rem;
+    font-size: 1.8rem;
+  }
+  .seo-hero-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .seo-card-section,
+  .seo-section-wrapper {
+    padding: 22px 18px;
+  }
+  .seo-links-grid {
+    grid-template-columns: 1fr;
   }
 }
