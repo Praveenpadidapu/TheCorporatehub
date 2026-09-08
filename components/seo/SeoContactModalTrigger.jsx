@@ -88,7 +88,7 @@ export default function SeoContactModalTrigger({ cityName, serviceName, citySlug
   return (
     <>
       <button className="seo-cta-btn" onClick={() => setIsOpen(true)}>
-        <FiSend /> Request Free Consultation
+        <FiSend /> Request Consultation
       </button>
 
       {isOpen && (

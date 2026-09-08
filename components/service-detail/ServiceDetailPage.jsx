@@ -778,7 +778,7 @@ export default function ServiceDetailPage({ data, categorySlug, locationName, lo
               </div>
             ) : (
               <form onSubmit={handleFormSubmit} className="service-modal-form">
-                <h3>Request Free Consultation</h3>
+                <h3>Request Consultation</h3>
                 <p className="modal-form-sub">
                   Get customized guidance for <strong>{data.name}</strong>.
                 </p>

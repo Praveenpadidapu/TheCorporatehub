@@ -18,11 +18,11 @@ export default function NotFoundPage() {
   return (
     <div className="not-found-container">
       <div className="not-found-card animate-fade-in">
-        <div className="not-found-badge">404 ERROR</div>
+        <div className="not-found-badge">404 Error</div>
         
         <h1 className="not-found-code">404</h1>
         
-        <h2 className="not-found-title">Oops! Page Not Found</h2>
+        <h2 className="not-found-title">Page Not Found</h2>
         
         <p className="not-found-desc">
           The page you are looking for might have been moved, renamed, or doesn&apos;t exist.

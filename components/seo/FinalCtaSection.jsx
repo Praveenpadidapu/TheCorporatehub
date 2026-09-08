@@ -1,44 +1,33 @@
 import React from "react";
 import SeoContactModalTrigger from "./SeoContactModalTrigger";
-import { FiPhoneCall, FiCheckCircle } from "react-icons/fi";
 
 export default function FinalCtaSection({ serviceName, cityName, citySlug, serviceSlug }) {
   return (
-    <section className="seo-section-wrapper" style={{ marginTop: "60px", marginBottom: "40px" }}>
+    <section className="seo-section-wrapper" style={{ marginTop: "40px", marginBottom: "40px" }}>
       <div
         className="seo-content-box"
         style={{
-          background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
-          color: "#ffffff",
+          background: "#ffffff",
+          color: "#0f172a",
           textAlign: "center",
-          padding: "48px 24px",
-          borderRadius: "16px"
+          padding: "40px 24px",
+          borderRadius: "4px",
+          border: "1.5px solid #112344"
         }}
       >
-        <span
-          style={{
-            background: "rgba(255, 96, 0, 0.2)",
-            color: "#ff6000",
-            padding: "6px 16px",
-            borderRadius: "20px",
-            fontSize: "0.85rem",
-            fontWeight: 700,
-            letterSpacing: "0.5px",
-            textTransform: "uppercase"
-          }}
-        >
+        <span className="seo-section-tag">
           Get Started Today
         </span>
 
-        <h2 style={{ color: "#ffffff", fontSize: "2rem", marginTop: "16px", marginBottom: "16px" }}>
+        <h2 style={{ color: "#193563", fontSize: "1.85rem", fontWeight: 800, marginTop: "12px", marginBottom: "14px" }}>
           Ready for {serviceName} in {cityName}?
         </h2>
 
-        <p style={{ color: "#94a3b8", maxWidth: "680px", margin: "0 auto 28px", fontSize: "1.05rem", lineHeight: "1.6" }}>
+        <p style={{ color: "#475569", maxWidth: "680px", margin: "0 auto 24px", fontSize: "1rem", lineHeight: "1.6" }}>
           Talk to our corporate legal experts & chartered accountants for personalized step-by-step guidance in {cityName}. 100% online, paperless filing with guaranteed transparent service.
         </p>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap", maxWidth: "340px", margin: "0 auto" }}>
           <SeoContactModalTrigger
             cityName={cityName}
             serviceName={serviceName}
