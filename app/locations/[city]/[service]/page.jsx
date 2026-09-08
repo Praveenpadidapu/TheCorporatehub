@@ -24,6 +24,90 @@ export async function generateStaticParams() {
   return params;
 }
 
+/**
+ * Parses CMS plain-text fields (newline or bullet-separated) into an array of clean strings.
+ * Handles bullets, numbered prefixes (1., 2.), and trims whitespace.
+ */
+function parseCmsLines(text) {
+  if (!text || typeof text !== "string") return [];
+  return text
+    .split("\n")
+    .map((line) => line.replace(/^[\s\u2022\u2713\-\*]+/, "").replace(/^\d+[\.\)]\s*/, "").trim())
+    .filter(Boolean);
+}
+
+/**
+ * Converts flat CMS text fields from Supabase into the structured shapes
+ * that ServiceDetailPage expects (arrays of objects, structured objects, etc.)
+ */
+function buildCmsData(page, serviceObj, location, faqs) {
+  const serviceName = serviceObj?.service_name || "Service";
+  const cityName = location?.city_name || "City";
+
+  // whoShouldChoose: [{title, desc}]
+  const whoShouldChoose = parseCmsLines(page.who_should_choose).map((line) => ({
+    title: line,
+    desc: ""
+  }));
+
+  // keyBenefits: [{title, desc}]
+  const keyBenefits = parseCmsLines(page.key_benefits).map((line) => ({
+    title: line,
+    desc: ""
+  }));
+
+  // eligibility: [string]
+  const eligibility = parseCmsLines(page.eligibility);
+
+  // documentsRequired: { directors: [string] }
+  const docLines = parseCmsLines(page.documents);
+  const documentsRequired = docLines.length > 0 ? { directors: docLines } : null;
+
+  // processSteps: [{step, title, desc}]
+  const processSteps = parseCmsLines(page.process).map((line, idx) => ({
+    step: idx + 1,
+    title: line,
+    desc: ""
+  }));
+
+  // timeline: {duration, qualification}
+  const timeline = page.timeline ? {
+    duration: page.timeline,
+    qualification: "Subject to government processing times and document completeness."
+  } : null;
+
+  // taxCompliance: [string]
+  const taxCompliance = parseCmsLines(page.tax_compliance);
+
+  // growthImpact: [string]
+  const growthImpact = parseCmsLines(page.how_it_helps);
+
+  // whyCorporateHub: [string]
+  const whyCorporateHub = parseCmsLines(page.why_corporate_hub);
+
+  return {
+    id: serviceObj?.service_slug || "service",
+    categorySlug: serviceObj?.parent_service || "business-registration",
+    categoryTitle: "Business Services",
+    name: serviceName,
+    locationHeading: page.h1 || `${serviceName} in ${cityName}`,
+    heroIntro: page.intro || "",
+    whatIs: page.what_is_service || page.why_choose_service || "",
+    whoShouldChoose: whoShouldChoose.length > 0 ? whoShouldChoose : undefined,
+    keyBenefits: keyBenefits.length > 0 ? keyBenefits : undefined,
+    eligibility: eligibility.length > 0 ? eligibility : undefined,
+    documentsRequired,
+    processSteps: processSteps.length > 0 ? processSteps : undefined,
+    timeline,
+    taxCompliance: taxCompliance.length > 0 ? taxCompliance : undefined,
+    comparison: undefined,
+    growthImpact: growthImpact.length > 0 ? growthImpact : undefined,
+    localInformation: page.local_information || "",
+    whyCorporateHub: whyCorporateHub.length > 0 ? whyCorporateHub : undefined,
+    faqs: (faqs || []).map((f) => ({ q: f.question, a: f.answer }))
+  };
+}
+
 // Dynamic Metadata Generator for Search Engines
 export async function generateMetadata({ params, searchParams }) {
   const resolvedParams = await params;
@@ -31,19 +115,10 @@ export async function generateMetadata({ params, searchParams }) {
   const sParams = await searchParams;
   const isPreview = sParams?.preview === "true";
 
-  // Check localized service detail
-  const localizedData = getLocalizedServiceDetail(city, service);
-
-  if (!localizedData) {
-    // Fallback check to database-backed SEO page
-    const pageData = await getSeoLocationPage(city, service, isPreview);
-    if (!pageData || !pageData.page) {
-      return {
-        title: "Page Not Found | The Corporate Hub",
-        description: "The requested location or service page could not be found."
-      };
-    }
-    const { location, service: sObj, page } = pageData;
+  // 1. Check database FIRST for a published CMS page
+  const dbData = await getSeoLocationPage(city, service, isPreview);
+  if (dbData && dbData.page) {
+    const { location, service: sObj, page } = dbData;
     const canonical = page.canonical_url || `https://www.thecorporatehub.in/locations/${location.city_slug}/${sObj.service_slug}`;
     return {
       title: isPreview ? `[PREVIEW DRAFT] ${page.meta_title}` : page.meta_title,
@@ -60,6 +135,15 @@ export async function generateMetadata({ params, searchParams }) {
     };
   }
 
+  // 2. Fallback to static localized data
+  const localizedData = getLocalizedServiceDetail(city, service);
+  if (!localizedData) {
+    return {
+      title: "Page Not Found | The Corporate Hub",
+      description: "The requested location or service page could not be found."
+    };
+  }
+
   const { cityName, detail } = localizedData;
   const title = `${detail.name} in ${cityName} | The Corporate Hub`;
   const description = `Register your ${detail.name} in ${cityName} with The Corporate Hub. 100% online MCA, DGFT & tax filing, expert CA/CS consultation, and fast turnaround.`;
@@ -69,9 +153,7 @@ export async function generateMetadata({ params, searchParams }) {
     title,
     description,
     robots: { index: true, follow: true },
-    alternates: {
-      canonical: canonicalUrl
-    },
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title,
       description,
@@ -95,111 +177,65 @@ export default async function LocationServicePage({ params, searchParams }) {
   const sParams = await searchParams;
   const isPreview = sParams?.preview === "true";
 
-  // 1. Resolve localized service detail from serviceDetailsData.js
-  const localizedData = getLocalizedServiceDetail(city, service);
+  // 1. Check database FIRST for a published (or preview) CMS page
+  const dbData = await getSeoLocationPage(city, service, isPreview);
 
-  // 2. If not found in static data, check Supabase DB fallback
-  let customDbPage = null;
-  if (!localizedData) {
-    customDbPage = await getSeoLocationPage(city, service, isPreview);
-    if (!customDbPage || !customDbPage.page) {
-      notFound();
-    }
-  }
-
-  // If resolved via static subServiceDetailsData
-  if (localizedData) {
-    const { cityName, detail } = localizedData;
-    const canonicalUrl = `https://www.thecorporatehub.in/locations/${city.toLowerCase()}/${service.toLowerCase()}`;
+  if (dbData && dbData.page) {
+    const { location, service: serviceObj, page, faqs } = dbData;
+    const cmsData = buildCmsData(page, serviceObj, location, faqs);
+    const canonicalUrl = page.canonical_url || `https://www.thecorporatehub.in/locations/${location.city_slug}/${serviceObj.service_slug}`;
 
     // Schema.org Structured Data
     const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.thecorporatehub.in"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Services",
-          "item": "https://www.thecorporatehub.in/services"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": detail.categoryTitle,
-          "item": `https://www.thecorporatehub.in/services/${detail.categorySlug}`
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": `${detail.name} in ${cityName}`,
-          "item": canonicalUrl
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.thecorporatehub.in" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.thecorporatehub.in/services" },
+        { "@type": "ListItem", "position": 3, "name": serviceObj.service_name, "item": `https://www.thecorporatehub.in/services/${serviceObj.parent_service || "business-registration"}` },
+        { "@type": "ListItem", "position": 4, "name": `${serviceObj.service_name} in ${location.city_name}`, "item": canonicalUrl }
       ]
     };
 
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "Service",
-      "name": `${detail.name} in ${cityName}`,
-      "serviceType": detail.name,
+      "name": `${serviceObj.service_name} in ${location.city_name}`,
+      "serviceType": serviceObj.service_name,
       "provider": {
         "@type": "Organization",
         "name": "The Corporate Hub",
         "url": "https://www.thecorporatehub.in",
         "logo": "https://www.thecorporatehub.in/logo.png"
       },
-      "areaServed": {
-        "@type": "City",
-        "name": cityName
-      },
-      "description": detail.heroIntro || detail.whatIs,
+      "areaServed": { "@type": "City", "name": location.city_name },
+      "description": page.intro || page.what_is_service || "",
       "url": canonicalUrl
     };
 
-    const faqSchema = detail.faqs && detail.faqs.length > 0 ? {
+    const faqSchema = cmsData.faqs && cmsData.faqs.length > 0 ? {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": detail.faqs.map((f) => ({
+      "mainEntity": cmsData.faqs.map((f) => ({
         "@type": "Question",
         "name": f.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.a
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
       }))
     } : null;
 
     return (
       <main style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        {/* JSON-LD Schemas for Search Engine Rich Snippets */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
         {faqSchema && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-          />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
         )}
-
         <div style={{ flex: 1 }}>
           <ServiceDetailPage
-            data={detail}
-            categorySlug={detail.categorySlug}
-            locationName={cityName}
-            locationSlug={city}
+            data={cmsData}
+            categorySlug={serviceObj.parent_service || "business-registration"}
+            locationName={location.city_name}
+            locationSlug={location.city_slug}
           />
         </div>
         <CorporateFooter />
@@ -207,28 +243,66 @@ export default async function LocationServicePage({ params, searchParams }) {
     );
   }
 
-  // Fallback for custom DB page if ever configured without static service
-  const { location, service: serviceObj, page, faqs } = customDbPage;
-  const canonicalUrl = page.canonical_url || `https://www.thecorporatehub.in/locations/${location.city_slug}/${serviceObj.service_slug}`;
+  // 2. Fallback to static localized data
+  const localizedData = getLocalizedServiceDetail(city, service);
+  if (!localizedData) {
+    notFound();
+  }
+
+  const { cityName, detail } = localizedData;
+  const canonicalUrl = `https://www.thecorporatehub.in/locations/${city.toLowerCase()}/${service.toLowerCase()}`;
+
+  // Schema.org Structured Data
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.thecorporatehub.in" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.thecorporatehub.in/services" },
+      { "@type": "ListItem", "position": 3, "name": detail.categoryTitle, "item": `https://www.thecorporatehub.in/services/${detail.categorySlug}` },
+      { "@type": "ListItem", "position": 4, "name": `${detail.name} in ${cityName}`, "item": canonicalUrl }
+    ]
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `${detail.name} in ${cityName}`,
+    "serviceType": detail.name,
+    "provider": {
+      "@type": "Organization",
+      "name": "The Corporate Hub",
+      "url": "https://www.thecorporatehub.in",
+      "logo": "https://www.thecorporatehub.in/logo.png"
+    },
+    "areaServed": { "@type": "City", "name": cityName },
+    "description": detail.heroIntro || detail.whatIs,
+    "url": canonicalUrl
+  };
+
+  const faqSchema = detail.faqs && detail.faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": detail.faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  } : null;
 
   return (
     <main style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
       <div style={{ flex: 1 }}>
         <ServiceDetailPage
-          data={{
-            id: serviceObj.service_slug,
-            categorySlug: serviceObj.parent_service || "business-registration",
-            categoryTitle: "Business Services",
-            name: serviceObj.service_name,
-            locationHeading: page.h1 || `${serviceObj.service_name} in ${location.city_name}`,
-            heroIntro: page.intro,
-            whatIs: page.why_choose_service,
-            localInformation: page.local_information,
-            faqs: (faqs || []).map((f) => ({ q: f.question, a: f.answer }))
-          }}
-          categorySlug={serviceObj.parent_service || "business-registration"}
-          locationName={location.city_name}
-          locationSlug={location.city_slug}
+          data={detail}
+          categorySlug={detail.categorySlug}
+          locationName={cityName}
+          locationSlug={city}
         />
       </div>
       <CorporateFooter />
