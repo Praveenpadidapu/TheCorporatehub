@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { submitContactForm } from "@/app/actions/contact";
+import { validatePhoneNumber } from "@/app/actions/validatePhone";
 import "./ContactPage.css";
 import {
   FiArrowLeft,
@@ -115,12 +116,33 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [openFaq, setOpenFaq] = useState(0); // Open first FAQ by default
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errorMessage) setErrorMessage("");
+  };
+
+  // Validates an Indian phone number: must be 10 digits starting with 6-9,
+  // optionally prefixed with +91 or 0.
+  const isValidPhone = (phone) => {
+    if (!phone || !phone.trim()) return false; // phone is mandatory
+    const digits = phone.replace(/[\s\-\(\)]/g, ""); // strip formatting chars
+    // Match: optional +91 or 0 prefix, then 10 digits starting with 6-9
+    return /^(?:\+91|0)?[6-9]\d{9}$/.test(digits);
+  };
+
+  const handlePhoneChange = (e) => {
+    // Allow only digits, +, spaces, hyphens, and parentheses
+    const raw = e.target.value.replace(/[^\d\+\s\-\(\)]/g, "");
+    setFormData((prev) => ({ ...prev, phone: raw }));
+    if (errorMessage) setErrorMessage("");
+    // Clear phone error as user types
+    if (phoneError) {
+      if (isValidPhone(raw)) setPhoneError("");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -149,6 +171,14 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
       setErrorMessage("Please enter your email address.");
       return;
     }
+    if (!formData.phone || !formData.phone.trim()) {
+      setPhoneError("Please enter your phone number.");
+      return;
+    }
+    if (!isValidPhone(formData.phone)) {
+      setPhoneError("Please enter a valid 10-digit phone number (e.g. +91 88669 01544).");
+      return;
+    }
     if (!formData.subject.trim()) {
       setErrorMessage("Please enter a subject for your inquiry.");
       return;
@@ -159,6 +189,20 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
     }
 
     setIsSubmitting(true);
+
+    // Server-side phone validation (10-digit check + spam pattern detection)
+    try {
+      const phoneResult = await validatePhoneNumber(formData.phone);
+      if (!phoneResult.valid) {
+        const reason = phoneResult.reason || "This phone number could not be verified.";
+        setPhoneError(`${reason} Please enter a valid 10-digit mobile number.`);
+        setIsSubmitting(false);
+        return;
+      }
+    } catch (err) {
+      console.error("Phone validation error:", err);
+      // Don't block submission if validation fails unexpectedly
+    }
 
     try {
       const landingPage = typeof window !== "undefined" ? window.location.pathname : "/contact";
@@ -347,16 +391,25 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="phone">
-                      <FiPhone className="input-icon" /> Phone Number
+                      <FiPhone className="input-icon" /> Phone Number *
                     </label>
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
+                      required
                       placeholder="+91 88669 01544"
                       value={formData.phone}
-                      onChange={handleChange}
+                      onChange={handlePhoneChange}
+                      maxLength={15}
+                      className={phoneError ? "input-error" : ""}
                     />
+                    {phoneError && (
+                      <span className="field-error-text">
+                        <FiAlertCircle style={{ marginRight: 4, flexShrink: 0 }} />
+                        {phoneError}
+                      </span>
+                    )}
                   </div>
 
                   <div className="form-group">
