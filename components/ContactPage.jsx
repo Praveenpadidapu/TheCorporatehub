@@ -190,18 +190,18 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
 
     setIsSubmitting(true);
 
-    // Verify phone number via Numverify API + pattern detection (server-side)
+    // Server-side phone validation (10-digit check + spam pattern detection)
     try {
       const phoneResult = await validatePhoneNumber(formData.phone);
       if (!phoneResult.valid) {
         const reason = phoneResult.reason || "This phone number could not be verified.";
-        setPhoneError(`${reason} Please enter a valid, active mobile number.`);
+        setPhoneError(`${reason} Please enter a valid 10-digit mobile number.`);
         setIsSubmitting(false);
         return;
       }
     } catch (err) {
       console.error("Phone validation error:", err);
-      // Don't block submission if the API itself fails
+      // Don't block submission if validation fails unexpectedly
     }
 
     try {
