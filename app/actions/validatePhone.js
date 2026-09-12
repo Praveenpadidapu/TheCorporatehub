@@ -58,13 +58,32 @@ export async function validatePhoneNumber(phone) {
     return { valid: false, reason: "Alternating/repeating pattern detected." };
   }
 
-  // Block numbers with same digit appearing 7+ times (e.g. 9999999123)
+  // Block near-alternating patterns: 6868686822, 2298989898, etc.
+  // (a 2-digit group repeating 4+ times anywhere in the number)
+  if (/(\d{2})\1{3,}/.test(localDigits)) {
+    return { valid: false, reason: "Alternating/repeating pattern detected." };
+  }
+
+  // Block consecutive repeated digit pairs: 9988776655, 9911223344, etc.
+  // Counts runs of the same digit; if 5+ pairs appear it's likely fake.
+  const runs = localDigits.match(/(.)\1*/g) || [];
+  const pairedRuns = runs.filter((run) => run.length >= 2).length;
+  if (pairedRuns >= 5) {
+    return { valid: false, reason: "Repetitive digit pattern detected." };
+  }
+
+  // Block numbers with same digit appearing 6+ times (e.g. 9888888812)
   const digitCounts = {};
   for (const d of localDigits) {
     digitCounts[d] = (digitCounts[d] || 0) + 1;
   }
-  if (Object.values(digitCounts).some((count) => count >= 7)) {
+  if (Object.values(digitCounts).some((count) => count >= 6)) {
     return { valid: false, reason: "Too many repeated digits." };
+  }
+
+  // Block repeating 3-4 digit groups: 9123912391, 9876987698, etc.
+  if (/^(\d{3})\1{2,}/.test(localDigits) || /^(\d{4})\1{2,}/.test(localDigits)) {
+    return { valid: false, reason: "Repeating number group detected." };
   }
 
   // All checks passed

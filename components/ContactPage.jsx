@@ -126,12 +126,41 @@ export default function ContactPage({ user: initialUser, profile: initialProfile
   };
 
   // Validates an Indian phone number: must be 10 digits starting with 6-9,
-  // optionally prefixed with +91 or 0.
+  // optionally prefixed with +91 or 0. Also rejects repetitive/fake patterns.
   const isValidPhone = (phone) => {
     if (!phone || !phone.trim()) return false; // phone is mandatory
     const digits = phone.replace(/[\s\-\(\)]/g, ""); // strip formatting chars
     // Match: optional +91 or 0 prefix, then 10 digits starting with 6-9
-    return /^(?:\+91|0)?[6-9]\d{9}$/.test(digits);
+    if (!/^(?:\+91|0)?[6-9]\d{9}$/.test(digits)) return false;
+
+    // Extract the 10-digit local number for pattern checks
+    const digitsOnly = digits.replace(/\D/g, "");
+    let localDigits;
+    if (digitsOnly.length === 12 && digitsOnly.startsWith("91")) {
+      localDigits = digitsOnly.slice(2);
+    } else if (digitsOnly.length === 11 && digitsOnly.startsWith("0")) {
+      localDigits = digitsOnly.slice(1);
+    } else {
+      localDigits = digitsOnly;
+    }
+
+    // Reject all-same digits: 9999999999
+    if (/^(\d)\1{9}$/.test(localDigits)) return false;
+    // Reject simple alternating patterns: 7272727272
+    if (/^(\d{1,2})\1{4,}$/.test(localDigits)) return false;
+    // Reject near-alternating patterns: 6868686822, 2298989898, etc.
+    if (/(\d{2})\1{3,}/.test(localDigits)) return false;
+    // Reject consecutive repeated digit pairs: 9988776655
+    const runs = localDigits.match(/(.)\1*/g) || [];
+    if (runs.filter((r) => r.length >= 2).length >= 5) return false;
+    // Reject single digit appearing 6+ times: 9888888812
+    const counts = {};
+    for (const d of localDigits) counts[d] = (counts[d] || 0) + 1;
+    if (Object.values(counts).some((c) => c >= 6)) return false;
+    // Reject repeating 3-4 digit groups: 9123912391
+    if (/^(\d{3})\1{2,}/.test(localDigits) || /^(\d{4})\1{2,}/.test(localDigits)) return false;
+
+    return true;
   };
 
   const handlePhoneChange = (e) => {
