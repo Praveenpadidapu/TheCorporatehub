@@ -47,6 +47,18 @@ export default function CorporateNavbar() {
               <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
               <li><Link href="/refund-policy">Refund & Cancellation Policy</Link></li>
             </ul>
+            <div className="footer-map-wrapper">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.3209021223724!2d72.5232985!3d23.011986799999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e85c0a43c23c9%3A0x6292d4ccb047ba31!2sThe%20Corporate%20Hub!5e0!3m2!1sen!2sin!4v1786635892985!5m2!1sen!2sin"
+                width="100%"
+                height="150"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="The Corporate Hub Google Maps Location"
+              ></iframe>
+            </div>
           </div>
         </div>
 
@@ -60,7 +72,7 @@ export default function CorporateNavbar() {
           </div>
 
           <div className="bottom-attribution">
-            MADE WITH <FaHeart className="heart-icon" /> BY <strong>AntiLabs</strong>
+            MADE WITH <FaHeart className="heart-icon" /> BY <a href="https://www.antilabs.in/" target="_blank" rel="noopener noreferrer" className="attribution-link"><strong>AntiLabs</strong></a>
           </div>
 
           <div className="bottom-socials">
@@ -70,9 +82,8 @@ export default function CorporateNavbar() {
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-icon">
               <FaInstagram />
             </a>
-            <Link href="/contact" aria-label="Contact Location" className="social-icon">
-              <FaLocationDot />
-            </Link>
+
+
             <a href="tel:+918866901544" aria-label="Phone" className="social-icon">
               <FaPhone />
             </a>

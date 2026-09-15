@@ -66,67 +66,37 @@
   transform: scale(1.02);
 }
 
-.navbar-auth-group {
+.navbar-actions {
   display: flex;
-  gap: 16px;
   align-items: center;
   flex-shrink: 0;
 }
 
-.navbar-user-name {
-  font-size: 14px;
-  color: #64748b;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 150px;
-}
-
-.navbar-user-name.is-home {
+.nav-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #25D366;
   color: #ffffff;
-}
-
-.nav-login-btn,
-.nav-logout-btn {
-  background: transparent;
-  border: none;
-  font-family: "Archivo Black", sans-serif;
+  padding: 9px 18px;
+  border-radius: 8px;
   font-size: 14px;
-  color: #193563;
-  cursor: pointer;
+  font-weight: 700;
   text-decoration: none;
-  transition: opacity 0.2s ease, color 0.2s ease;
-  border-radius: 0;
-  padding: 8px 12px;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
-.main-navbar.is-home .nav-login-btn,
-.main-navbar.is-home .nav-logout-btn {
+.nav-whatsapp-btn:hover {
+  background-color: #20ba5a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
   color: #ffffff;
 }
 
-.nav-register-btn {
-  background: #ff6000;
-  color: #ffffff;
-  padding: 8px 18px;
-  border-radius: 6px;
-  font-family: "Archivo Black", sans-serif;
-  font-size: 14px;
-  text-decoration: none;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
-  white-space: nowrap;
-}
-
-.nav-login-btn:hover,
-.nav-logout-btn:hover {
-  opacity: 0.85;
-}
-
-.nav-register-btn:hover {
-  background: #e55600;
-  opacity: 0.95;
+.whatsapp-icon {
+  font-size: 18px;
 }
 
 @media (max-width: 768px) {
