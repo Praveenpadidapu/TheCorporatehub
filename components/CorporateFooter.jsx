@@ -76,10 +76,10 @@ export default function CorporateNavbar() {
           </div>
 
           <div className="bottom-socials">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="social-icon">
+            <a href="https://www.facebook.com/TheCorporateHubIndia" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="social-icon">
               <FaFacebookF />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-icon">
+            <a href="https://www.instagram.com/thecorporatehub" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-icon">
               <FaInstagram />
             </a>
 
