@@ -22,6 +22,14 @@ export default function Navbar() {
         <div className="navbar-brand-wrapper">
           <Link href="/" className="navbar-brand" aria-label="Corporate Hub Home">
             <Image
+              src="/logo.png"
+              alt="Corporate Hub Logo"
+              width={50}
+              height={50}
+              priority
+              className="navbar-brand-icon"
+            />
+            <Image
               src="/image.png"
               alt="Corporate Hub"
               width={260}

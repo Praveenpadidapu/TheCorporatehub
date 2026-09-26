@@ -3,9 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import "./CorporateFooter.css";
-import { FaFacebookF, FaInstagram, FaLocationDot, FaPhone, FaHeart } from "react-icons/fa6";
-
-
+import { FaFacebookF, FaInstagram, FaLocationDot, FaPhone, FaEnvelope, FaHeart } from "react-icons/fa6";
 
 export default function CorporateNavbar() {
 
@@ -47,11 +45,36 @@ export default function CorporateNavbar() {
               <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
               <li><Link href="/refund-policy">Refund & Cancellation Policy</Link></li>
             </ul>
+          </div>
+
+          {/* Column 4: Contact Us */}
+          <div className="navbar-col contact-col">
+            <h3 className="col-heading">Contact Us</h3>
+            <ul className="footer-contact-list">
+              <li className="contact-item">
+                <FaLocationDot className="contact-item-icon" />
+                <span className="contact-item-text">
+                  D-504, Titanium City Center, 100 Feet Rd, Nr Sachin Tower, Satellite, Ahmedabad, Gujarat 380015
+                </span>
+              </li>
+              <li className="contact-item">
+                <FaPhone className="contact-item-icon" />
+                <a href="tel:+918866901544" className="contact-item-link">
+                  +91 88669 01544
+                </a>
+              </li>
+              <li className="contact-item">
+                <FaEnvelope className="contact-item-icon" />
+                <a href="mailto:Corporatehubcs@gmail.com" className="contact-item-link">
+                  Corporatehubcs@gmail.com
+                </a>
+              </li>
+            </ul>
             <div className="footer-map-wrapper">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.3209021223724!2d72.5232985!3d23.011986799999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e85c0a43c23c9%3A0x6292d4ccb047ba31!2sThe%20Corporate%20Hub!5e0!3m2!1sen!2sin!4v1786635892985!5m2!1sen!2sin"
                 width="100%"
-                height="150"
+                height="130"
                 style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
