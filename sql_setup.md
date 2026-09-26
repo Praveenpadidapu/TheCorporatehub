@@ -90,3 +90,34 @@ CREATE POLICY "Anyone can delete profiles"
   ON public.profiles
   FOR DELETE
   USING (true);
+
+-- ============================================================
+-- seo_sitemaps (Dynamic XML Sitemap Storage for Google Search Console)
+-- ============================================================
+CREATE TABLE IF NOT EXISTS public.seo_sitemaps (
+    id                TEXT PRIMARY KEY DEFAULT 'default',
+    xml_content       TEXT NOT NULL,
+    urls_count        INTEGER NOT NULL DEFAULT 0,
+    routes_json       JSONB NOT NULL DEFAULT '[]'::jsonb,
+    last_generated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE public.seo_sitemaps ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read seo_sitemaps"
+  ON public.seo_sitemaps
+  FOR SELECT
+  USING (true);
+
+CREATE POLICY "Anyone can insert seo_sitemaps"
+  ON public.seo_sitemaps
+  FOR INSERT
+  WITH CHECK (true);
+
+CREATE POLICY "Anyone can update seo_sitemaps"
+  ON public.seo_sitemaps
+  FOR UPDATE
+  USING (true);
+

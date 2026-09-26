@@ -6,6 +6,33 @@ import { TOP_CITIES, TOP_SERVICES } from "@/lib/seo/locationServiceHelper";
 export default async function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thecorporatehub.in";
 
+  // 1. Try to read the pre-compiled, instant sitemap stored in Supabase DB
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith("http")
+      ? process.env.NEXT_PUBLIC_SUPABASE_URL
+      : "https://placeholder.supabase.co";
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const { data: dbSitemap, error: sitemapError } = await supabase
+      .from("seo_sitemaps")
+      .select("routes_json, updated_at")
+      .eq("id", "default")
+      .maybeSingle();
+
+    if (!sitemapError && dbSitemap && Array.isArray(dbSitemap.routes_json) && dbSitemap.routes_json.length > 0) {
+      return dbSitemap.routes_json.map((r) => ({
+        url: r.url,
+        lastModified: new Date(r.lastmod || r.lastModified || dbSitemap.updated_at || Date.now()),
+        changeFrequency: r.changefreq || r.changeFrequency || "weekly",
+        priority: typeof r.priority === "number" ? r.priority : 0.8
+      }));
+    }
+  } catch (err) {
+    console.warn("[sitemap.js] Reading seo_sitemaps from DB failed, compiling dynamically:", err);
+  }
+
+  // 2. Dynamic Fallback: Compile routes on-demand if DB table not yet seeded
   const staticRoutes = [
     {
       url: `${baseUrl}`,
@@ -77,14 +104,13 @@ export default async function sitemap() {
     priority: 0.85,
   }));
 
-  // Query published SEO Location Pages from Supabase using direct public client
+  // Query published SEO Location Pages from Supabase
   let locationRoutes = [];
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith("http")
       ? process.env.NEXT_PUBLIC_SUPABASE_URL
       : "https://placeholder.supabase.co";
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
-
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // 1. Fetch active city locations
