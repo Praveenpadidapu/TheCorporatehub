@@ -12,17 +12,6 @@
   transition: background-color 0.2s ease;
 }
 
-/* Homepage specific Navbar overrides */
-.main-navbar.is-home {
-  background-color: transparent;
-  border-bottom: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  box-shadow: none;
-}
-
 .navbar-container {
   max-width: 1280px;
   height: 100%;
@@ -39,11 +28,6 @@
   align-items: center;
   height: 100%;
   transition: opacity 0.2s ease;
-}
-
-.main-navbar.is-home .navbar-brand-icon,
-.main-navbar.is-home .navbar-brand-logo {
-  filter: brightness(0) invert(1);
 }
 
 .navbar-brand {

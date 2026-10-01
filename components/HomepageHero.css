@@ -2,15 +2,15 @@
 
 .homepage-hero {
   background: #193563;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
   flex: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 20px 60px;
+  padding: 40px 20px 50px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -125,7 +125,9 @@
 /* Media Queries */
 @media (max-width: 768px) {
   .homepage-hero {
-    padding: 80px 16px 40px;
+    min-height: calc(100vh - 68px);
+    min-height: calc(100dvh - 68px);
+    padding: 30px 16px 36px;
   }
 
   .homepage-hero h1 {
@@ -153,8 +155,10 @@
 
 @media (max-width: 480px) {
   .homepage-hero {
+    min-height: calc(100vh - 68px);
+    min-height: calc(100dvh - 68px);
     justify-content: center;
-    padding: 70px 14px 30px;
+    padding: 24px 14px 28px;
   }
 
   .homepage-hero h1 {
