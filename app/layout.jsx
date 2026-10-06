@@ -24,12 +24,28 @@ export default async function RootLayout({ children }) {
   } = await supabase.auth.getUser();
 
   const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || "2471438943377182";
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "GTM-TPJZP3VT";
 
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/logo.png" type="image/png" sizes="any" />
         <Script src="https://cdn.lordicon.com/lordicon.js" strategy="lazyOnload" />
+
+        {/* Google Tag Manager */}
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${gtmId}');
+            `,
+          }}
+        />
 
         {/* Global Meta Pixel Code (Facebook Ads Tracking) */}
         <Script
@@ -61,6 +77,15 @@ export default async function RootLayout({ children }) {
         </noscript>
       </head>
       <body style={{ display: "flex", flexDirection: "column", minHeight: "100vh", margin: 0 }}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <Navbar user={user} />
         <PageTransition>
           {children}
