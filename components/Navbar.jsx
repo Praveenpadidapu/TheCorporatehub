@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import logoImg from "@/public/logo.png";
 import { FaWhatsapp } from "react-icons/fa6";
 import "./Navbar.css";
 
@@ -21,21 +22,14 @@ export default function Navbar() {
         <div className="navbar-brand-wrapper">
           <Link href="/" className="navbar-brand" aria-label="Corporate Hub Home">
             <Image
-              src="/logo.png"
+              src={logoImg}
               alt="Corporate Hub Logo"
               width={50}
               height={50}
               priority
               className="navbar-brand-icon"
             />
-            <Image
-              src="/image.png"
-              alt="Corporate Hub"
-              width={260}
-              height={60}
-              priority
-              className="navbar-brand-logo"
-            />
+            <span className="navbar-brand-text">Corporate Hub</span>
           </Link>
         </div>
 
