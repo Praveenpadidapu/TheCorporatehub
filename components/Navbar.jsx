@@ -15,36 +15,53 @@ export default function Navbar() {
     return null;
   }
 
+  const isHome = pathname === "/";
+
   return (
     <header className="main-navbar">
       <div className="navbar-container">
         {/* Top Left Prominent Logo */}
         <div className="navbar-brand-wrapper">
-          <Link href="/" className="navbar-brand" aria-label="Corporate Hub Home">
+          <Link href="/" className="navbar-brand" aria-label="The Corporate Hub Home">
             <Image
               src={logoImg}
-              alt="Corporate Hub Logo"
+              alt="The Corporate Hub Logo"
               width={50}
               height={50}
               priority
               className="navbar-brand-icon"
             />
-            <span className="navbar-brand-text">Corporate Hub</span>
+            <span className="navbar-brand-text">The Corporate Hub</span>
           </Link>
         </div>
 
-        {/* Top Right Action: WhatsApp button */}
+        {/* Top Right Action: On homepage -> About Us button; On other pages -> About Us link + WhatsApp button */}
         <div className="navbar-actions">
-          <a
-            href="https://wa.me/918866901544"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-whatsapp-btn"
-            aria-label="Chat on WhatsApp"
-          >
-            <FaWhatsapp className="whatsapp-icon" />
-            <span>WhatsApp</span>
-          </a>
+          {isHome ? (
+            <Link href="/about" className="nav-about-btn" aria-label="About Us">
+              <span>About Us</span>
+            </Link>
+          ) : (
+            <div className="nav-actions-group">
+              <Link
+                href="/about"
+                className={`nav-about-link ${pathname === "/about" || pathname === "/about-us" ? "active" : ""}`}
+                aria-label="About Us"
+              >
+                About Us
+              </Link>
+              <a
+                href="https://wa.me/918866901544"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-whatsapp-btn"
+                aria-label="Chat on WhatsApp"
+              >
+                <FaWhatsapp className="whatsapp-icon" />
+                <span>WhatsApp</span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </header>
