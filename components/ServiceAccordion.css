@@ -1,5 +1,5 @@
 .service-accordion-page {
-  background-color: #193563;
+  background-color: #0B1F3A;
   min-height: 100vh;
   color: #ffffff;
   padding: 30px 20px 60px 20px;
@@ -34,7 +34,7 @@
 }
 
 a.back-link {
-  color: #193563 !important;
+  color: #0B1F3A !important;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -45,7 +45,7 @@ a.back-link {
 }
 
 a.back-link:hover {
-  color: #ff6000 !important;
+  color: #C9A227 !important;
   text-decoration: underline;
   transform: translateX(-3px);
 }
@@ -96,15 +96,15 @@ a.back-link:hover {
 
 .service-tab:hover {
   background: #edf2f7;
-  color: #193563;
+  color: #0B1F3A;
   transform: translateX(4px);
 }
 
 .service-tab.active {
-  background: #193563;
+  background: #0B1F3A;
   color: #ffffff;
   font-weight: 600;
-  border-color: #193563;
+  border-color: #0B1F3A;
   box-shadow: 0 4px 14px rgba(25, 53, 99, 0.25);
 }
 
@@ -173,7 +173,7 @@ a.back-link:hover {
 }
 
 .accordion-icon {
-  color: #193563;
+  color: #0B1F3A;
   font-size: 1.6rem;
   display: flex;
   align-items: center;
@@ -231,7 +231,7 @@ a.back-link:hover {
 
 .service-provide-card:hover {
   transform: translateY(-2px);
-  border-color: #ff6000;
+  border-color: #C9A227;
   box-shadow: 0 6px 18px rgba(255, 96, 0, 0.12);
   text-decoration: none;
 }
@@ -257,7 +257,7 @@ a.back-link:hover {
 
 .card-click-hint {
   font-size: 0.8rem;
-  color: #ff6000;
+  color: #C9A227;
   font-weight: 600;
   margin-top: 6px;
   display: inline-block;
@@ -297,7 +297,7 @@ a.back-link:hover {
 }
 
 .sub-accordion-item.active {
-  border-color: #193563;
+  border-color: #0B1F3A;
   box-shadow: 0 2px 8px rgba(25, 53, 99, 0.12);
 }
 
@@ -335,7 +335,7 @@ a.back-link:hover {
 .sub-toggle-btn {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #193563;
+  color: #0B1F3A;
   background: #e2e8f0;
   padding: 6px 14px;
   border-radius: 20px;
@@ -363,7 +363,7 @@ a.back-link:hover {
 
 .content-box h5 {
   font-size: 1rem;
-  color: #193563;
+  color: #0B1F3A;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -387,7 +387,7 @@ a.back-link:hover {
 }
 
 .step-num {
-  background: #193563;
+  background: #0B1F3A;
   color: #ffffff;
   width: 22px;
   height: 22px;
@@ -425,7 +425,7 @@ a.back-link:hover {
 
 .apply-btn {
   width: 100%;
-  background: #ff6000;
+  background: #C9A227;
   color: #ffffff;
   border: none;
   padding: 12px;
@@ -463,7 +463,7 @@ a.back-link:hover {
 }
 
 .bullet {
-  color: #ff6000;
+  color: #C9A227;
   font-weight: bold;
   font-size: 1.2rem;
 }
@@ -570,7 +570,7 @@ a.back-link:hover {
 }
 
 .accordion-card:hover {
-  border-color: #ff6000;
+  border-color: #C9A227;
   box-shadow: 0 12px 32px rgba(255, 96, 0, 0.12);
 }
 
@@ -580,6 +580,6 @@ a.back-link:hover {
 
 .subservice-card:hover {
   transform: translateY(-2px);
-  border-color: #ff6000;
+  border-color: #C9A227;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }

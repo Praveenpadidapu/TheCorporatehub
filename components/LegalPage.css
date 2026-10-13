@@ -12,7 +12,7 @@
    HERO HEADER
    ========================================== */
 .legal-hero {
-  background: linear-gradient(135deg, #193563 0%, #0d2244 100%);
+  background: linear-gradient(135deg, #0B1F3A 0%, #0d2244 100%);
   color: #ffffff;
   padding: 60px 24px 50px 24px;
   text-align: center;
@@ -117,7 +117,7 @@
 
 .hero-switch-btn.active {
   background: #ffffff;
-  color: #193563;
+  color: #0B1F3A;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -195,9 +195,9 @@
 }
 
 .doc-nav-btn.active {
-  background: #193563;
+  background: #0B1F3A;
   color: #ffffff;
-  border-color: #193563;
+  border-color: #0B1F3A;
   box-shadow: 0 4px 14px rgba(25, 53, 99, 0.25);
 }
 
@@ -206,7 +206,7 @@
   height: 36px;
   border-radius: 8px;
   background: rgba(25, 53, 99, 0.08);
-  color: #193563;
+  color: #0B1F3A;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,7 +277,7 @@
 }
 
 .search-input:focus {
-  border-color: #193563;
+  border-color: #0B1F3A;
   box-shadow: 0 0 0 3px rgba(25, 53, 99, 0.1);
 }
 
@@ -338,12 +338,12 @@
 
 .toc-item:hover {
   background: #f1f5f9;
-  color: #193563;
+  color: #0B1F3A;
 }
 
 .toc-item.active {
   background: #e0e7ff;
-  color: #193563;
+  color: #0B1F3A;
   font-weight: 700;
 }
 
@@ -354,7 +354,7 @@
 }
 
 .toc-item.active .toc-num {
-  color: #193563;
+  color: #0B1F3A;
 }
 
 .toc-title {
@@ -390,13 +390,13 @@
 
 .action-btn:hover {
   background: #f8fafc;
-  border-color: #193563;
-  color: #193563;
+  border-color: #0B1F3A;
+  color: #0B1F3A;
 }
 
 /* Support Card */
 .support-card {
-  background: linear-gradient(135deg, #193563 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #0B1F3A 0%, #1e40af 100%);
   color: #ffffff;
   text-align: center;
   border: none;
@@ -477,12 +477,12 @@
 }
 
 .doc-meta-bar strong {
-  color: #193563;
+  color: #0B1F3A;
 }
 
 .preamble-box {
   background: #f8fafc;
-  border-left: 4px solid #193563;
+  border-left: 4px solid #0B1F3A;
   padding: 18px 22px;
   border-radius: 0 10px 10px 0;
 }
@@ -490,7 +490,7 @@
 .main-doc-title {
   font-size: 1.6rem;
   font-weight: 800;
-  color: #193563;
+  color: #0B1F3A;
   margin: 0 0 10px 0;
   letter-spacing: -0.4px;
 }
@@ -506,7 +506,7 @@
 /* Search Status Bar */
 .search-status-bar {
   background: #e0e7ff;
-  color: #193563;
+  color: #0B1F3A;
   padding: 12px 20px;
   border-radius: 10px;
   font-size: 0.9rem;
@@ -516,7 +516,7 @@
 }
 
 .reset-filter-btn {
-  background: #193563;
+  background: #0B1F3A;
   color: #ffffff;
   border: none;
   padding: 4px 12px;
@@ -559,7 +559,7 @@
 
 .section-number-pill {
   background: #f1f5f9;
-  color: #193563;
+  color: #0B1F3A;
   font-size: 0.85rem;
   font-weight: 800;
   padding: 6px 12px;
@@ -633,7 +633,7 @@
 }
 
 .bullet-check-icon {
-  color: #193563;
+  color: #0B1F3A;
   font-size: 0.9rem;
   margin-top: 4px;
   flex-shrink: 0;
@@ -675,12 +675,12 @@
 /* Highlight Callout (Blue/Navy) */
 .highlight-callout {
   background: #eff6ff;
-  border-left: 4px solid #193563;
+  border-left: 4px solid #0B1F3A;
   color: #1e3a8a;
 }
 
 .highlight-callout .callout-icon {
-  color: #193563;
+  color: #0B1F3A;
 }
 
 /* Warning Callout (Amber) */
@@ -730,7 +730,7 @@
 
 .grievance-icon {
   font-size: 1.6rem;
-  color: #193563;
+  color: #0B1F3A;
 }
 
 .grievance-title {
@@ -761,7 +761,7 @@
 }
 
 .g-detail-item a {
-  color: #193563;
+  color: #0B1F3A;
   text-decoration: none;
   font-weight: 600;
 }
@@ -782,7 +782,7 @@
 }
 
 .legal-content-footer a {
-  color: #193563;
+  color: #0B1F3A;
   font-weight: 700;
   text-decoration: none;
 }

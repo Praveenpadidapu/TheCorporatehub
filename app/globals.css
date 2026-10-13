@@ -1,53 +1,315 @@
-/* Modern Design Tokens & Global Smooth Scroll Setup */
-html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #1e293b;
-  background-color: #f8fafc;
+/* ==========================================================================
+   The Corporate Hub - Global Stylesheet & Design Tokens
+   Refined Spacing & Balanced Density System:
+   - Primary: Deep navy blue #0B1F3A
+   - Secondary: Royal blue #1D4ED8
+   - Accent: Premium gold #C9A227 (Hover #B38E1E)
+   - Background: Soft off-white #F8FAFC
+   - Card Background: Pure white #FFFFFF
+   - Primary Text: Dark slate #0F172A
+   - Secondary Text: Slate gray #475569
+   - Border Color: Light slate #E2E8F0
+   - Spacing Scale: xs: 8px | sm: 12px | md: 20px | lg: 32px | xl: 48px
+   - Section Spacing: 64px-72px (Desktop) | 40px-48px (Mobile)
+   ========================================================================== */
+
+:root {
+  --color-primary: #0B1F3A;
+  --color-primary-light: #142F54;
+  --color-primary-dark: #061324;
+  --color-secondary: #1D4ED8;
+  --color-secondary-light: #3B82F6;
+  --color-accent: #C9A227;
+  --color-accent-hover: #B38E1E;
+  --color-accent-light: #FAF3DD;
+  --color-accent-border: #EAD69A;
+  --color-background: #F8FAFC;
+  --color-card: #FFFFFF;
+  --color-card-subtle: #F1F5F9;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748B;
+  --color-text-light: #CBD5E1;
+  --color-text-white: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-border-hover: #CBD5E1;
+  --color-success: #059669;
+  --color-warning: #F59E0B;
+  --color-error: #DC2626;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #1EBE5D;
+
+  --shadow-sm: 0 1px 2px 0 rgba(11, 31, 58, 0.04);
+  --shadow-md: 0 3px 6px -1px rgba(11, 31, 58, 0.06), 0 2px 4px -2px rgba(11, 31, 58, 0.04);
+  --shadow-lg: 0 8px 16px -3px rgba(11, 31, 58, 0.07), 0 3px 6px -2px rgba(11, 31, 58, 0.03);
+  --shadow-xl: 0 16px 24px -5px rgba(11, 31, 58, 0.09), 0 6px 10px -4px rgba(11, 31, 58, 0.03);
+  --shadow-card-hover: 0 14px 28px -6px rgba(11, 31, 58, 0.12);
+  --shadow-gold-glow: 0 0 18px rgba(201, 162, 39, 0.22);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Archivo Black", "Bebas Neue", -apple-system, sans-serif;
+
+  /* Standard Spacing Tokens */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-section: 64px;
+  --space-section-mobile: 40px;
 }
 
-* {
+html {
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Offset smooth scrolling for sticky navbar headers */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  line-height: 1.55;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Offset smooth scrolling for sticky navbar */
 section,
 [id],
 .service-accordion-card,
 .contact-section-card {
-  scroll-margin-top: 96px;
+  scroll-margin-top: 86px;
 }
 
-/* Keyframes: Smooth Entrance Animations */
+/* Global Reusable Container */
+.corporate-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .corporate-container {
+    padding: 0 16px;
+  }
+}
+
+/* ==========================================================================
+   Typography Standards
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Standard Section Eyebrow Label */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-accent-light);
+  border: 1px solid var(--color-accent-border);
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.section-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+/* Standard Section Header Wrapper */
+.section-header-block {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 36px auto;
+}
+
+.section-header-title {
+  font-size: clamp(1.65rem, 2.8vw, 2.2rem);
+  font-family: var(--font-display);
+  color: var(--color-primary);
+  margin-bottom: 10px;
+  letter-spacing: -0.4px;
+}
+
+.section-header-desc {
+  font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Standard Buttons - Compact & Refined
+   ========================================================================== */
+.btn-primary,
+.btn-corporate-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-primary);
+  color: var(--color-text-white);
+  padding: 11px 22px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-primary:hover,
+.btn-corporate-primary:hover {
+  background-color: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text-white);
+}
+
+.btn-secondary,
+.btn-corporate-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-card);
+  color: var(--color-primary);
+  padding: 11px 22px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1.5px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-secondary:hover,
+.btn-corporate-secondary:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-card-subtle);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--color-primary);
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #B38E1E 100%);
+  color: #FFFFFF;
+  padding: 11px 22px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 3px 10px rgba(201, 162, 39, 0.28);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #DBB12D 0%, var(--color-accent) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(201, 162, 39, 0.38);
+  color: #FFFFFF;
+}
+
+.btn-whatsapp,
+.btn-corporate-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-whatsapp);
+  color: #FFFFFF;
+  padding: 11px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.25);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-whatsapp:hover,
+.btn-corporate-whatsapp:hover {
+  background-color: var(--color-whatsapp-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(37, 211, 102, 0.35);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Focus & Accessibility
+   ========================================================================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 3px;
+}
+
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(255, 96, 0, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 12px rgba(255, 96, 0, 0);
   }
 }
 
@@ -60,16 +322,10 @@ section,
   }
 }
 
-/* Global Utility Animation Classes */
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-fade-in-scale {
-  animation: fadeInScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Skeleton Loading Shimmer Utility */
 .skeleton-shimmer {
   background: linear-gradient(
     90deg,
@@ -79,49 +335,25 @@ section,
   );
   background-size: 200% 100%;
   animation: skeletonPulse 1.6s infinite ease-in-out;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
 }
 
-/* Custom premium scrollbar styling */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: var(--color-background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-  border: 2px solid #f8fafc;
-  transition: background-color 0.3s ease;
+  background: #CBD5E1;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-background);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* Global focus and transition smoothing for links and buttons */
-a, 
-button, 
-input, 
-select, 
-textarea {
-  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-              color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-              opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Hardware acceleration for smooth transitions */
-.animate-fade-in-up,
-.animate-fade-in-scale,
-.page-transition-container {
-  backface-visibility: hidden;
-  perspective: 1000px;
-  transform: translate3d(0, 0, 0);
+  background: #94A3B8;
 }
